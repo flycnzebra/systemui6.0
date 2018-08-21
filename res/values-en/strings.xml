@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (c) 2010, The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); 
+ * you may not use this file except in compliance with the License. 
+ * You may obtain a copy of the License at 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0 
+ *
+ * Unless required by applicable law or agreed to in writing, software 
+ * distributed under the License is distributed on an "AS IS" BASIS, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing permissions and 
+ * limitations under the License.
+ */
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+	<string name="audioplayer">Music</string>
+    <string name="videoplayer">Video</string>
+    <string name="fmplayer">FM Radio</string>
+    <string name="backcar">Backcar</string>
+    <string name="btphone">BTPhone</string>
+    <string name="btmusic">BTMusic</string>
+    <string name="btphonebook">BTPhone</string>
+	<string name="btsetting">BTSetting</string>
+	<string name="setting">Settings</string>
+	<string name="setting_system">System Settings</string>
+	<string name="setting_wifi">WIFI Settings</string>
+	<string name="setting_display">Display Settings</string>
+	<string name="setting_audio">Audio Settings</string>
+	<string name="setting_car">Car Settings</string>
+    <string name="app3rd"> </string>
+    <string name="launcher">Home</string>
+
+    <string name="qs_carsetting">Device</string>    
+    <string name="qs_volume_mode">Sound</string>    
+    <string name="qs_volume_value">Volume</string>    
+    <string name="qs_brightness">Brightness</string>    
+    <string name="qs_wifi">Wi-Fi</string>	
+    <string name="qs_wifi_is_closed">Wi-Fi Off</string>    
+    <string name="qs_bt">Bluetooth</string>
+</resources>

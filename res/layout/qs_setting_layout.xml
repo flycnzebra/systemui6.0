@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/qs_setting_height"
+    android:id="@+id/qs_setting_layout">
+
+    <RelativeLayout
+        android:id="@+id/carsetting_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/qs_icon_height"
+        android:background="@drawable/qs_carsetting"
+        android:layout_marginTop="0px"
+        android:layout_marginLeft="18px">
+
+        <Button
+            android:layout_width="@dimen/qs_icon_width"
+            android:layout_height="@dimen/qs_icon_btn_height"
+            android:gravity="center_horizontal|bottom"
+            android:textAllCaps="false"
+            android:background="@color/colorTransparent"
+            android:text="@string/qs_carsetting"
+            android:fontFamily="sans-serif-light"
+            android:id="@+id/carsetting_btn" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/volume_mode_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/qs_icon_height"
+        android:layout_marginTop="0px"
+        android:layout_marginLeft="2px"
+        android:background="@drawable/qs_volume_mode"
+        android:layout_toEndOf="@id/carsetting_rl">
+
+        <Button
+            android:layout_width="@dimen/qs_icon_width"
+            android:layout_height="@dimen/qs_icon_btn_height"
+            android:gravity="center_horizontal|bottom"
+            android:textAllCaps="false"
+            android:background="@color/colorTransparent"
+            android:text="@string/qs_volume_mode"
+            android:fontFamily="sans-serif-light"
+            android:id="@+id/volume_mode_btn" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/volume_value_rl"
+
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/qs_icon_height"
+        android:layout_toEndOf="@id/volume_mode_rl"
+        android:background="@drawable/qs_volume_value"
+        android:layout_marginLeft="2px"
+        android:layout_marginTop="0px">
+
+        <Button
+            android:layout_width="@dimen/qs_icon_width"
+            android:layout_height="@dimen/qs_icon_btn_height"
+            android:gravity="center_horizontal|bottom"
+            android:textAllCaps="false"
+            android:background="@color/colorTransparent"
+            android:text="@string/qs_volume_value"
+            android:fontFamily="sans-serif-light"
+            android:id="@+id/volume_value_btn" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/brightness_rl"
+        android:layout_toEndOf="@id/volume_value_rl"
+        android:layout_marginLeft="2px"
+        android:layout_marginTop="0px"
+        android:layout_width="wrap_content"
+        android:background="@drawable/qs_brightness"
+        android:layout_height="@dimen/qs_icon_height">
+
+        <Button
+            android:layout_width="@dimen/qs_icon_width"
+            android:layout_height="@dimen/qs_icon_btn_height"
+            android:gravity="center_horizontal|bottom"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorTransparent"
+            android:textAllCaps="false"
+            android:text="@string/qs_brightness"
+            android:fontFamily="sans-serif-light"
+            android:id="@+id/brightness_btn" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/wifi_rl"
+        android:layout_toEndOf="@id/brightness_rl"
+        android:layout_marginLeft="2px"
+        android:layout_marginTop="0px"
+        android:layout_width="wrap_content"
+        android:background="@drawable/qs_wifi_enable"
+        android:layout_height="@dimen/qs_icon_height">
+
+        <Button
+            android:layout_width="@dimen/qs_icon_width"
+            android:layout_height="@dimen/qs_icon_btn_height"
+            android:gravity="center_horizontal|bottom"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorTransparent"
+            android:text="@string/qs_wifi"
+            android:fontFamily="sans-serif-light"
+            android:textAllCaps="false"
+            android:id="@+id/qs_wifi_btn" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bt_rl"
+        android:layout_toEndOf="@id/wifi_rl"
+        android:layout_marginLeft="2px"
+        android:layout_marginTop="0px"
+        android:background="@drawable/qs_bt_enable"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/qs_icon_height">
+
+        <Button
+            android:layout_width="@dimen/qs_icon_width"
+            android:layout_height="@dimen/qs_icon_btn_height"
+            android:gravity="center_horizontal|bottom"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorTransparent"
+            android:textAllCaps="false"
+            android:text="@string/qs_bt"
+            android:fontFamily="sans-serif-light"
+            android:id="@+id/qs_bt_btn" />
+    </RelativeLayout>
+</RelativeLayout>

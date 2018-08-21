@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/source_tab_width"
+    android:layout_height="@dimen/source_tab_height"
+    android:background="@drawable/source_switch_background"
+    android:id="@+id/source_tab">
+
+    <RelativeLayout
+        android:id="@+id/radio_rl"
+        android:layout_width="@dimen/source_tab_button_width"
+        android:layout_height="@dimen/source_tab_height"
+        android:layout_marginTop="12px"
+        android:layout_marginLeft="29px">
+
+        <Button
+            android:layout_width="@dimen/source_tab_button_width"
+            android:layout_height="@dimen/source_tab_button_height"
+            android:background="@drawable/radio_d"
+            android:id="@+id/fm" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fm"
+            android:text="@string/source_tab_fm"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorWhite"
+            android:id="@+id/fm_text" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/music_rl"
+        android:layout_width="@dimen/source_tab_button_width"
+        android:layout_height="@dimen/source_tab_height"
+        android:layout_marginTop="12px"
+        android:layout_marginLeft="25px"
+        android:layout_toEndOf="@id/radio_rl">
+
+        <Button
+            android:layout_width="@dimen/source_tab_button_width"
+            android:layout_height="@dimen/source_tab_button_height"
+            android:background="@drawable/music_d"
+            android:id="@+id/music" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/music"
+            android:text="@string/source_tab_music"
+            android:textColor="@color/colorWhite"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/music_text" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/video_rl"
+        android:layout_width="@dimen/source_tab_button_width"
+        android:layout_height="@dimen/source_tab_height"
+        android:layout_toEndOf="@id/music_rl"
+        android:layout_marginLeft="25px"
+        android:layout_marginTop="12px">
+
+        <Button
+            android:layout_width="@dimen/source_tab_button_width"
+            android:layout_height="@dimen/source_tab_button_height"
+            android:background="@drawable/video_d"
+            android:id="@+id/video" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/video"
+            android:text="@string/source_tab_video"
+            android:textColor="@color/colorWhite"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/video_text" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btmusic_rl"
+        android:layout_toEndOf="@id/video_rl"
+        android:layout_marginLeft="25px"
+        android:layout_marginTop="12px"
+        android:layout_width="@dimen/source_tab_button_width"
+        android:layout_height="@dimen/source_tab_height">
+
+        <Button
+            android:layout_width="@dimen/source_tab_button_width"
+            android:layout_height="@dimen/source_tab_button_height"
+            android:background="@drawable/btmusic_d"
+            android:id="@+id/bt" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bt"
+            android:text="@string/source_tab_bt"
+            android:textColor="@color/colorWhite"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/btmusic_text" />
+    </RelativeLayout>
+    
+</RelativeLayout>
