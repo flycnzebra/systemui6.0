@@ -145,7 +145,7 @@ public class PhoneStatusBarPolicy implements Callback {
 	TextView apptitle;
 	private ImageView btn_back;
 	private KeyButtonView mRecentView;
-	private Button btn_close_screen;
+	private KeyButtonView btn_close_screen;
 	private ImageView btn_home;
 	Button btBtn;
 	Button fmBtn;
@@ -305,12 +305,12 @@ public class PhoneStatusBarPolicy implements Callback {
 		apptitle = (TextView)mView.findViewById(R.id.app_title);
 		btn_back = (ImageView)mView.findViewById(R.id.back);
 		mRecentView = (KeyButtonView) mView.findViewById(R.id.recent_apps007);
-		btn_close_screen = (Button)mView.findViewById(R.id.close_screen);
+		btn_close_screen = (KeyButtonView)mView.findViewById(R.id.close_screen);
 		//btn_back has two function ,back and close screen
 		btn_close_screen.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v){
 				if (DEBUG) Log.v(TAG, "btn_close_screen: onClick");
-				if(mIsLauncher ){
+//				if(mIsLauncher ){
 					if(!mIsCloseDisplay){
 						if (DEBUG) Log.v(TAG, "close display");
 						 mIsCloseDisplay = true;
@@ -338,7 +338,7 @@ public class PhoneStatusBarPolicy implements Callback {
 					}
 					
 					
-				}
+//				}
 				if(mIsCloseDisplay){
 					mIsCloseDisplay = false;
 				}
@@ -769,7 +769,7 @@ public class PhoneStatusBarPolicy implements Callback {
 	}
 
     private final void updateBluetooth() {
-        int iconId = R.drawable.statusbar_icon_bt;
+        int iconId = R.drawable.statusbar_icon_bt_1;
 		Message msg1 = mUIHandler.obtainMessage();
         String contentDescription =
                 mContext.getString(R.string.accessibility_quick_settings_bluetooth_on);
@@ -1218,17 +1218,17 @@ public class PhoneStatusBarPolicy implements Callback {
 			if ((btn_back != null) &&(btn_close_screen != null)&&(mRecentView != null)) {
 				if (ICMessage.SourceIndex_Launcher == msg.what){
 					//atc6068 test
-					btn_back.setVisibility(View.GONE);
-					btn_close_screen.setVisibility(View.VISIBLE);
-					mRecentView.setVisibility(View.VISIBLE);
+//					btn_back.setVisibility(View.GONE);
+//					btn_close_screen.setVisibility(View.VISIBLE);
+//					mRecentView.setVisibility(View.VISIBLE);
 					mIsLauncher = true;
 					//btn_back.setBackground(mContext.getResources().getDrawable(R.drawable.close_brightness));
 					Log.d(TAG, "back gone ");
 				}else if(ICMessage.SourceIndex_BTPhone == msg.what){
 					mIsLauncher = false;
-					btn_back.setVisibility(View.GONE);
-					btn_close_screen.setVisibility(View.GONE);
-					mRecentView.setVisibility(View.GONE);
+//					btn_back.setVisibility(View.GONE);
+//					btn_close_screen.setVisibility(View.GONE);
+//					mRecentView.setVisibility(View.GONE);
 					//when close screen,open screen
 					/*
 					ICMessage msg1 = ICMessage.obtain().setCMD(ICMessage.CMD_REGISTER_APP).setInteger(ICMessage.APP_SystemUI);
@@ -1240,9 +1240,9 @@ public class PhoneStatusBarPolicy implements Callback {
 					*/
 					
 				}else {
-					btn_back.setVisibility(View.VISIBLE);
-					mRecentView.setVisibility(View.VISIBLE);
-					btn_close_screen.setVisibility(View.GONE);
+//					btn_back.setVisibility(View.VISIBLE);
+//					mRecentView.setVisibility(View.VISIBLE);
+//					btn_close_screen.setVisibility(View.GONE);
 					mIsLauncher = false;
 					//btn_back.setBackground(mContext.getResources().getDrawable(R.drawable.statusbar_icon_home_exit_d));
 					Log.d(TAG, "back VISIBLE ");

@@ -176,11 +176,11 @@ public class StatusBarIconController implements Tunable {
     public void addSystemIcon(String slot, int index, int viewIndex, StatusBarIcon icon) {
         boolean blocked = mIconBlacklist.contains(slot);
         StatusBarIconView view = new StatusBarIconView(mContext, slot, null, blocked);
+		view.setScaleType(ImageView.ScaleType.CENTER);
         view.set(icon);
-        //mStatusIcons.addView(view, viewIndex, new LinearLayout.LayoutParams(
-        //        ViewGroup.LayoutParams.WRAP_CONTENT, mIconSize));
-		mStatusIcons.addView(view, viewIndex, new LinearLayout.LayoutParams(
-                mIconSize-5, mIconSize));
+        mStatusIcons.addView(view, viewIndex, new LinearLayout.LayoutParams(40, mIconSize));
+//		mStatusIcons.addView(view, viewIndex, new LinearLayout.LayoutParams(
+//                mIconSize-5, mIconSize));
         view = new StatusBarIconView(mContext, slot, null, blocked);
         view.set(icon);
         mStatusIconsKeyguard.addView(view, viewIndex, new LinearLayout.LayoutParams(

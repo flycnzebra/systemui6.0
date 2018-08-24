@@ -825,7 +825,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
 		*/
 		//@flyzebra:set statusbar color.
-		mStatusBarView.setBackgroundColor(0xff1C1C1C);
+		//mStatusBarView.setBackgroundColor(0xff1C1C1C);
+		mStatusBarView.setBackgroundResource(R.drawable.statusbar_background);
 		//mStatusBarWindow.setBackgroundColor(0xff1C1C1C);
         mHeadsUpManager = new HeadsUpManager(context, mStatusBarWindow);
         mHeadsUpManager.setBar(this);
