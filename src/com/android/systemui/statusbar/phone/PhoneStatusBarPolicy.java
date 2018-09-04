@@ -33,6 +33,7 @@ import android.content.pm.UserInfo;
 import android.hardware.display.WifiDisplayStatus;
 import android.media.AudioManager;
 import android.net.wifi.p2p.WifiP2pDevice;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IRemoteCallback;
 import android.os.Message;
@@ -79,14 +80,14 @@ public class PhoneStatusBarPolicy implements Callback {
 
     private static final String SLOT_CAST = "cast";
     private static final String SLOT_HOTSPOT = "hotspot";
-	private static final String SLOT_USB = "usb";
+    private static final String SLOT_USB = "usb";
     private static final String SLOT_BLUETOOTH = "bluetooth";
-	/*add by atc6068,add icon must match 
-	    /frameworks/base/core/res/res/values/config.xml config_statusBarIcons
-	    so use existing battery and phone_signal as SLOT_BT_BATTERY and SLOT_BT_SIGNAL
-	*/
-	private static final String SLOT_BT_SIGNAL = "phone_signal";
-	private static final String SLOT_BT_BATTERY = "battery";
+    /*add by atc6068,add icon must match
+        /frameworks/base/core/res/res/values/config.xml config_statusBarIcons
+        so use existing battery and phone_signal as SLOT_BT_BATTERY and SLOT_BT_SIGNAL
+    */
+    private static final String SLOT_BT_SIGNAL = "phone_signal";
+    private static final String SLOT_BT_BATTERY = "battery";
     private static final String SLOT_TTY = "tty";
     private static final String SLOT_ZEN = "zen";
     private static final String SLOT_VOLUME = "volume";
@@ -95,13 +96,13 @@ public class PhoneStatusBarPolicy implements Callback {
     /// M: Add for [Headset Icon] @ {
     private static final String SLOT_HEADSET = "headset";
     /// @ }
-	private final AudioManager mAudio;
+    private final AudioManager mAudio;
 
     private final Context mContext;
-	private final View mView;
+    private final View mView;
     private final StatusBarManager mService;
     private final Handler mHandler = new Handler();
-	private final Handler mUIHandler; //= new PhoneStatusBar.UIHandler();
+    private final Handler mUIHandler; //= new PhoneStatusBar.UIHandler();
     private final CastController mCast;
     private final HotspotController mHotspot;
     private final AlarmManager mAlarmManager;
@@ -125,37 +126,37 @@ public class PhoneStatusBarPolicy implements Callback {
     ///M: Add for bug fix ALPS02302321
     private boolean mIsPluginWithMic;
     private boolean mIsPluginWithoutMic;
-	private JacState jacState = null;
+    private JacState jacState = null;
     private WindowManager floatWindowManager;
     private View floatview;
-	PopupWindow mPopupWindow;
-	TextView apptitle;
-	private ImageView btn_back;
-	private KeyButtonView mRecentView;
-	private KeyButtonView btn_close_screen;
-	private ImageView btn_home;
-	Button btBtn;
-	Button fmBtn;
-	Button musicBtn;
-	Button videoBtn;
+    PopupWindow mPopupWindow;
+    TextView apptitle;
+    private ImageView btn_back;
+    private KeyButtonView mRecentView;
+    private KeyButtonView btn_close_screen;
+    private ImageView btn_home;
+    Button btBtn;
+    Button fmBtn;
+    Button musicBtn;
+    Button videoBtn;
 
-	
-	Timer timer = null;
+
+    Timer timer = null;
     private boolean mDiglogIsShow = false;
-	private boolean mIsLauncher = false;
-	boolean mIsCloseDisplay = false;
+    private boolean mIsLauncher = false;
+    boolean mIsCloseDisplay = false;
     int mKeyTime = 0;
     int mCurrentSource = 0;
     int mCurrentValue = 0;
     final static int MAX_LOOP_TIME = 15;
     final static int SWITCH_SOURCE = 1;
     final static int DIALOG_UI_SYNC = 2;
-	final static int DIALOG_UI_START = 3;
+    final static int DIALOG_UI_START = 3;
     int mLooptime = MAX_LOOP_TIME;
-	//CustomDialog customDialog;
-	private final CustomSourceTabDialog mSourceTabDialog;
-	public static int mCurrentApp = 0;
-	
+    //CustomDialog customDialog;
+    private final CustomSourceTabDialog mSourceTabDialog;
+    public static int mCurrentApp = 0;
+
     private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -163,18 +164,14 @@ public class PhoneStatusBarPolicy implements Callback {
             Log.d(TAG, "atc6068 action = " + action);
             if (action.equals(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED)) {
                 updateAlarm();
-            }
-            else if (action.equals(AudioManager.RINGER_MODE_CHANGED_ACTION) ||
+            } else if (action.equals(AudioManager.RINGER_MODE_CHANGED_ACTION) ||
                     action.equals(AudioManager.INTERNAL_RINGER_MODE_CHANGED_ACTION)) {
                 //updateVolumeZen();
-            }
-            else if (action.equals(TelephonyIntents.ACTION_SIM_STATE_CHANGED)) {
+            } else if (action.equals(TelephonyIntents.ACTION_SIM_STATE_CHANGED)) {
                 updateSimState(intent);
-            }
-            else if (action.equals(TelecomManager.ACTION_CURRENT_TTY_MODE_CHANGED)) {
+            } else if (action.equals(TelecomManager.ACTION_CURRENT_TTY_MODE_CHANGED)) {
                 updateTTY(intent);
-            }
-            else if (action.equals(Intent.ACTION_HEADSET_PLUG)) {
+            } else if (action.equals(Intent.ACTION_HEADSET_PLUG)) {
                 updateHeadset(intent);
             }
             /// M: [Multi-User] Register Alarm intent by user @{
@@ -182,12 +179,23 @@ public class PhoneStatusBarPolicy implements Callback {
                 updateAlarm();
                 int newUserId = intent.getIntExtra(Intent.EXTRA_USER_HANDLE, -1);
                 registerAlarmClockChanged(newUserId, true);
-            }else if (intent.getAction().equals(Intent.ACTION_MEDIA_MOUNTED)
+            } else if (intent.getAction().equals(Intent.ACTION_MEDIA_MOUNTED)
                     || intent.getAction().equals(Intent.ACTION_MEDIA_CHECKING)) {
                 updateUsb(true);
             } else if (intent.getAction().equals(Intent.ACTION_MEDIA_REMOVED)
-                    || intent.getAction().equals(Intent.ACTION_MEDIA_EJECT)){
+                    || intent.getAction().equals(Intent.ACTION_MEDIA_EJECT)) {
                 updateUsb(false);
+            } else if (intent.getAction().equals(ActivityThread.ACTION_ACTIVITY_STATE_CHANGED)) {
+                Bundle bundle = intent.getExtras();
+                if (bundle != null) {
+                    String strpackage = bundle.getString("package");
+                    String strclass = bundle.getString("class");
+                    String strstate = bundle.getString("state");
+                    int pid = bundle.getInt("pid");
+                    if (strstate.equals("foreground")) {
+                        apptitle.setText(strpackage);
+                    }
+                }
             }
             /// M: [Multi-User] Register Alarm intent by user @}
             /*else if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
@@ -207,15 +215,15 @@ public class PhoneStatusBarPolicy implements Callback {
         }
     };
 
-    public PhoneStatusBarPolicy(View view,Context context, CastController cast, HotspotController hotspot,
-            UserInfoController userInfoController, BluetoothController bluetooth,Handler mHandler) {
-		mView = view;
-		mContext = context;
+    public PhoneStatusBarPolicy(View view, Context context, CastController cast, HotspotController hotspot,
+                                UserInfoController userInfoController, BluetoothController bluetooth, Handler mHandler) {
+        mView = view;
+        mContext = context;
         mCast = cast;
         mHotspot = hotspot;
         mBluetooth = bluetooth;
-		mUIHandler = mHandler;
-		mAudio = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
+        mUIHandler = mHandler;
+        mAudio = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         jacState = new SystemStates();
 
         @SuppressLint("WrongConstant")
@@ -240,8 +248,8 @@ public class PhoneStatusBarPolicy implements Callback {
         /// M: [Multi-User] Add user switched action for updating possible alarm icon.
         filter.addAction(Intent.ACTION_USER_SWITCHED);
 
-		//filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
-		//filter.addAction(Intent.ACTION_MEDIA_EJECT);
+        //filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
+        //filter.addAction(Intent.ACTION_MEDIA_EJECT);
         /**
          * 监听Activity变化
          */
@@ -267,7 +275,7 @@ public class PhoneStatusBarPolicy implements Callback {
         }
 
         // TTY status
-        mService.setIcon(SLOT_TTY,  R.drawable.stat_sys_tty_mode, 0, null);
+        mService.setIcon(SLOT_TTY, R.drawable.stat_sys_tty_mode, 0, null);
         mService.setIconVisibility(SLOT_TTY, false);
 
         // bluetooth status
@@ -305,149 +313,151 @@ public class PhoneStatusBarPolicy implements Callback {
                 mContext.getString(R.string.accessibility_managed_profile));
         mService.setIconVisibility(SLOT_MANAGED_PROFILE, false);
 
-		//customDialog = new CustomDialog(mView);
-		
-		floatview = LayoutInflater.from(mContext).inflate(R.layout.floatlayout, null);
-		//mPopupWindow = new PopupWindow(floatview, 1000, 300, true);
-		mSourceTabDialog = new CustomSourceTabDialog(mContext);
-		mSourceTabDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		mSourceTabDialog.setContentView(floatview);
-		apptitle = (TextView)mView.findViewById(R.id.app_title);
-		btn_back = (ImageView)mView.findViewById(R.id.back);
-		mRecentView = (KeyButtonView) mView.findViewById(R.id.recent_apps007);
-		btn_close_screen = (KeyButtonView)mView.findViewById(R.id.close_screen);
-		//btn_back has two function ,back and close screen
-		btn_close_screen.setOnClickListener(new View.OnClickListener(){
-			public void onClick(View v){
-				if (DEBUG) Log.v(TAG, "btn_close_screen: onClick");
-//				if(mIsLauncher ){
-					if(!mIsCloseDisplay){
-						if (DEBUG) Log.v(TAG, "close display");
-						 mIsCloseDisplay = true;
-						 ComponentName toActivityFullScreen = new ComponentName("com.android.systemui", "com.android.systemui.settings.FullScreen");
-						 Intent intentFullScreen = new Intent();
-						 intentFullScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-						 intentFullScreen.setComponent(toActivityFullScreen);
-						 mContext.startActivity(intentFullScreen);
-						 //close screen
-					}else{
-						//open screen
+        //customDialog = new CustomDialog(mView);
 
-					}
-					
-					
+        floatview = LayoutInflater.from(mContext).inflate(R.layout.floatlayout, null);
+        //mPopupWindow = new PopupWindow(floatview, 1000, 300, true);
+        mSourceTabDialog = new CustomSourceTabDialog(mContext);
+        mSourceTabDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mSourceTabDialog.setContentView(floatview);
+        apptitle = (TextView) mView.findViewById(R.id.app_title);
+        btn_back = (ImageView) mView.findViewById(R.id.back);
+        mRecentView = (KeyButtonView) mView.findViewById(R.id.recent_apps007);
+        btn_close_screen = (KeyButtonView) mView.findViewById(R.id.close_screen);
+        //btn_back has two function ,back and close screen
+        btn_close_screen.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (DEBUG) Log.v(TAG, "btn_close_screen: onClick");
+//				if(mIsLauncher ){
+                if (!mIsCloseDisplay) {
+                    if (DEBUG) Log.v(TAG, "close display");
+                    mIsCloseDisplay = true;
+                    ComponentName toActivityFullScreen = new ComponentName("com.android.systemui", "com.android.systemui.settings.FullScreen");
+                    Intent intentFullScreen = new Intent();
+                    intentFullScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intentFullScreen.setComponent(toActivityFullScreen);
+                    mContext.startActivity(intentFullScreen);
+                    //close screen
+                } else {
+                    //open screen
+
+                }
+
+
 //				}
-				if(mIsCloseDisplay){
-					mIsCloseDisplay = false;
-				}
-				
-			}
-		});
-		btn_home = (ImageView)mView.findViewById(R.id.home);
+                if (mIsCloseDisplay) {
+                    mIsCloseDisplay = false;
+                }
+
+            }
+        });
+        btn_home = (ImageView) mView.findViewById(R.id.home);
         btBtn = (Button) floatview.findViewById(R.id.bt);
         fmBtn = (Button) floatview.findViewById(R.id.fm);
         videoBtn = (Button) floatview.findViewById(R.id.video);
         musicBtn = (Button) floatview.findViewById(R.id.music);
-		mSourceTabDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-		Window dialogWindow = mSourceTabDialog.getWindow();
-		//
-		WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-		dialogWindow.setGravity(Gravity.TOP);
-		//lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-		//lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-		//lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-		//lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-		//lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-		lp.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
-		lp.width = 616;//565*1.5 ? ;
-		lp.y = 20;//status bar height
-		lp.height =200;// 238;//159*1.5;
-		lp.alpha = 0.7f;
-		dialogWindow.setAttributes(lp);
-		
+        mSourceTabDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        Window dialogWindow = mSourceTabDialog.getWindow();
+        //
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        dialogWindow.setGravity(Gravity.TOP);
+        //lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        //lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        //lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        //lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        //lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+        lp.width = 616;//565*1.5 ? ;
+        lp.y = 20;//status bar height
+        lp.height = 200;// 238;//159*1.5;
+        lp.alpha = 0.7f;
+        dialogWindow.setAttributes(lp);
+
     }
-	
-	public void setDefaultLastVolume(){
-		
-		SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
-		int level;
-		int lastVolume;
-		
-		level = mAudio.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
-		if(level == 0){
-			lastVolume = sharedPreferences.getInt(""+AudioManager.STREAM_BLUETOOTH_SCO,15);
-			mAudio.setStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO,lastVolume,0);
-			level = mAudio.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
-			if(level != lastVolume){
-				 Log.d(TAG," STREAM_BLUETOOTH_SCO lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
-			}
-		}
 
-		level = mAudio.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
-		if(level == 0){
-			lastVolume = sharedPreferences.getInt(""+AudioManager.STREAM_VOICE_CALL,15);
-			mAudio.setStreamVolume(AudioManager.STREAM_VOICE_CALL,lastVolume,0);
-			level = mAudio.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
-			if(level != lastVolume){
-				 Log.d(TAG," STREAM_VOICE_CALL lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
-			}
-		}
-		level = mAudio.getStreamVolume(AudioManager.STREAM_GIS);
-		if(level == 0){
-			lastVolume = sharedPreferences.getInt(""+AudioManager.STREAM_GIS,15);
-			mAudio.setStreamVolume(AudioManager.STREAM_GIS,lastVolume,0);
-			level = mAudio.getStreamVolume(AudioManager.STREAM_GIS);
-			if(level != lastVolume){
-				 Log.d(TAG," STREAM_GIS lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
-			}
-		}
-		level = mAudio.getStreamVolume(AudioManager.STREAM_MUSIC);
-		if(level == 0){
-			lastVolume = sharedPreferences.getInt(""+AudioManager.STREAM_MUSIC,15);
-			mAudio.setStreamVolume(AudioManager.STREAM_MUSIC,lastVolume,0);
-			level = mAudio.getStreamVolume(AudioManager.STREAM_MUSIC);
-			if(level != lastVolume){
-				 Log.d(TAG," STREAM_MUSIC lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
-			}
-		}
-		level = mAudio.getStreamVolume(AudioManager.STREAM_AUXIN);
-		if(level == 0){
-			lastVolume = sharedPreferences.getInt(""+AudioManager.STREAM_AUXIN,15);
-			mAudio.setStreamVolume(AudioManager.STREAM_AUXIN,lastVolume,0);
-			level = mAudio.getStreamVolume(AudioManager.STREAM_AUXIN);
-			if(level != lastVolume){
-				 Log.d(TAG," STREAM_AUXIN lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
-			}
-		}
-		//level = mAudio.getStreamVolume(AudioManager.STREAM_RING);
-		
-         
-	}
+    public void setDefaultLastVolume() {
 
-	private void saveCurrentSource(int value){
-		if (DEBUG) Log.d(TAG, "saveCurrentSource value=" + value );
-		SharedPreferences sharedPreferences = mContext.getSharedPreferences("current_source", Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-		editor.putInt("source",value);
-		editor.commit();
-	}
-	private int getCurrentSource(){
-		SharedPreferences sharedPreferences = mContext.getSharedPreferences("current_source", Context.MODE_PRIVATE);
-		int currentSource;
-		currentSource = sharedPreferences.getInt("source",0);
-		if (DEBUG) Log.d(TAG, "currentSource =" + currentSource );
-		return currentSource;
-	}
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
+        int level;
+        int lastVolume;
 
-	public boolean getIsLauncher(){
-		
-		return mIsLauncher;
-	}
+        level = mAudio.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
+        if (level == 0) {
+            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_BLUETOOTH_SCO, 15);
+            mAudio.setStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO, lastVolume, 0);
+            level = mAudio.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
+            if (level != lastVolume) {
+                Log.d(TAG, " STREAM_BLUETOOTH_SCO lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
+            }
+        }
 
-	public boolean getIsCloseDisplay(){
-		
-		return mIsCloseDisplay;
-	}
+        level = mAudio.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+        if (level == 0) {
+            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_VOICE_CALL, 15);
+            mAudio.setStreamVolume(AudioManager.STREAM_VOICE_CALL, lastVolume, 0);
+            level = mAudio.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+            if (level != lastVolume) {
+                Log.d(TAG, " STREAM_VOICE_CALL lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
+            }
+        }
+        level = mAudio.getStreamVolume(AudioManager.STREAM_GIS);
+        if (level == 0) {
+            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_GIS, 15);
+            mAudio.setStreamVolume(AudioManager.STREAM_GIS, lastVolume, 0);
+            level = mAudio.getStreamVolume(AudioManager.STREAM_GIS);
+            if (level != lastVolume) {
+                Log.d(TAG, " STREAM_GIS lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
+            }
+        }
+        level = mAudio.getStreamVolume(AudioManager.STREAM_MUSIC);
+        if (level == 0) {
+            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_MUSIC, 15);
+            mAudio.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, 0);
+            level = mAudio.getStreamVolume(AudioManager.STREAM_MUSIC);
+            if (level != lastVolume) {
+                Log.d(TAG, " STREAM_MUSIC lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
+            }
+        }
+        level = mAudio.getStreamVolume(AudioManager.STREAM_AUXIN);
+        if (level == 0) {
+            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_AUXIN, 15);
+            mAudio.setStreamVolume(AudioManager.STREAM_AUXIN, lastVolume, 0);
+            level = mAudio.getStreamVolume(AudioManager.STREAM_AUXIN);
+            if (level != lastVolume) {
+                Log.d(TAG, " STREAM_AUXIN lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
+            }
+        }
+        //level = mAudio.getStreamVolume(AudioManager.STREAM_RING);
+
+
+    }
+
+    private void saveCurrentSource(int value) {
+        if (DEBUG) Log.d(TAG, "saveCurrentSource value=" + value);
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("current_source", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("source", value);
+        editor.commit();
+    }
+
+    private int getCurrentSource() {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("current_source", Context.MODE_PRIVATE);
+        int currentSource;
+        currentSource = sharedPreferences.getInt("source", 0);
+        if (DEBUG) Log.d(TAG, "currentSource =" + currentSource);
+        return currentSource;
+    }
+
+    public boolean getIsLauncher() {
+
+        return mIsLauncher;
+    }
+
+    public boolean getIsCloseDisplay() {
+
+        return mIsCloseDisplay;
+    }
+
     public void setZenMode(int zen) {
         mZen = zen;
         //updateVolumeZen();
@@ -466,23 +476,18 @@ public class PhoneStatusBarPolicy implements Callback {
         String stateExtra = intent.getStringExtra(IccCardConstants.INTENT_KEY_ICC_STATE);
         if (IccCardConstants.INTENT_VALUE_ICC_ABSENT.equals(stateExtra)) {
             mSimState = IccCardConstants.State.ABSENT;
-        }
-        else if (IccCardConstants.INTENT_VALUE_ICC_CARD_IO_ERROR.equals(stateExtra)) {
+        } else if (IccCardConstants.INTENT_VALUE_ICC_CARD_IO_ERROR.equals(stateExtra)) {
             mSimState = IccCardConstants.State.CARD_IO_ERROR;
-        }
-        else if (IccCardConstants.INTENT_VALUE_ICC_READY.equals(stateExtra)) {
+        } else if (IccCardConstants.INTENT_VALUE_ICC_READY.equals(stateExtra)) {
             mSimState = IccCardConstants.State.READY;
-        }
-        else if (IccCardConstants.INTENT_VALUE_ICC_LOCKED.equals(stateExtra)) {
+        } else if (IccCardConstants.INTENT_VALUE_ICC_LOCKED.equals(stateExtra)) {
             final String lockedReason =
                     intent.getStringExtra(IccCardConstants.INTENT_KEY_LOCKED_REASON);
             if (IccCardConstants.INTENT_VALUE_LOCKED_ON_PIN.equals(lockedReason)) {
                 mSimState = IccCardConstants.State.PIN_REQUIRED;
-            }
-            else if (IccCardConstants.INTENT_VALUE_LOCKED_ON_PUK.equals(lockedReason)) {
+            } else if (IccCardConstants.INTENT_VALUE_LOCKED_ON_PUK.equals(lockedReason)) {
                 mSimState = IccCardConstants.State.PUK_REQUIRED;
-            }
-            else {
+            } else {
                 mSimState = IccCardConstants.State.NETWORK_LOCKED;
             }
         } else {
@@ -556,46 +561,46 @@ public class PhoneStatusBarPolicy implements Callback {
         updateBluetooth();
     }
 
-	@Override
-	public void onBluetoothSignalChange(int signal) {
-		updateBluetoothSignal(signal);
-	}
-	
-	@Override
-	public void onBluetoothBatteryChange(int battery) {
-		updateBluetoothBattery(battery);
-	}
+    @Override
+    public void onBluetoothSignalChange(int signal) {
+        updateBluetoothSignal(signal);
+    }
+
+    @Override
+    public void onBluetoothBatteryChange(int battery) {
+        updateBluetoothBattery(battery);
+    }
 
     private final void updateBluetooth() {
         int iconId = R.drawable.statusbar_icon_bt_1;
-		Message msg1 = mUIHandler.obtainMessage();
+        Message msg1 = mUIHandler.obtainMessage();
         String contentDescription =
                 mContext.getString(R.string.accessibility_quick_settings_bluetooth_on);
         boolean bluetoothEnabled = false;
         if (mBluetooth != null) {
             bluetoothEnabled = mBluetooth.isBluetoothEnabled();
             if (mBluetooth.isBluetoothConnected()) {
-				//mView.updateQsbt(true);
-				msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BT;
-				msg1.arg1 = 1;
-				mUIHandler.sendMessage(msg1);
+                //mView.updateQsbt(true);
+                msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BT;
+                msg1.arg1 = 1;
+                mUIHandler.sendMessage(msg1);
                 iconId = R.drawable.statusbar_icon_bt_connected;
                 contentDescription = mContext.getString(R.string.accessibility_bluetooth_connected);
-            }else{
-            	msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BT;
-				msg1.arg1 = 0;
-				//mService.setIconVisibility(SLOT_BT_SIGNAL, false);
-				//mView.updateQsbt(false);
-				mUIHandler.sendMessage(msg1);
-				mService.setIconVisibility(SLOT_BT_BATTERY, false);
-			}
+            } else {
+                msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BT;
+                msg1.arg1 = 0;
+                //mService.setIconVisibility(SLOT_BT_SIGNAL, false);
+                //mView.updateQsbt(false);
+                mUIHandler.sendMessage(msg1);
+                mService.setIconVisibility(SLOT_BT_BATTERY, false);
+            }
         }
         mService.setIcon(SLOT_BLUETOOTH, iconId, 0, contentDescription);
         mService.setIconVisibility(SLOT_BLUETOOTH, bluetoothEnabled);
 
-		
 
     }
+
     private final void updateUsb(boolean mounted) {
         int iconId = R.drawable.home_icon_status_usb_d;
         String contentDescription = "";
@@ -605,7 +610,7 @@ public class PhoneStatusBarPolicy implements Callback {
 
     private final void updateBluetoothSignal(int signal) {
         int iconId = R.drawable.statusbar_icon_signal_4;
-        String contentDescription ="";
+        String contentDescription = "";
         boolean bluetoothEnabled = false;
         if (mBluetooth != null) {
             bluetoothEnabled = mBluetooth.isBluetoothEnabled();
@@ -613,64 +618,65 @@ public class PhoneStatusBarPolicy implements Callback {
                 iconId = R.drawable.stat_sys_data_bluetooth_connected;
             }
         }
-		if(bluetoothEnabled == true){
-			switch(signal){
-				case 0:
-					iconId = R.drawable.statusbar_icon_signal_0;
-					break;
-				case 1:
-					iconId = R.drawable.statusbar_icon_signal_1;
-					break;
-				case 2:
-					iconId = R.drawable.statusbar_icon_signal_2;
-					break;
-				case 3:
-				case 4:
-					iconId = R.drawable.statusbar_icon_signal_3;
-					break;
-				case 5:
-					iconId = R.drawable.statusbar_icon_signal_4;
-					break;
-			}
+        if (bluetoothEnabled == true) {
+            switch (signal) {
+                case 0:
+                    iconId = R.drawable.statusbar_icon_signal_0;
+                    break;
+                case 1:
+                    iconId = R.drawable.statusbar_icon_signal_1;
+                    break;
+                case 2:
+                    iconId = R.drawable.statusbar_icon_signal_2;
+                    break;
+                case 3:
+                case 4:
+                    iconId = R.drawable.statusbar_icon_signal_3;
+                    break;
+                case 5:
+                    iconId = R.drawable.statusbar_icon_signal_4;
+                    break;
+            }
 
-		}
-		
-		//mService.setIcon(SLOT_BT_SIGNAL, iconId, 0, contentDescription);
-		//mService.setIconVisibility(SLOT_BT_SIGNAL, bluetoothEnabled);
+        }
+
+        //mService.setIcon(SLOT_BT_SIGNAL, iconId, 0, contentDescription);
+        //mService.setIconVisibility(SLOT_BT_SIGNAL, bluetoothEnabled);
 
     }
-	private final void updateBluetoothBattery(int battery) {
-			int iconId = R.drawable.statusbar_icon_battery_3;
-			String contentDescription ="";
-			boolean bluetoothEnabled = false;
-			if (mBluetooth != null) {
-				bluetoothEnabled = mBluetooth.isBluetoothEnabled();
-				if (mBluetooth.isBluetoothConnected()) {
-					iconId = R.drawable.stat_sys_data_bluetooth_connected;
-				}
-			}
-			if(bluetoothEnabled == true){
-				switch(battery){
-					case 0:
-						iconId = R.drawable.statusbar_icon_battery_0;
-						break;
-					case 1:
-					case 2:
-						iconId = R.drawable.statusbar_icon_battery_1;
-						break;
-					case 3:
-					case 4:
-						iconId = R.drawable.statusbar_icon_battery_2;
-						break;
-					case 5:
-						iconId = R.drawable.statusbar_icon_battery_3;
-						break;
-				}
-	
-			}
-			mService.setIcon(SLOT_BT_BATTERY, iconId, 0, contentDescription);
-			mService.setIconVisibility(SLOT_BT_BATTERY, bluetoothEnabled);
-		}
+
+    private final void updateBluetoothBattery(int battery) {
+        int iconId = R.drawable.statusbar_icon_battery_3;
+        String contentDescription = "";
+        boolean bluetoothEnabled = false;
+        if (mBluetooth != null) {
+            bluetoothEnabled = mBluetooth.isBluetoothEnabled();
+            if (mBluetooth.isBluetoothConnected()) {
+                iconId = R.drawable.stat_sys_data_bluetooth_connected;
+            }
+        }
+        if (bluetoothEnabled == true) {
+            switch (battery) {
+                case 0:
+                    iconId = R.drawable.statusbar_icon_battery_0;
+                    break;
+                case 1:
+                case 2:
+                    iconId = R.drawable.statusbar_icon_battery_1;
+                    break;
+                case 3:
+                case 4:
+                    iconId = R.drawable.statusbar_icon_battery_2;
+                    break;
+                case 5:
+                    iconId = R.drawable.statusbar_icon_battery_3;
+                    break;
+            }
+
+        }
+        mService.setIcon(SLOT_BT_BATTERY, iconId, 0, contentDescription);
+        mService.setIconVisibility(SLOT_BT_BATTERY, bluetoothEnabled);
+    }
 
     private final void updateTTY(Intent intent) {
         int currentTtyMode = intent.getIntExtra(TelecomManager.EXTRA_CURRENT_TTY_MODE,
@@ -779,7 +785,7 @@ public class PhoneStatusBarPolicy implements Callback {
         /// M: WFD sink support {@
         @Override
         public void onWfdStatusChanged(WifiDisplayStatus status,
-                boolean sinkMode) {
+                                       boolean sinkMode) {
 
         }
 
@@ -818,7 +824,7 @@ public class PhoneStatusBarPolicy implements Callback {
                 mIsPluginWithoutMic = true;
             }
             iconId = mic == 1 ? R.drawable.stat_sys_headset_with_mic :
-            R.drawable.stat_sys_headset_without_mic;
+                    R.drawable.stat_sys_headset_without_mic;
             mService.setIcon(SLOT_HEADSET, iconId, 0, null);
             mService.setIconVisibility(SLOT_HEADSET, true);
             Log.d(TAG, "updateHeadSet mIsPluginWithMic = " + mIsPluginWithMic +
@@ -830,7 +836,7 @@ public class PhoneStatusBarPolicy implements Callback {
                 // For handle case ALPS02302321, when receive two connected broadcast with
                 // plug in and no mic and mic, then receive another plug out, it actually
                 // still plugged in.
-                Log.d(TAG,"Reset the flag, and do not hide the icons");
+                Log.d(TAG, "Reset the flag, and do not hide the icons");
             } else {
                 mIsPluginWithMic = false;
                 mIsPluginWithoutMic = false;
@@ -862,16 +868,17 @@ public class PhoneStatusBarPolicy implements Callback {
         Log.d(TAG, "registerAlarmClockChanged:" + newUserId);
         UserHandle newUserHandle = new UserHandle(newUserId);
         mContext.registerReceiverAsUser(mAlarmIntentReceiver, newUserHandle, filter,
-            null /* permission */, mHandler /* scheduler */);
+                null /* permission */, mHandler /* scheduler */);
     }
-	/*
+
+    /*
     private void backgroundAlpha(float bgAlpha) {
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.alpha = bgAlpha; //0.0-1.0
         getWindow().setAttributes(lp);
     }
-	*/
-    private void initPopupWindow(View view,View contentView){
+    */
+    private void initPopupWindow(View view, View contentView) {
         mPopupWindow.setContentView(contentView);
         //mPopupWindow.setTouchable(true);
         //mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_list));
@@ -881,18 +888,18 @@ public class PhoneStatusBarPolicy implements Callback {
     }
 
 
-    private void closePopupWindow (){
+    private void closePopupWindow() {
         if (null != mPopupWindow && mPopupWindow.isShowing()) {
             mPopupWindow.dismiss();
         }
     }
 
 
-	public class SystemStates extends JacState{
-		@Override
-		public void OnBackCar(boolean bState) {
-			super.OnBackCar(bState);
-		}
+    public class SystemStates extends JacState {
+        @Override
+        public void OnBackCar(boolean bState) {
+            super.OnBackCar(bState);
+        }
 
-	}
+    }
 }
