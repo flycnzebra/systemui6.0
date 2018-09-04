@@ -16,7 +16,9 @@
 
 package com.android.systemui.statusbar.phone;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManagerNative;
+import android.app.ActivityThread;
 import android.app.AlarmManager;
 import android.app.AlarmManager.AlarmClockInfo;
 import android.app.IUserSwitchObserver;
@@ -180,6 +182,12 @@ public class PhoneStatusBarPolicy implements Callback {
                 updateAlarm();
                 int newUserId = intent.getIntExtra(Intent.EXTRA_USER_HANDLE, -1);
                 registerAlarmClockChanged(newUserId, true);
+            }else if (intent.getAction().equals(Intent.ACTION_MEDIA_MOUNTED)
+                    || intent.getAction().equals(Intent.ACTION_MEDIA_CHECKING)) {
+                updateUsb(true);
+            } else if (intent.getAction().equals(Intent.ACTION_MEDIA_REMOVED)
+                    || intent.getAction().equals(Intent.ACTION_MEDIA_EJECT)){
+                updateUsb(false);
             }
             /// M: [Multi-User] Register Alarm intent by user @}
             /*else if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
@@ -210,6 +218,7 @@ public class PhoneStatusBarPolicy implements Callback {
 		mAudio = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         jacState = new SystemStates();
 
+        @SuppressLint("WrongConstant")
         JancarManager jancarManager = (JancarManager) context.getSystemService("jancar_manager");
         jancarManager.registerJacStateListener(jacState.asBinder());
 
@@ -230,8 +239,22 @@ public class PhoneStatusBarPolicy implements Callback {
         /// @ }
         /// M: [Multi-User] Add user switched action for updating possible alarm icon.
         filter.addAction(Intent.ACTION_USER_SWITCHED);
+
 		//filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
 		//filter.addAction(Intent.ACTION_MEDIA_EJECT);
+        /**
+         * 监听Activity变化
+         */
+        filter.addAction(ActivityThread.ACTION_ACTIVITY_STATE_CHANGED);
+
+        /**
+         * 监听USB变化
+         */
+
+        filter.addAction(Intent.ACTION_MEDIA_CHECKING);
+        filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
+        filter.addAction(Intent.ACTION_MEDIA_EJECT);
+        filter.addAction(Intent.ACTION_MEDIA_REMOVED);
         mContext.registerReceiver(mIntentReceiver, filter, null, mHandler);
         /// M: [Multi-User] Register Alarm intent by user
         registerAlarmClockChanged(UserHandle.USER_OWNER, false);
@@ -870,5 +893,6 @@ public class PhoneStatusBarPolicy implements Callback {
 		public void OnBackCar(boolean bState) {
 			super.OnBackCar(bState);
 		}
+
 	}
 }
