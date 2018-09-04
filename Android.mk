@@ -38,7 +38,7 @@ include $(BUILD_PACKAGE)
 
 include $(CLEAR_VARS)
 
-LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := android-support-v4-systemui:../../../../../../prebuilts/sdk/current/support/v4/android-support-v4.jar \
+LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := android-support-v4-systemui:../../../../../prebuilts/sdk/current/support/v4/android-support-v4.jar \
 
 include $(BUILD_MULTI_PREBUILT)
 

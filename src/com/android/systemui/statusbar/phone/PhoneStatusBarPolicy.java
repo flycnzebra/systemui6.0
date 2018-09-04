@@ -179,13 +179,16 @@ public class PhoneStatusBarPolicy implements Callback {
                 updateAlarm();
                 int newUserId = intent.getIntExtra(Intent.EXTRA_USER_HANDLE, -1);
                 registerAlarmClockChanged(newUserId, true);
-            } else if (intent.getAction().equals(Intent.ACTION_MEDIA_MOUNTED)
-                    || intent.getAction().equals(Intent.ACTION_MEDIA_CHECKING)) {
-//                updateUsb(true);
-            } else if (intent.getAction().equals(Intent.ACTION_MEDIA_REMOVED)
-                    || intent.getAction().equals(Intent.ACTION_MEDIA_EJECT)) {
-//                updateUsb(false);
-            } else if (intent.getAction().equals(ActivityThread.ACTION_ACTIVITY_STATE_CHANGED)) {
+            }
+//            else if (intent.getAction().equals(Intent.ACTION_MEDIA_MOUNTED)
+//                    || intent.getAction().equals(Intent.ACTION_MEDIA_CHECKING)) {
+////                updateUsb(true);
+//            }
+//            else if (intent.getAction().equals(Intent.ACTION_MEDIA_REMOVED)
+//                    || intent.getAction().equals(Intent.ACTION_MEDIA_EJECT)) {
+////                updateUsb(false);
+//            }
+            else if (intent.getAction().equals(ActivityThread.ACTION_ACTIVITY_STATE_CHANGED)) {
                 Bundle bundle = intent.getExtras();
                 if (bundle != null) {
                     String strpackage = bundle.getString("package");
@@ -198,12 +201,12 @@ public class PhoneStatusBarPolicy implements Callback {
                 }
             }
             /// M: [Multi-User] Register Alarm intent by user @}
-            /*else if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
-				updateUsb(true);
-			}
-			else if (action.equals(Intent.ACTION_MEDIA_EJECT)) {
-				updateUsb(false);
-			}*/
+//            else if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
+//				updateUsb(true);
+//			}
+//			else if (action.equals(Intent.ACTION_MEDIA_EJECT)) {
+//				updateUsb(false);
+//			}
         }
     };
 
@@ -255,14 +258,6 @@ public class PhoneStatusBarPolicy implements Callback {
          */
         filter.addAction(ActivityThread.ACTION_ACTIVITY_STATE_CHANGED);
 
-        /**
-         * 监听USB变化
-         */
-
-        filter.addAction(Intent.ACTION_MEDIA_CHECKING);
-        filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
-        filter.addAction(Intent.ACTION_MEDIA_EJECT);
-        filter.addAction(Intent.ACTION_MEDIA_REMOVED);
         mContext.registerReceiver(mIntentReceiver, filter, null, mHandler);
         /// M: [Multi-User] Register Alarm intent by user
         registerAlarmClockChanged(UserHandle.USER_OWNER, false);
