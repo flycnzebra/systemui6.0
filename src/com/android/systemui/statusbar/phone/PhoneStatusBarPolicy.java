@@ -212,8 +212,8 @@ public class PhoneStatusBarPolicy implements Callback {
                                     List<LauncherActivityInfo> list = PkUtils.getLauncgerActivitys(strpackage, context);
                                     for (LauncherActivityInfo info : list) {
                                         if (strclass.equals(info.getComponentName().getClassName())) {
-                                            FlyLog.d("activity info =%s",info.toString());
-                                            apptitle.setText(info.getName());
+                                            FlyLog.d("activity info =%s",info.getName());
+                                            apptitle.setText(info.getLabel());
                                             break;
                                         }
                                     }
