@@ -1,4 +1,4 @@
-package com.android.systemui;
+package com.android.systemui.jancar;
 
 import android.util.Log;
 

@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.LauncherActivityInfo;
 import android.content.pm.UserInfo;
 import android.hardware.display.WifiDisplayStatus;
 import android.media.AudioManager;
@@ -55,7 +56,7 @@ import android.widget.TextView;
 
 import com.android.internal.telephony.IccCardConstants;
 import com.android.internal.telephony.TelephonyIntents;
-import com.android.systemui.FlyLog;
+import com.android.systemui.jancar.FlyLog;
 import com.android.systemui.R;
 import com.android.systemui.qs.tiles.DndTile;
 import com.android.systemui.statusbar.policy.BluetoothController;
@@ -65,9 +66,11 @@ import com.android.systemui.statusbar.policy.CastController.CastDevice;
 import com.android.systemui.statusbar.policy.HotspotController;
 import com.android.systemui.statusbar.policy.KeyButtonView;
 import com.android.systemui.statusbar.policy.UserInfoController;
+import com.android.systemui.jancar.PkUtils;
 import com.jancar.JancarManager;
 import com.jancar.state.JacState;
 
+import java.util.List;
 import java.util.Timer;
 
 /**
@@ -190,15 +193,38 @@ public class PhoneStatusBarPolicy implements Callback {
 ////                updateUsb(false);
 //            }
             else if (intent.getAction().equals(ActivityThread.ACTION_ACTIVITY_STATE_CHANGED)) {
-                Bundle bundle = intent.getExtras();
-                if (bundle != null) {
-                    String strpackage = bundle.getString("package");
-                    String strclass = bundle.getString("class");
-                    String strstate = bundle.getString("state");
-                    int pid = bundle.getInt("pid");
-                    if (strstate.equals("foreground")) {
-                        apptitle.setText(strpackage);
+                try {
+                    Bundle bundle = intent.getExtras();
+                    if (bundle != null) {
+                        String strpackage = bundle.getString("package");
+                        String strclass = bundle.getString("class");
+                        String strstate = bundle.getString("state");
+
+                        FlyLog.d("ACTION_ACTIVITY_STATE_CHANGED bundle=%s",bundle.toString());
+
+                        switch (strpackage) {
+                            case "com.android.systemui":
+                                break;
+                            case "com.jancar.launcher":
+                            case "com.android.launcher":
+                                apptitle.setText(context.getString(R.string.launcher));
+                                break;
+                            default:
+                                if (strstate.equals("foreground")) {
+                                    List<LauncherActivityInfo> list = PkUtils.getLauncgerActivitys(strpackage, context);
+                                    for (LauncherActivityInfo info : list) {
+                                        if (strclass.equals(info.getComponentName().getClassName())) {
+                                            apptitle.setText(info.getName());
+                                            break;
+                                        }
+                                    }
+
+                                }
+                                break;
+                        }
                     }
+                } catch (Exception e) {
+                    FlyLog.e(e.toString());
                 }
             }
             /// M: [Multi-User] Register Alarm intent by user @}
@@ -233,7 +259,7 @@ public class PhoneStatusBarPolicy implements Callback {
         @SuppressLint("WrongConstant")
         JancarManager jancarManager = (JancarManager) context.getSystemService("jancar_manager");
         jancarManager.registerJacStateListener(jacState.asBinder());
-        FlyLog.d("jancarManager.registerJacStateListener jancarManager="+jancarManager);
+        FlyLog.d("jancarManager.registerJacStateListener jancarManager=" + jancarManager);
 
         mBluetooth.addStateChangedCallback(this);
         mService = (StatusBarManager) context.getSystemService(Context.STATUS_BAR_SERVICE);
@@ -900,7 +926,7 @@ public class PhoneStatusBarPolicy implements Callback {
 
         @Override
         public void OnStorage(StorageState state) {
-            FlyLog.d("usb state:"+state.isUsbMounted());
+            FlyLog.d("usb state:" + state.isUsbMounted());
             updateUsb(state.isUsbMounted());
             super.OnStorage(state);
         }
