@@ -22,23 +22,33 @@ import android.app.AlarmManager.AlarmClockInfo;
 import android.app.IUserSwitchObserver;
 import android.app.StatusBarManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.UserInfo;
 import android.hardware.display.WifiDisplayStatus;
 import android.media.AudioManager;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.os.Handler;
 import android.os.IRemoteCallback;
+import android.os.Message;
 import android.os.RemoteException;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.provider.Settings.Global;
 import android.telecom.TelecomManager;
 import android.util.Log;
-import android.os.Bundle;
-import android.graphics.Color;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.android.internal.telephony.IccCardConstants;
 import com.android.internal.telephony.TelephonyIntents;
@@ -49,35 +59,12 @@ import com.android.systemui.statusbar.policy.BluetoothController.Callback;
 import com.android.systemui.statusbar.policy.CastController;
 import com.android.systemui.statusbar.policy.CastController.CastDevice;
 import com.android.systemui.statusbar.policy.HotspotController;
-import com.android.systemui.statusbar.policy.UserInfoController;
-import com.android.systemui.statusbar.phone.PhoneStatusBar;
-import android.content.ComponentName;
-import android.widget.Button;
-import android.content.SharedPreferences;
-
-import android.os.Bundle;
-import android.os.Message;
-
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.Gravity;
-import android.view.Window;
-
-import android.view.WindowManager;
-import android.widget.PopupWindow;
-import android.widget.TextView;
-import android.widget.ImageView;
-
-import java.util.Timer;
-import java.util.TimerTask;
-import android.view.LayoutInflater;
-import android.widget.Button;
-import android.media.AudioManager;
-import android.media.AudioSystem;
 import com.android.systemui.statusbar.policy.KeyButtonView;
+import com.android.systemui.statusbar.policy.UserInfoController;
 import com.jancar.JancarManager;
 import com.jancar.state.JacState;
+
+import java.util.Timer;
 
 /**
  * This class contains all of the policy about which icons are installed in the status
