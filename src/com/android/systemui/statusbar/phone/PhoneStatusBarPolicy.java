@@ -199,28 +199,27 @@ public class PhoneStatusBarPolicy implements Callback {
                         String strpackage = bundle.getString("package");
                         String strclass = bundle.getString("class");
                         String strstate = bundle.getString("state");
-
-                        FlyLog.d("ACTION_ACTIVITY_STATE_CHANGED bundle=%s",bundle.toString());
-
-                        switch (strpackage) {
-                            case "com.android.systemui":
-                                break;
-                            case "com.jancar.launcher":
-                            case "com.android.launcher":
-                                apptitle.setText(context.getString(R.string.launcher));
-                                break;
-                            default:
-                                if (strstate.equals("foreground")) {
+                        FlyLog.d("ACTION_ACTIVITY_STATE_CHANGED bundle=%s", bundle.toString());
+                        if (strstate.equals("foreground")) {
+                            switch (strpackage) {
+                                case "com.android.systemui":
+                                    break;
+                                case "com.jancar.launcher":
+                                case "com.android.launcher":
+                                    apptitle.setText(context.getString(R.string.launcher));
+                                    break;
+                                default:
                                     List<LauncherActivityInfo> list = PkUtils.getLauncgerActivitys(strpackage, context);
                                     for (LauncherActivityInfo info : list) {
                                         if (strclass.equals(info.getComponentName().getClassName())) {
+                                            FlyLog.d("activity info =%s",info.toString());
                                             apptitle.setText(info.getName());
                                             break;
                                         }
                                     }
+                                    break;
+                            }
 
-                                }
-                                break;
                         }
                     }
                 } catch (Exception e) {
