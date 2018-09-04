@@ -28,7 +28,6 @@
     <string name="meeting">"会议"</string>
     <string name="outdoor">"户外"</string>
     <string name="wfd_sink_summary">其他设备可检测到此设备</string>
-    <string name="quick_settings_data_sim_notset">未指定数据卡</string>
 
     <!-- M: Screen unpin for physical key. -->
     <string name="screen_pinning_description_physical_key">"这将会固定显示此屏幕，直到您取消固定为止。触摸并按住“返回”即可取消固定屏幕。"</string>

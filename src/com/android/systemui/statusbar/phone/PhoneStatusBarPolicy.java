@@ -53,10 +53,6 @@ import com.android.systemui.statusbar.policy.UserInfoController;
 import com.android.systemui.statusbar.phone.PhoneStatusBar;
 import android.content.ComponentName;
 import android.widget.Button;
-import ICManager.ICManager;
-import ICommon.ICMessage;
-import ICommon.Actions;
-import ICommon.Keys;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
@@ -80,6 +76,8 @@ import android.widget.Button;
 import android.media.AudioManager;
 import android.media.AudioSystem;
 import com.android.systemui.statusbar.policy.KeyButtonView;
+import com.jancar.JancarManager;
+import com.jancar.state.JacState;
 
 /**
  * This class contains all of the policy about which icons are installed in the status
@@ -138,7 +136,7 @@ public class PhoneStatusBarPolicy implements Callback {
     ///M: Add for bug fix ALPS02302321
     private boolean mIsPluginWithMic;
     private boolean mIsPluginWithoutMic;
-	private ICManager mManager = null;
+	private JacState jacState = null;
     private WindowManager floatWindowManager;
     private View floatview;
 	PopupWindow mPopupWindow;
@@ -223,9 +221,11 @@ public class PhoneStatusBarPolicy implements Callback {
         mBluetooth = bluetooth;
 		mUIHandler = mHandler;
 		mAudio = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-		mManager = ICManager.getICManager();
-        ICManager.connect(mContext, new ICSlistener());
-		
+        jacState = new SystemStates();
+
+        JancarManager jancarManager = (JancarManager) context.getSystemService("jancar_manager");
+        jancarManager.registerJacStateListener(jacState.asBinder());
+
         mBluetooth.addStateChangedCallback(this);
         mService = (StatusBarManager) context.getSystemService(Context.STATUS_BAR_SERVICE);
         mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -320,20 +320,8 @@ public class PhoneStatusBarPolicy implements Callback {
 						 intentFullScreen.setComponent(toActivityFullScreen);
 						 mContext.startActivity(intentFullScreen);
 						 //close screen
-						 ICMessage msg = ICMessage.obtain().setCMD(ICMessage.CMD_REGISTER_APP).setInteger(ICMessage.APP_SystemUI);
-						 msg = ICMessage.obtain();
-						 msg.setCMD(ICMessage.CMD_REQUEST_CLOSE_SCREEN)
-								.getData()
-								.putBoolean(ICMessage.KEY_DATA_a, true);
-						 ICMessage ret = mManager.talkWithService(msg);
 					}else{
 						//open screen
-						 ICMessage msg = ICMessage.obtain().setCMD(ICMessage.CMD_REGISTER_APP).setInteger(ICMessage.APP_SystemUI);
-						 msg = ICMessage.obtain();
-						 msg.setCMD(ICMessage.CMD_REQUEST_CLOSE_SCREEN)
-								.getData()
-								.putBoolean(ICMessage.KEY_DATA_a, false);
-						 ICMessage ret = mManager.talkWithService(msg);
 
 					}
 					
@@ -369,206 +357,6 @@ public class PhoneStatusBarPolicy implements Callback {
 		
     }
 	
-    class ICSlistener implements ICManager.ServiceListener{
-		
-        @Override
-        public void onStateChange(int state) {
-            Log.i(TAG, "onStateChange: "+state);
-            switch (state)
-            {
-                case ICManager.SERVICE_CONNECTED:
-					Log.v(TAG, "----SERVICE_CONNECTED---- ");
-                    ICMessage msg = ICMessage.obtain().setCMD(ICMessage.CMD_REGISTER_APP).setInteger(ICMessage.APP_SystemUI);
-                    mManager.talkWithService(msg);
-
-					msg = ICMessage.obtain();
-					String versionName = mContext.getResources().getString(R.string.app_versionName);
-					Log.v(TAG, "versionName: " + versionName);
-					msg.setCMD(ICMessage.CMD_REQUEST_SET_APP_VERSION).setStrings(versionName);
-					mManager.talkWithService(msg);
-					
-					msg = ICMessage.obtain();
-                    msg.setCMD(ICMessage.CMD_REGISTER_BROADCAST)
-                            .setStrings(Actions.USB_ACTION.MEDIA_MOUNTED,
-                                    Actions.USB_ACTION.MEDIA_EJECT);
-                    mManager.talkWithService(msg);
-					
-					msg = ICMessage.obtain();
-					msg.setCMD(ICMessage.CMD_REQUEST_Get_STATES)
-                            .isAsync(false)
-                            .getData()
-                            .putString(ICMessage.KEY_DATA_a, ICMessage.STATE_KEY_MEDIA);
-                    ICMessage ret = mManager.talkWithService(msg);
-					if(ret != null){
-						String str = ret.getData().getString(ICMessage.KEY_DATA_a);
-	                    Log.v(TAG, "Get states:" + str);
-						if(str.equals("true")){
-							updateUsb(true);
-						}else if(str.equals("false")){
-							updateUsb(false);
-						}
-					}else{
-						Log.e(TAG,"Get states is null ");
-					}
-
-					msg = ICMessage.obtain();
-                    msg.setCMD(ICMessage.CMD_REQUEST_Get_Current_App)
-                            .isAsync(false);
-                    ICMessage mICMessage = mManager.talkWithService(msg);
-					if(mICMessage != null){
-                    	int ret1 = mICMessage.getInteger();
-                    	Log.d(TAG,"Get_Current_App = " + ret1);
-						Message msg1 = uiHandler.obtainMessage();
-						msg1.what = ret1;
-						uiHandler.sendMessage(msg1);
-					}else{
-						Log.e(TAG,"Get_Current_App is null ");
-					}
-
-					//SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
-                	//int volume = sharedPreferences.getInt("music_last_vloume",0);
-                	//Log.d(TAG,"volume :" + volume);
-					setDefaultLastVolume();
-					//initPopupWindow(mView,floatview);
-					//mSourceTabDialog.show();
-        			//RunTimer();
-                    break;
-            }
-        }
-
-	
-
-		@Override
-        public ICMessage handleMessage(ICMessage icMessage) {
-        if(icMessage != null){
-            int CMD = icMessage.getCMD();
-            Log.v(TAG, "CMD: " + CMD);
-            if(CMD == ICMessage.CMD_AUDIO_FOCUS_CHANGE) {
-                int SourceID = icMessage.getInteger();
-                Log.v(TAG, "SourceID: " + SourceID);
-				Message msg = uiHandler.obtainMessage();
-                mCurrentApp= SourceID;
-                switch (SourceID){
-                    case ICMessage.SourceIndex_Launcher:
-                        Log.d(TAG,"#SourceIndex_Launcher");
-						msg.what = ICMessage.SourceIndex_Launcher;
-                        break;
-                    case ICMessage.SourceIndex_AudioPlayer:
-                        Log.d(TAG,"#SourceIndex_AudioPlayer");
-						msg.what = ICMessage.SourceIndex_AudioPlayer;
-                        break;
-                    case ICMessage.SourceIndex_VideoPlayer:
-                        Log.d(TAG,"#SourceIndex_VideoPlayer");
-						msg.what = ICMessage.SourceIndex_VideoPlayer;
-                        break;
-                    case ICMessage.SourceIndex_FMPlayer:
-                        Log.d(TAG,"#SourceIndex_FMPlayer");
-						msg.what = ICMessage.SourceIndex_FMPlayer;
-                        break;
-                    case ICMessage.SourceIndex_BackCar:
-                        Log.d(TAG,"#SourceIndex_BackCar");
-						msg.what = ICMessage.SourceIndex_BackCar;
-                        break;
-                    case ICMessage.SourceIndex_BTPhone:
-                        Log.d(TAG,"#SourceIndex_BTPhone");
-						msg.what = ICMessage.SourceIndex_BTPhone;
-                        break;
-                    case ICMessage.SourceIndex_BTMusic:
-                        Log.d(TAG,"#SourceIndex_BTMusic");
-						msg.what = ICMessage.SourceIndex_BTMusic;
-                        break;
-					case ICMessage.SourceIndex_BTPhoneBook:
-                        Log.d(TAG,"#SourceIndex_BTPhoneBook");
-						msg.what = ICMessage.SourceIndex_BTPhoneBook;
-                        break;
-					case ICMessage.SourceIndex_BTSetting:
-                        Log.d(TAG,"#SourceIndex_BTSetting");
-						msg.what = ICMessage.SourceIndex_BTSetting;
-                        break;
-					case ICMessage.SourceIndex_ATCSetting:
-                        Log.d(TAG,"#SourceIndex_ATCSetting");
-						msg.what = ICMessage.SourceIndex_ATCSetting;
-                        break;
-
-					case ICMessage.SourceIndex_SystemSettings:
-                        Log.d(TAG,"#SourceIndex_setting_system");
-						msg.what = ICMessage.SourceIndex_SystemSettings;
-                        break;
-					case ICMessage.SourceIndex_WifiSettings:
-                        Log.d(TAG,"#SourceIndex_setting_wifi");
-						msg.what = ICMessage.SourceIndex_WifiSettings;
-                        break;
-					case ICMessage.SourceIndex_DisplaySettings:
-                        Log.d(TAG,"#SourceIndex_setting_display");
-						msg.what = ICMessage.SourceIndex_DisplaySettings;
-                        break;
-					case ICMessage.SourceIndex_AudioSettingsUI:
-                        Log.d(TAG,"#SourceIndex_setting_audio");
-						msg.what = ICMessage.SourceIndex_AudioSettingsUI;
-                        break;
-					case ICMessage.SourceIndex_CarSettings:
-                        Log.d(TAG,"#SourceIndex_setting_car");
-						msg.what = ICMessage.SourceIndex_CarSettings;
-                        break;
-					case ICMessage.SourceIndex_Navigation:	
-						Log.d(TAG,"#SourceIndex_Navigation");
-						msg.what = ICMessage.SourceIndex_Navigation;
-                        break;
-                    case ICMessage.SourceIndex_3rd:
-                        Log.d(TAG,"#SourceIndex_3rd");
-						msg.what = ICMessage.SourceIndex_3rd;
-                        break;
-                }
-				
-				if(ICMessage.SourceIndex_Launcher == SourceID){
-					uiHandler.sendMessage(msg);
-				}else{
-					//uiHandler.sendMessageDelayed(msg,300);
-					uiHandler.sendMessage(msg);
-				}
-
-            } else if(CMD == ICMessage.CMD_SERVICE_ACTIONS_CHANGE) {
-				Intent mIntent = icMessage.getIntent();
-				Log.v(TAG, "mIntent: " + mIntent.getAction());
-				if (mIntent.getAction() == null){
-					return null;
-				}
-				if (mIntent.getAction().equals(Actions.USB_ACTION.MEDIA_MOUNTED)){
-					Log.v(TAG, "usb mounted");
-					updateUsb(true);
-				}else if (mIntent.getAction().equals(Actions.USB_ACTION.MEDIA_EJECT)){
-					Log.v(TAG, "usb unmounted");
-					updateUsb(false);	
-				}
-            }	else if(CMD == ICMessage.CMD_SERVICE_KEY_EVENT){
-                int key = icMessage.getInteger();
-                Log.v(TAG, "CMD_SERVICE_KEY_EVENT KEY= " + key);
-				switch(key) {
-					case Keys.KEY_MODE:
-						mKeyTime++;
-						mLooptime = MAX_LOOP_TIME;
-						Message keymsg = handler.obtainMessage();
-						keymsg.what = DIALOG_UI_START;
-						handler.sendMessage(keymsg);
-						break;
-					case Keys.KEY_LIST:
-						Log.v(TAG, "CMD_SERVICE_KEY_EVENT KEY_LIST");
-						break;
-
-				}
-                
-            } else if(CMD == ICMessage.CMD_SERVICE_FROM_OTHER_NOTIFY){
-					Bundle mData = icMessage.getData();
-					int xx = mData.getInt(ICMessage.KEY_DATA_a);
-					String name = mData.getString(ICMessage.KEY_DATA_b);
-					Log.v(TAG, "CMD_SERVICE_FROM_OTHER_NOTIFY name= " + name);
-            	}
-        }else{
-			Log.e(TAG, "icMessage is null");
-		}
-			return null;
-        }
-    }
 	public void setDefaultLastVolume(){
 		
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
@@ -1089,261 +877,11 @@ public class PhoneStatusBarPolicy implements Callback {
         }
     }
 
-	private void RunTimer() {
-	  timer = new Timer();
-	  TimerTask task = new TimerTask() {
-		  @Override
-		  public void run() {
-			  Log.d(TAG, "run");
-			  mLooptime--;
-			  Message msg = handler.obtainMessage();
 
-			  if (mLooptime <= 0) {
-				  msg.what = SWITCH_SOURCE;
-			  }
-			  if((mLooptime%2)==0){
-				  msg.what = DIALOG_UI_SYNC;
-			  }
-			  handler.sendMessage(msg);
-		  }
-	  };
-	  timer.schedule(task,100,50);
-  }
-  private Handler handler = new Handler(){
-  	@Override 		  
-  	public void handleMessage(Message msg) {
-	  Log.d(TAG, "handleMessage what = " + msg.what);
-	  switch (msg.what) {
-		  case DIALOG_UI_SYNC:
-		   Log.d(TAG, "DIALOG_UI_SYNC mCurrentSource = " + mCurrentSource);
-		   	 int index = 0;
-			  switch (mCurrentSource){
-				  
-				  case ICMessage.SourceIndex_FMPlayer:
-					  index = 0;
-					  break;
-				  case ICMessage.SourceIndex_AudioPlayer:
-					  index = 1;
-					  break;
-				  case ICMessage.SourceIndex_VideoPlayer:
-					  index = 2;
-					  break;
-				  case ICMessage.SourceIndex_BTMusic:
-					  index = 3;
-				  	  break;
-			  }
-			  mCurrentValue = (index + mKeyTime)%4;
-			  Log.d(TAG, "DIALOG_UI_SYNC mKeyTime = " + mKeyTime);
-			  Log.d(TAG, "DIALOG_UI_SYNC mCurrentValue = " + mCurrentValue);
-
-			  switch (mCurrentValue){
-				  case 0:
-					  fmBtn.setBackground(mContext.getResources().getDrawable(R.drawable.radio_n));
-					  musicBtn.setBackground(mContext.getResources().getDrawable(R.drawable.music_d));
-					  videoBtn.setBackground(mContext.getResources().getDrawable(R.drawable.video_d));
-					  btBtn.setBackground(mContext.getResources().getDrawable(R.drawable.btmusic_d));
-					  break;
-				  case 1:
-					  fmBtn.setBackground(mContext.getResources().getDrawable(R.drawable.radio_d));
-					  musicBtn.setBackground(mContext.getResources().getDrawable(R.drawable.music_n));
-					  videoBtn.setBackground(mContext.getResources().getDrawable(R.drawable.video_d));
-					  btBtn.setBackground(mContext.getResources().getDrawable(R.drawable.btmusic_d));
-					  break;
-				  case 2:
-					  fmBtn.setBackground(mContext.getResources().getDrawable(R.drawable.radio_d));
-					  musicBtn.setBackground(mContext.getResources().getDrawable(R.drawable.music_d));
-					  videoBtn.setBackground(mContext.getResources().getDrawable(R.drawable.video_n));
-					  btBtn.setBackground(mContext.getResources().getDrawable(R.drawable.btmusic_d));
-					  break;
-				  case 3:
-					  fmBtn.setBackground(mContext.getResources().getDrawable(R.drawable.radio_d));
-					  musicBtn.setBackground(mContext.getResources().getDrawable(R.drawable.music_d));
-					  videoBtn.setBackground(mContext.getResources().getDrawable(R.drawable.video_d));
-					  btBtn.setBackground(mContext.getResources().getDrawable(R.drawable.btmusic_n));
-					  break;
-					 
-			  }
-			break;
-		  case SWITCH_SOURCE:
-			   Log.d(TAG, "SWITCH_SOURCE mCurrentValue = " + mCurrentValue);
-			  ICMessage message = ICMessage.obtain();
-			  switch (mCurrentValue){
-				  
-				  case 0:
-					  message.setCMD(ICMessage.CMD_REQUEST_START_APP)
-							  .setInteger(ICMessage.SourceIndex_FMPlayer);
-					  break;
-				  case 1:
-					  message.setCMD(ICMessage.CMD_REQUEST_START_APP)
-							  .setInteger(ICMessage.SourceIndex_AudioPlayer);
-					  break;
-				  case 2:
-					  message.setCMD(ICMessage.CMD_REQUEST_START_APP)
-							  .setInteger(ICMessage.SourceIndex_VideoPlayer);
-					  break;
-				  case 3:
-					  message.setCMD(ICMessage.CMD_REQUEST_START_APP)
-							  .setInteger(ICMessage.SourceIndex_BTMusic);
-					  break;
-			  }
-
-			  mManager.talkWithService(message);
-			  timer.cancel();
-			  mSourceTabDialog.dismiss();
-			  mDiglogIsShow = false;
-			  mKeyTime = 0;
-			  break;
-			case DIALOG_UI_START:
-				Log.d(TAG, "DIALOG_UI_START mDiglogIsShow = " + mDiglogIsShow);
-			 	if (!mDiglogIsShow){
-                    RunTimer();
-                    mSourceTabDialog.show();
-					
-                    mDiglogIsShow = true;
-                }
-			 	break;
-
-	  }
-	  super.handleMessage(msg);
-  }
-};
-
-
-	private Handler uiHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            Log.d(TAG, "uiHandler handleMessage msg.what=" + msg.what);
-			mCurrentSource = msg.what;
-			saveCurrentSource(mCurrentSource);
-			if ((btn_back != null) &&(btn_close_screen != null)&&(mRecentView != null)) {
-				if (ICMessage.SourceIndex_Launcher == msg.what){
-					//atc6068 test
-//					btn_back.setVisibility(View.GONE);
-//					btn_close_screen.setVisibility(View.VISIBLE);
-//					mRecentView.setVisibility(View.VISIBLE);
-					mIsLauncher = true;
-					//btn_back.setBackground(mContext.getResources().getDrawable(R.drawable.close_brightness));
-					Log.d(TAG, "back gone ");
-				}else if(ICMessage.SourceIndex_BTPhone == msg.what){
-					mIsLauncher = false;
-//					btn_back.setVisibility(View.GONE);
-//					btn_close_screen.setVisibility(View.GONE);
-//					mRecentView.setVisibility(View.GONE);
-					//when close screen,open screen
-					/*
-					ICMessage msg1 = ICMessage.obtain().setCMD(ICMessage.CMD_REGISTER_APP).setInteger(ICMessage.APP_SystemUI);
-					msg1 = ICMessage.obtain();
-					msg1.setCMD(ICMessage.CMD_REQUEST_CLOSE_SCREEN)
-							.getData()
-							.putBoolean(ICMessage.KEY_DATA_a, false);
-					ICMessage ret1 = mManager.talkWithService(msg1);
-					*/
-					
-				}else {
-//					btn_back.setVisibility(View.VISIBLE);
-//					mRecentView.setVisibility(View.VISIBLE);
-//					btn_close_screen.setVisibility(View.GONE);
-					mIsLauncher = false;
-					//btn_back.setBackground(mContext.getResources().getDrawable(R.drawable.statusbar_icon_home_exit_d));
-					Log.d(TAG, "back VISIBLE ");
-				}
-        	}
-
-			if (btn_home != null ) {
-				if (ICMessage.SourceIndex_BTPhone == msg.what){
-					btn_home.setVisibility(View.GONE);
-					Log.d(TAG, "home gone ");
-				}else{
-					btn_home.setVisibility(View.VISIBLE);
-					Log.d(TAG, "home VISIBLE ");
-				}
-        	}
-			if (mView != null ) {
-				if (ICMessage.SourceIndex_BackCar == msg.what){
-					mView.setVisibility(View.GONE);
-					Log.d(TAG, "Statusbar GONE ");
-				}else{
-					mView.setVisibility(View.VISIBLE);
-					Log.d(TAG, "Statusbar VISIBLE ");
-				}
-        	}
-			switch (msg.what){
-				case ICMessage.SourceIndex_Launcher:
-					Log.d(TAG,"SourceIndex_Launcher");
-					apptitle.setText(R.string.launcher);
-					break;
-				case ICMessage.SourceIndex_AudioPlayer:
-					Log.d(TAG,"SourceIndex_AudioPlayer");
-					apptitle.setText(R.string.audioplayer);
-					break;
-				case ICMessage.SourceIndex_VideoPlayer:
-					Log.d(TAG,"SourceIndex_VideoPlayer");
-					apptitle.setText(R.string.videoplayer);
-					break;
-				case ICMessage.SourceIndex_FMPlayer:
-					Log.d(TAG,"SourceIndex_FMPlayer");
-					apptitle.setText(R.string.fmplayer);
-					break;
-				case ICMessage.SourceIndex_BackCar:
-					Log.d(TAG,"SourceIndex_BackCar");
-					apptitle.setText(R.string.backcar);
-					break;
-				case ICMessage.SourceIndex_BTPhone:
-					Log.d(TAG,"SourceIndex_BTPhone");
-					apptitle.setText(R.string.btphone);
-					break;
-				case ICMessage.SourceIndex_BTMusic:
-					Log.d(TAG,"SourceIndex_BTMusic");
-					apptitle.setText(R.string.btmusic);
-					break;
-				case ICMessage.SourceIndex_BTPhoneBook:
-					Log.d(TAG,"SourceIndex_BTPhoneBook");
-					apptitle.setText(R.string.btphonebook);
-					break;
-				case ICMessage.SourceIndex_BTSetting:
-					Log.d(TAG,"SourceIndex_BTSetting");
-					apptitle.setText(R.string.btsetting);
-					break;
-				case ICMessage.SourceIndex_ATCSetting:
-					Log.d(TAG,"SourceIndex_ATCSetting");
-					apptitle.setText(R.string.setting);
-					break;
-					
-				case ICMessage.SourceIndex_SystemSettings:
-					Log.d(TAG,"SourceIndex_setting_system");
-					apptitle.setText(R.string.setting_system);
-					break;
-				case ICMessage.SourceIndex_WifiSettings:
-					Log.d(TAG,"SourceIndex_setting_wifi");
-					apptitle.setText(R.string.setting_wifi);
-					break;
-				case ICMessage.SourceIndex_DisplaySettings:
-					Log.d(TAG,"SourceIndex_setting_display");
-					apptitle.setText(R.string.setting_display);
-					break;
-				case ICMessage.SourceIndex_AudioSettingsUI:
-					Log.d(TAG,"SourceIndex_setting_audio");
-					apptitle.setText(R.string.setting_audio);
-					break;
-				case ICMessage.SourceIndex_CarSettings:
-					Log.d(TAG,"SourceIndex_setting_car");
-					apptitle.setText(R.string.setting_car);
-					break;
-					
-				case ICMessage.SourceIndex_Navigation:
-					Log.d(TAG,"SourceIndex_Navigation");
-					apptitle.setText(R.string.app3rd);
-					break;
-				case ICMessage.SourceIndex_3rd:
-					Log.d(TAG,"SourceIndex_3rd");
-					apptitle.setText(R.string.app3rd);
-				default :
-					Log.d(TAG,"SourceIndex is not match,default 3rd");
-					apptitle.setText(R.string.app3rd);
-					break;
-			}
-            super.handleMessage(msg);
-        }
-    };
-    /// M: [Multi-User] Register Alarm intent by user @}
+	public class SystemStates extends JacState{
+		@Override
+		public void OnBackCar(boolean bState) {
+			super.OnBackCar(bState);
+		}
+	}
 }

@@ -12,7 +12,6 @@
     <string name="meeting">會議</string>
     <string name="outdoor">戶外</string>
     <string name="wfd_sink_summary">可被搜索</string>
-    <string name="quick_settings_data_sim_notset">未設定數據SIM卡</string>
 
     <!-- M: Screen unpin for physical key. -->
     <string name="screen_pinning_description_physical_key">"在您取消固定前，它會保持在檢視狀態。輕觸並按住 [返回]，即可取消固定。"</string>
