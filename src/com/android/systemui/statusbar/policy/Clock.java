@@ -154,15 +154,16 @@ public class Clock extends TextView implements DemoMode {
     }
 
     private final CharSequence getSmallTime() {
-        Context context = getContext();
-        boolean is24 = DateFormat.is24HourFormat(context, ActivityManager.getCurrentUser());
-        LocaleData d = LocaleData.get(context.getResources().getConfiguration().locale);
+//        Context context = getContext();
+//        boolean is24 = DateFormat.is24HourFormat(context, ActivityManager.getCurrentUser());
+//        LocaleData d = LocaleData.get(context.getResources().getConfiguration().locale);
 
         final char MAGIC1 = '\uEF00';
         final char MAGIC2 = '\uEF01';
 
         SimpleDateFormat sdf;
-        String format = is24 ? d.timeFormat_Hm : d.timeFormat_hm;
+//        String format = is24 ? d.timeFormat_Hm : d.timeFormat_hm;
+        String format = "HH:mm";
         if (!format.equals(mClockFormatString)) {
             /*
              * Search for an unquoted "a" in the format string, so we can

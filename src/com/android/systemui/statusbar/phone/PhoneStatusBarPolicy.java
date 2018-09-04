@@ -900,9 +900,9 @@ public class PhoneStatusBarPolicy implements Callback {
 
         @Override
         public void OnStorage(StorageState state) {
-            super.OnStorage(state);
             FlyLog.d("usb state:"+state.isUsbMounted());
             updateUsb(state.isUsbMounted());
+            super.OnStorage(state);
         }
     }
 }
