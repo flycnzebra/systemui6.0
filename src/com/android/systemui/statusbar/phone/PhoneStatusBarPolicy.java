@@ -55,6 +55,7 @@ import android.widget.TextView;
 
 import com.android.internal.telephony.IccCardConstants;
 import com.android.internal.telephony.TelephonyIntents;
+import com.android.systemui.FlyLog;
 import com.android.systemui.R;
 import com.android.systemui.qs.tiles.DndTile;
 import com.android.systemui.statusbar.policy.BluetoothController;
@@ -232,6 +233,7 @@ public class PhoneStatusBarPolicy implements Callback {
         @SuppressLint("WrongConstant")
         JancarManager jancarManager = (JancarManager) context.getSystemService("jancar_manager");
         jancarManager.registerJacStateListener(jacState.asBinder());
+        FlyLog.d("jancarManager.registerJacStateListener jancarManager="+jancarManager);
 
         mBluetooth.addStateChangedCallback(this);
         mService = (StatusBarManager) context.getSystemService(Context.STATUS_BAR_SERVICE);
@@ -899,6 +901,7 @@ public class PhoneStatusBarPolicy implements Callback {
         @Override
         public void OnStorage(StorageState state) {
             super.OnStorage(state);
+            FlyLog.d("usb state:"+state.isUsbMounted());
             updateUsb(state.isUsbMounted());
         }
     }
