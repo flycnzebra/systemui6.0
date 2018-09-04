@@ -181,10 +181,10 @@ public class PhoneStatusBarPolicy implements Callback {
                 registerAlarmClockChanged(newUserId, true);
             } else if (intent.getAction().equals(Intent.ACTION_MEDIA_MOUNTED)
                     || intent.getAction().equals(Intent.ACTION_MEDIA_CHECKING)) {
-                updateUsb(true);
+//                updateUsb(true);
             } else if (intent.getAction().equals(Intent.ACTION_MEDIA_REMOVED)
                     || intent.getAction().equals(Intent.ACTION_MEDIA_EJECT)) {
-                updateUsb(false);
+//                updateUsb(false);
             } else if (intent.getAction().equals(ActivityThread.ACTION_ACTIVITY_STATE_CHANGED)) {
                 Bundle bundle = intent.getExtras();
                 if (bundle != null) {
@@ -224,8 +224,8 @@ public class PhoneStatusBarPolicy implements Callback {
         mBluetooth = bluetooth;
         mUIHandler = mHandler;
         mAudio = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-        jacState = new SystemStates();
 
+        jacState = new SystemStates();
         @SuppressLint("WrongConstant")
         JancarManager jancarManager = (JancarManager) context.getSystemService("jancar_manager");
         jancarManager.registerJacStateListener(jacState.asBinder());
@@ -901,5 +901,10 @@ public class PhoneStatusBarPolicy implements Callback {
             super.OnBackCar(bState);
         }
 
+        @Override
+        public void OnStorage(StorageState state) {
+            super.OnStorage(state);
+            updateUsb(state.isUsbMounted());
+        }
     }
 }
