@@ -71,7 +71,7 @@
         />
 
     <ViewStub
-        android:layout="@layout/notificaFtion_guts"
+        android:layout="@layout/notification_guts"
         android:id="@+id/notification_guts_stub"
         android:inflatedId="@+id/notification_guts"
         android:background="#00FFFF"
