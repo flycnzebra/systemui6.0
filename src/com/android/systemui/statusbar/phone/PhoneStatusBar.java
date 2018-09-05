@@ -54,6 +54,7 @@ import android.media.session.MediaController;
 import android.media.session.MediaSession;
 import android.media.session.MediaSessionManager;
 import android.media.session.PlaybackState;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -71,12 +72,12 @@ import android.provider.Settings;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.NotificationListenerService.RankingMap;
 import android.service.notification.StatusBarNotification;
-import android.telephony.SubscriptionManager;
 import android.util.ArraySet;
 import android.util.DisplayMetrics;
 import android.util.EventLog;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -97,9 +98,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
 import android.widget.TextView;
-import android.view.View.OnClickListener;
 
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.statusbar.NotificationVisibility;
@@ -108,7 +107,6 @@ import com.android.keyguard.KeyguardHostView.OnDismissAction;
 import com.android.keyguard.KeyguardUpdateMonitor;
 import com.android.keyguard.KeyguardUpdateMonitorCallback;
 import com.android.keyguard.ViewMediatorCallback;
-import com.android.systemui.BatteryMeterView;
 import com.android.systemui.DemoMode;
 import com.android.systemui.EventLogConstants;
 import com.android.systemui.EventLogTags;
@@ -120,6 +118,7 @@ import com.android.systemui.doze.DozeLog;
 import com.android.systemui.keyguard.KeyguardViewMediator;
 import com.android.systemui.qs.QSPanel;
 import com.android.systemui.recents.ScreenPinningRequest;
+import com.android.systemui.settings.CustomizeBrightnessDialog;
 import com.android.systemui.statusbar.ActivatableNotificationView;
 import com.android.systemui.statusbar.BackDropView;
 import com.android.systemui.statusbar.BaseStatusBar;
@@ -163,18 +162,15 @@ import com.android.systemui.statusbar.stack.NotificationStackScrollLayout;
 import com.android.systemui.statusbar.stack.NotificationStackScrollLayout.OnChildLocationsChangedListener;
 import com.android.systemui.statusbar.stack.StackViewState;
 import com.android.systemui.volume.VolumeComponent;
-
 import com.android.systemui.volume.VolumeDialogController;
-import com.mediatek.systemui.ext.IStatusBarPlmnPlugin;
+import com.mediatek.common.multiwindow.IMWSystemUiCallback;
+import com.mediatek.multiwindow.MultiWindowProxy;
 import com.mediatek.systemui.PluginManager;
-/// M: Modify statusbar style for GMO
-import com.mediatek.systemui.statusbar.util.FeatureOptions;
-/// M: Add extra tiles
+import com.mediatek.systemui.ext.IStatusBarPlmnPlugin;
+import com.mediatek.systemui.statusbar.defaultaccount.DefaultAccountStatus;
 import com.mediatek.systemui.statusbar.policy.AudioProfileControllerImpl;
 import com.mediatek.systemui.statusbar.policy.HotKnotControllerImpl;
 import com.mediatek.systemui.statusbar.util.SIMHelper;
-// /@}
-import com.mediatek.systemui.statusbar.defaultaccount.DefaultAccountStatus;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -186,10 +182,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
-import android.content.ComponentName;
-import android.media.AudioManager;
-import android.net.wifi.WifiManager;
-import com.android.systemui.settings.CustomizeBrightnessDialog;
 
 import static android.app.StatusBarManager.NAVIGATION_HINT_BACK_ALT;
 import static android.app.StatusBarManager.NAVIGATION_HINT_IME_SHOWN;
@@ -203,13 +195,11 @@ import static com.android.systemui.statusbar.phone.BarTransitions.MODE_SEMI_TRAN
 import static com.android.systemui.statusbar.phone.BarTransitions.MODE_TRANSLUCENT;
 import static com.android.systemui.statusbar.phone.BarTransitions.MODE_TRANSPARENT;
 import static com.android.systemui.statusbar.phone.BarTransitions.MODE_WARNING;
+
+/// M: Modify statusbar style for GMO
+/// M: Add extra tiles
+// /@}
 /// M: add for multi window @{
-import android.widget.FrameLayout;
-import android.view.ViewGroup;
-import android.view.Gravity;
-import com.android.systemui.recents.RecentsActivity;
-import com.mediatek.common.multiwindow.IMWSystemUiCallback;
-import com.mediatek.multiwindow.MultiWindowProxy;
 /// @}
 
 public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
@@ -2428,12 +2418,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 break;
             case R.id.qs_bt_btn:
                 Log.d(TAG, "atc6068 qs_bt_btn");
-				 ComponentName toActivityBt = new ComponentName("com.autochips.bluetooth", "com.autochips.bluetooth.BluetoothSetActivity");
-                 Intent intentBt = new Intent();
-				 intentBt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                 intentBt.setComponent(toActivityBt);
-                 mContext.startActivity(intentBt);
-				 makeExpandedInvisible();
+//				 ComponentName toActivityBt = new ComponentName("com.autochips.bluetooth", "com.autochips.bluetooth.BluetoothSetActivity");
+//                 Intent intentBt = new Intent();
+//				 intentBt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                 intentBt.setComponent(toActivityBt);
+//                 mContext.startActivity(intentBt);
+//				 makeExpandedInvisible();
                 break;
 
         }

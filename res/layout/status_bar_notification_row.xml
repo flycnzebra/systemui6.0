@@ -17,12 +17,9 @@
 
 <com.android.systemui.statusbar.ExpandableNotificationRow
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="994px"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="10px"
-    android:layout_marginRight="10px"
     android:focusable="true"
-    android:background="#135dac"
     android:clickable="true"
     >
 
@@ -50,7 +47,7 @@
         android:layout_height="0dp"
         android:gravity="end"
         android:layout_marginEnd="-80dp"
-        android:background="@null"
+        android:background="#0000FF"
         android:paddingEnd="8dp"
         android:paddingStart="8dp"
         />
@@ -61,6 +58,7 @@
         android:inflatedId="@+id/notification_children_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#F0000F"
         />
 
     <ViewStub
@@ -68,13 +66,15 @@
         android:id="@+id/more_button_stub"
         android:inflatedId="@+id/notification_more_button_container"
         android:layout_width="match_parent"
+        android:background="#F000FF"
         android:layout_height="@dimen/notification_bottom_decor_height"
         />
 
     <ViewStub
-        android:layout="@layout/notification_guts"
+        android:layout="@layout/notificaFtion_guts"
         android:id="@+id/notification_guts_stub"
         android:inflatedId="@+id/notification_guts"
+        android:background="#F000F"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

@@ -623,7 +623,7 @@
     <dimen name="volume_offset_top">271px</dimen>
 
     <dimen name="qs_setting_height">120px</dimen>
-    <dimen name="qs_icon_width">163px</dimen>
-    <dimen name="qs_icon_btn_height">115px</dimen>
+    <dimen name="qs_icon_width">164px</dimen>
+    <dimen name="qs_icon_btn_height">120px</dimen>
     <dimen name="qs_icon_height">120px</dimen>
 </resources>
