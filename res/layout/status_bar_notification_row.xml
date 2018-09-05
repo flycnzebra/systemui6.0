@@ -22,7 +22,7 @@
     android:layout_marginLeft="10px"
     android:layout_marginRight="10px"
     android:focusable="true"
-    android:background="@android:color/holo_blue_dark"
+    android:background="#135dac"
     android:clickable="true"
     >
 
