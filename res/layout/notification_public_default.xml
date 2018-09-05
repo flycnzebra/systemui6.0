@@ -18,12 +18,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/status_bar_latest_event_content"
     android:layout_width="match_parent"
-    android:layout_height="62px"
-    android:background="#F00"
+    android:layout_height="64dp"
     >
     <ImageView android:id="@+id/icon"
-        android:layout_width="62px"
-        android:layout_height="62px"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:scaleType="centerInside"
         />
     <DateTimeView android:id="@+id/time"
