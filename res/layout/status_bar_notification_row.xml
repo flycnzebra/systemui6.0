@@ -74,7 +74,7 @@
         android:layout="@layout/notificaFtion_guts"
         android:id="@+id/notification_guts_stub"
         android:inflatedId="@+id/notification_guts"
-        android:background="#F000F"
+        android:background="#00FFFF"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
