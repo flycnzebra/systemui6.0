@@ -18,7 +18,7 @@
 <com.android.systemui.statusbar.ExpandableNotificationRow
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="992px"
-    android:layout_height="62px"
+    android:layout_height="wrap_content"
     android:focusable="true"
     android:clickable="true"
     >
