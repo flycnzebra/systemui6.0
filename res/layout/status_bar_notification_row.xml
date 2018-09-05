@@ -17,9 +17,12 @@
 
 <com.android.systemui.statusbar.ExpandableNotificationRow
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="992px"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="10px"
+    android:layout_marginRight="10px"
     android:focusable="true"
+    android:background="@android:color/holo_blue_dark"
     android:clickable="true"
     >
 
