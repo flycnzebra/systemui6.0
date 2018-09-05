@@ -2421,12 +2421,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 break;
             case R.id.qs_bt_btn:
                 Log.d(TAG, "atc6068 qs_bt_btn");
-//				 ComponentName toActivityBt = new ComponentName("com.autochips.bluetooth", "com.autochips.bluetooth.BluetoothSetActivity");
-//                 Intent intentBt = new Intent();
-//				 intentBt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                 intentBt.setComponent(toActivityBt);
-//                 mContext.startActivity(intentBt);
-//				 makeExpandedInvisible();
+				 ComponentName toActivityBt = new ComponentName("com.jancar.bluetooth", "com.jancar.bluetooth.BluetoothSetting");
+                 Intent intentBt = new Intent();
+				 intentBt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                 intentBt.setComponent(toActivityBt);
+                 mContext.startActivity(intentBt);
+				 makeExpandedInvisible();
                 break;
 
         }
