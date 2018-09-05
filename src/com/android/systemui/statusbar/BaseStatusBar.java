@@ -1453,8 +1453,6 @@ public abstract class BaseStatusBar extends SystemUI implements
                     contentContainerPublic, false);
             publicViewLocal.setIsRootNamespace(true);
 
-            publicViewLocal.setBackgroundColor(0xFFFF0000);
-
             final TextView title = (TextView) publicViewLocal.findViewById(R.id.title);
             try {
                 title.setText(pmUser.getApplicationLabel(
@@ -1810,10 +1808,10 @@ public abstract class BaseStatusBar extends SystemUI implements
 
         // Construct the expanded view.
         NotificationData.Entry entry = new NotificationData.Entry(sbn, iconView);
-        if (!inflateViews(entry, mStackScroller)) {
-            handleNotificationError(sbn, "Couldn't expand RemoteViews for: " + sbn);
-            return null;
-        }
+//        if (!inflateViews(entry, mStackScroller)) {
+//            handleNotificationError(sbn, "Couldn't expand RemoteViews for: " + sbn);
+//            return null;
+//        }
         return entry;
     }
 
