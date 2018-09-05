@@ -2414,10 +2414,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 //				intentWifi.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                intentWifi.setComponent(toActivityWifi);
 //                mContext.startActivity(intentWifi);
-//				makeExpandedInvisible();
                 Intent intentWifi = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
                 intentWifi.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intentWifi);
+                makeExpandedInvisible();
                 break;
             case R.id.qs_bt_btn:
                 Log.d(TAG, "atc6068 qs_bt_btn");
