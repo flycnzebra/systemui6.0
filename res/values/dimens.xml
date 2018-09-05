@@ -85,7 +85,7 @@
     <dimen name="notification_mid_height">56px</dimen>
 
     <!-- Height of a the summary ("more card") notification on keyguard. -->
-    <dimen name="notification_summary_height">56px</dimen>
+    <dimen name="notification_summary_height">44dp</dimen>
 
     <!-- size at which Notification icons will be drawn in the status bar -->
     <dimen name="status_bar_icon_drawing_size">17dip</dimen>
@@ -97,7 +97,7 @@
     <dimen name="status_bar_icon_padding">0dp</dimen>
 
     <!-- half the distance between notifications in the panel -->
-    <dimen name="notification_divider_height">2dp</dimen>
+    <dimen name="notification_divider_height">0dp</dimen>
 
     <!-- The padding on the global screenshot background image -->
     <dimen name="global_screenshot_bg_padding">20dp</dimen>
@@ -291,7 +291,7 @@
     <dimen name="notification_padding_dimmed">0dp</dimen>
 
     <!-- The padding between the individual notification cards. -->
-    <dimen name="notification_padding">4dp</dimen>
+    <dimen name="notification_padding">1dp</dimen>
 
     <!-- The minimum amount of top overscroll to go to the quick settings. -->
     <dimen name="min_top_overscroll_to_qs">36dp</dimen>
