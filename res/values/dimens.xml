@@ -76,7 +76,7 @@
     <dimen name="status_bar_clock_size">20sp</dimen>
 
     <!-- Height of a small notification in the status bar -->
-    <dimen name="notification_min_height">64dp</dimen>
+    <dimen name="notification_min_height">62px</dimen>
 
     <!-- Height of a large notification in the status bar -->
     <dimen name="notification_max_height">256dp</dimen>
