@@ -76,16 +76,16 @@
     <dimen name="status_bar_clock_size">20sp</dimen>
 
     <!-- Height of a small notification in the status bar -->
-    <dimen name="notification_min_height">64dp</dimen>
+    <dimen name="notification_min_height">56px</dimen>
 
     <!-- Height of a large notification in the status bar -->
-    <dimen name="notification_max_height">256dp</dimen>
+    <dimen name="notification_max_height">56px</dimen>
 
     <!-- Height of a medium notification in the status bar -->
-    <dimen name="notification_mid_height">128dp</dimen>
+    <dimen name="notification_mid_height">56px</dimen>
 
     <!-- Height of a the summary ("more card") notification on keyguard. -->
-    <dimen name="notification_summary_height">44dp</dimen>
+    <dimen name="notification_summary_height">56px</dimen>
 
     <!-- size at which Notification icons will be drawn in the status bar -->
     <dimen name="status_bar_icon_drawing_size">17dip</dimen>
