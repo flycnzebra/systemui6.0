@@ -82,6 +82,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/wifi_rl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="1px"
@@ -101,6 +102,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/bt_rl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="1px"

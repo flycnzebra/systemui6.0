@@ -95,9 +95,9 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.PathInterpolator;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.internal.logging.MetricsLogger;
@@ -345,8 +345,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     Button mBrightnessBtn;
     Button mQsBtBtn;
     Button mQsWifiBtn;
-	RelativeLayout mRelbt;
-	RelativeLayout mRelwifi;
+	FrameLayout mRelbt;
+	FrameLayout mRelwifi;
     KeyguardStatusBarView mKeyguardStatusBar;
     View mKeyguardStatusView;
     KeyguardBottomAreaView mKeyguardBottomArea;
@@ -926,8 +926,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mBrightnessBtn = (Button)mHeader.findViewById(R.id.brightness_btn);
         mQsBtBtn = (Button)mHeader.findViewById(R.id.qs_bt_btn);
         mQsWifiBtn = (Button)mHeader.findViewById(R.id.qs_wifi_btn);
-		mRelbt = (RelativeLayout)mHeader.findViewById(R.id.bt_rl);
-		mRelwifi = (RelativeLayout)mHeader.findViewById(R.id.wifi_rl);
+		mRelbt = (FrameLayout)mHeader.findViewById(R.id.bt_rl);
+		mRelwifi = (FrameLayout)mHeader.findViewById(R.id.wifi_rl);
         mVolumeModeBtn = (Button)mHeader.findViewById(R.id.volume_mode_btn);
         mVolumeValueBtn = (Button)mHeader.findViewById(R.id.volume_value_btn);
         mCarsettingBtn.setOnClickListener(this);
