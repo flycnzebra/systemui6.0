@@ -24,19 +24,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="62px"
+        android:layout_height="@android:dimen/notification_large_icon_height"
         android:orientation="horizontal">
-        <FrameLayout
-            android:layout_width="62px"
-            android:layout_height="match_parent"
-            android:background="#FFF"/>
 
         <ImageView
             android:id="@android:id/icon"
-            android:layout_width="62px"
-            android:layout_height="62px"
-            android:background="#136DFF"
-            android:padding="1px"
+            android:layout_width="@android:dimen/notification_large_icon_width"
+            android:layout_height="@android:dimen/notification_large_icon_height"
+            android:layout_weight="0"
+            android:padding="8dp"
             android:scaleType="centerInside" />
 
         <LinearLayout
@@ -45,8 +41,8 @@
             android:layout_gravity="start|center_vertical"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingEnd="1px"
-            android:paddingStart="1px">
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp">
 
             <TextView
                 android:id="@+id/pkgname"

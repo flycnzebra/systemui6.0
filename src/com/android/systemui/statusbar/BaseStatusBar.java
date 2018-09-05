@@ -77,6 +77,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
 import android.view.WindowManager;
 import android.view.WindowManagerGlobal;
@@ -94,6 +95,7 @@ import com.android.internal.statusbar.StatusBarIcon;
 import com.android.internal.statusbar.StatusBarIconList;
 import com.android.internal.util.NotificationColorUtil;
 import com.android.internal.widget.LockPatternUtils;
+import com.android.keyguard.KeyguardSecurityModel;
 import com.android.keyguard.KeyguardUpdateMonitor;
 import com.android.systemui.R;
 import com.android.systemui.RecentsComponent;
@@ -104,29 +106,23 @@ import com.android.systemui.recents.Recents;
 import com.android.systemui.statusbar.NotificationData.Entry;
 import com.android.systemui.statusbar.phone.NavigationBarView;
 import com.android.systemui.statusbar.phone.NotificationGroupManager;
+import com.android.systemui.statusbar.phone.PhoneStatusBar;
 import com.android.systemui.statusbar.phone.StatusBarKeyguardViewManager;
 import com.android.systemui.statusbar.policy.HeadsUpManager;
 import com.android.systemui.statusbar.policy.PreviewInflater;
 import com.android.systemui.statusbar.stack.NotificationStackScrollLayout;
+import com.mediatek.multiwindow.MultiWindowProxy;
+import com.mediatek.systemui.floatpanel.FloatPanelView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/// M: add for multi window @{
-import android.view.ViewGroup.LayoutParams;
-import android.view.ViewStub;
-import android.widget.LinearLayout;
-import com.android.systemui.statusbar.phone.PhoneStatusBar;
-import com.mediatek.systemui.floatpanel.FloatPanelView;
-import android.os.ServiceManager;
-import android.os.storage.IMountService;
-import android.os.storage.StorageManager;
-import com.android.keyguard.KeyguardSecurityModel;
-import static com.android.keyguard.KeyguardSecurityModel.SecurityMode;
-import com.mediatek.multiwindow.MultiWindowProxy;
-/// @}
 import static com.android.keyguard.KeyguardHostView.OnDismissAction;
+import static com.android.keyguard.KeyguardSecurityModel.SecurityMode;
+
+/// M: add for multi window @{
+/// @}
 
 public abstract class BaseStatusBar extends SystemUI implements
         CommandQueue.Callbacks, ActivatableNotificationView.OnActivatedListener,
@@ -1456,6 +1452,8 @@ public abstract class BaseStatusBar extends SystemUI implements
                     R.layout.notification_public_default,
                     contentContainerPublic, false);
             publicViewLocal.setIsRootNamespace(true);
+
+            publicViewLocal.setBackgroundColor(0xFFFF0000);
 
             final TextView title = (TextView) publicViewLocal.findViewById(R.id.title);
             try {
