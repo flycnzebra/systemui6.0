@@ -2363,7 +2363,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         switch (v.getId()){
             case R.id.carsetting_btn:
                 Log.d(TAG, "atc6068 carsetting_btn");
-				ComponentName toActivityCarsetting = new ComponentName("com.autochips.settings", "com.autochips.settings.car.CarSettings");
+				ComponentName toActivityCarsetting = new ComponentName("com.android.settings", "com.ATCSetting.mainui.MainActivity");
                 Intent intentCarsetting = new Intent();
 				intentCarsetting.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intentCarsetting.setComponent(toActivityCarsetting);
@@ -2372,7 +2372,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 break;
             case R.id.volume_mode_btn:
                 Log.d(TAG, "atc6068 volume_mode_btn");
-				ComponentName toActivityAudio = new ComponentName("com.autochips.settings", "com.autochips.settings.audio.AudioSettingsUI");
+				ComponentName toActivityAudio = new ComponentName("com.jancar.audio", "com.jancar.audio.MainActivity");
                 Intent intentAduio = new Intent();
 				intentAduio.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intentAduio.setComponent(toActivityAudio);
@@ -2409,12 +2409,15 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 break;
             case R.id.qs_wifi_btn:
                 Log.d(TAG, "atc6068 qs_wifi_btn");
-				ComponentName toActivityWifi = new ComponentName("com.autochips.settings", "com.autochips.settings.wifi.WifiSettings");
-                Intent intentWifi = new Intent();
-				intentWifi.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intentWifi.setComponent(toActivityWifi);
+//				ComponentName toActivityWifi = new ComponentName("com.autochips.settings", "com.autochips.settings.wifi.WifiSettings");
+//                Intent intentWifi = new Intent();
+//				intentWifi.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intentWifi.setComponent(toActivityWifi);
+//                mContext.startActivity(intentWifi);
+//				makeExpandedInvisible();
+                Intent intentWifi = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
+                intentWifi.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intentWifi);
-				makeExpandedInvisible();
                 break;
             case R.id.qs_bt_btn:
                 Log.d(TAG, "atc6068 qs_bt_btn");
