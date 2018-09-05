@@ -199,13 +199,26 @@ public class PhoneStatusBarPolicy implements Callback {
                         String strpackage = bundle.getString("package");
                         String strclass = bundle.getString("class");
                         String strstate = bundle.getString("state");
-                        FlyLog.d("ACTION_ACTIVITY_STATE_CHANGED bundle=%s", bundle.toString());
+                        FlyLog.d("Activity change intent=%s", intent.toUri(0));
                         if (strstate.equals("foreground")) {
+                            /**
+                             * 隐藏返回图标
+                             */
+
+                            if("com.jancar.launcher".equals(strpackage)){
+                                btn_back.setVisibility(View.GONE);
+                            }else{
+                                btn_back.setVisibility(View.VISIBLE);
+                            }
+
+                            /**
+                             * 显示标题
+                             */
                             switch (strpackage) {
                                 case "com.android.systemui":
                                     break;
                                 case "com.jancar.launcher":
-                                case "com.android.launcher":
+                                case "com.android.launcher3":
                                     apptitle.setText(context.getString(R.string.launcher));
                                     break;
                                 default:
