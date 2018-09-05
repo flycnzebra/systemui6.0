@@ -16,13 +16,11 @@
 
 package com.android.systemui.statusbar.policy;
 
-import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.UserHandle;
-import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextClock;
@@ -87,8 +85,7 @@ public class SplitClockView extends LinearLayout {
     }
 
     private void updatePatterns() {
-        String formatString = DateFormat.getTimeFormatString(getContext(),
-                ActivityManager.getCurrentUser());
+        String formatString = "HH:mm";
         int index = getAmPmPartEndIndex(formatString);
         String timeString;
         String amPmString;
@@ -99,11 +96,11 @@ public class SplitClockView extends LinearLayout {
             timeString = formatString.substring(0, index);
             amPmString = formatString.substring(index);
         }
-        mTimeView.setFormat12Hour(timeString);
+//        mTimeView.setFormat12Hour(timeString);
         mTimeView.setFormat24Hour(timeString);
-        mTimeView.setContentDescriptionFormat12Hour(formatString);
+//        mTimeView.setContentDescriptionFormat12Hour(formatString);
         mTimeView.setContentDescriptionFormat24Hour(formatString);
-        mAmPmView.setFormat12Hour(amPmString);
+//        mAmPmView.setFormat12Hour(amPmString);
         mAmPmView.setFormat24Hour(amPmString);
     }
 
