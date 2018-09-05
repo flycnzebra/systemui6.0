@@ -1448,8 +1448,7 @@ public abstract class BaseStatusBar extends SystemUI implements
 
         if (publicViewLocal == null) {
             // Add a basic notification template
-            publicViewLocal = LayoutInflater.from(mContext).inflate(
-                    R.layout.notification_public_default,
+            publicViewLocal = LayoutInflater.from(mContext).inflate(R.layout.notification_public_default,
                     contentContainerPublic, false);
             publicViewLocal.setIsRootNamespace(true);
 
