@@ -1405,18 +1405,18 @@ public abstract class BaseStatusBar extends SystemUI implements
             return false;
         }
 
-//        if (contentViewLocal != null) {
-//            contentViewLocal.setIsRootNamespace(true);
-//            contentContainer.setContractedChild(contentViewLocal);
-//        }
-//        if (bigContentViewLocal != null) {
-//            bigContentViewLocal.setIsRootNamespace(true);
-//            contentContainer.setExpandedChild(bigContentViewLocal);
-//        }
-//        if (headsUpContentViewLocal != null) {
-//            headsUpContentViewLocal.setIsRootNamespace(true);
-//            contentContainer.setHeadsUpChild(headsUpContentViewLocal);
-//        }
+        if (contentViewLocal != null) {
+            contentViewLocal.setIsRootNamespace(true);
+            contentContainer.setContractedChild(contentViewLocal);
+        }
+        if (bigContentViewLocal != null) {
+            bigContentViewLocal.setIsRootNamespace(true);
+            contentContainer.setExpandedChild(bigContentViewLocal);
+        }
+        if (headsUpContentViewLocal != null) {
+            headsUpContentViewLocal.setIsRootNamespace(true);
+            contentContainer.setHeadsUpChild(headsUpContentViewLocal);
+        }
 
         // now the public version
         View publicViewLocal = null;
