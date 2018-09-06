@@ -16,7 +16,6 @@
 
 package com.android.systemui.statusbar.phone;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManagerNative;
 import android.app.ActivityThread;
 import android.app.AlarmManager;
@@ -269,7 +268,6 @@ public class PhoneStatusBarPolicy implements Callback {
         mAudio = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
 
         jacState = new SystemStates();
-        @SuppressLint("WrongConstant")
         jancarManager = (JancarManager) context.getSystemService("jancar_manager");
         jancarManager.registerJacStateListener(jacState.asBinder());
         FlyLog.d("jancarManager.registerJacStateListener jancarManager=" + jancarManager);
