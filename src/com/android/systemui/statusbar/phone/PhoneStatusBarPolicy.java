@@ -205,9 +205,9 @@ public class PhoneStatusBarPolicy implements Callback {
                              * 隐藏返回图标
                              */
 
-                            if("com.jancar.launcher".equals(strpackage)){
+                            if ("com.jancar.launcher".equals(strpackage)) {
                                 btn_back.setVisibility(View.GONE);
-                            }else{
+                            } else {
                                 btn_back.setVisibility(View.VISIBLE);
                             }
 
@@ -225,7 +225,7 @@ public class PhoneStatusBarPolicy implements Callback {
                                     List<LauncherActivityInfo> list = PkUtils.getLauncgerActivitys(strpackage, context);
                                     for (LauncherActivityInfo info : list) {
                                         if (strclass.equals(info.getComponentName().getClassName())) {
-                                            FlyLog.d("activity info =%s",info.getName());
+                                            FlyLog.d("activity info =%s", info.getName());
                                             apptitle.setText(info.getLabel());
                                             break;
                                         }
@@ -362,28 +362,7 @@ public class PhoneStatusBarPolicy implements Callback {
         btn_close_screen.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (DEBUG) Log.v(TAG, "btn_close_screen: onClick");
-//				if(mIsLauncher ){
-//                if (!mIsCloseDisplay) {
-//                    if (DEBUG) Log.v(TAG, "close display");
-//                    mIsCloseDisplay = true;
-//                    ComponentName toActivityFullScreen = new ComponentName("com.android.systemui", "com.android.systemui.settings.FullScreen");
-//                    Intent intentFullScreen = new Intent();
-//                    intentFullScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    intentFullScreen.setComponent(toActivityFullScreen);
-//                    mContext.startActivity(intentFullScreen);
-                    jancarManager.requestDisplay(false);
-                    //close screen
-//                } else {
-//                    //open screen
-//
-//                }
-//
-//
-////				}
-//                if (mIsCloseDisplay) {
-//                    mIsCloseDisplay = false;
-//                }
-
+                jancarManager.requestDisplay(false);
             }
         });
         btn_home = (ImageView) mView.findViewById(R.id.home);
