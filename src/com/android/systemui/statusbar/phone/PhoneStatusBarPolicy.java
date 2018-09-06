@@ -24,7 +24,6 @@ import android.app.AlarmManager.AlarmClockInfo;
 import android.app.IUserSwitchObserver;
 import android.app.StatusBarManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -56,8 +55,9 @@ import android.widget.TextView;
 
 import com.android.internal.telephony.IccCardConstants;
 import com.android.internal.telephony.TelephonyIntents;
-import com.android.systemui.jancar.FlyLog;
 import com.android.systemui.R;
+import com.android.systemui.jancar.FlyLog;
+import com.android.systemui.jancar.PkUtils;
 import com.android.systemui.qs.tiles.DndTile;
 import com.android.systemui.statusbar.policy.BluetoothController;
 import com.android.systemui.statusbar.policy.BluetoothController.Callback;
@@ -66,7 +66,6 @@ import com.android.systemui.statusbar.policy.CastController.CastDevice;
 import com.android.systemui.statusbar.policy.HotspotController;
 import com.android.systemui.statusbar.policy.KeyButtonView;
 import com.android.systemui.statusbar.policy.UserInfoController;
-import com.android.systemui.jancar.PkUtils;
 import com.jancar.JancarManager;
 import com.jancar.state.JacState;
 
@@ -160,6 +159,8 @@ public class PhoneStatusBarPolicy implements Callback {
     //CustomDialog customDialog;
     private final CustomSourceTabDialog mSourceTabDialog;
     public static int mCurrentApp = 0;
+
+    private JancarManager jancarManager;
 
     private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
@@ -257,7 +258,7 @@ public class PhoneStatusBarPolicy implements Callback {
         }
     };
 
-    public PhoneStatusBarPolicy(View view, Context context, CastController cast, HotspotController hotspot,
+    public PhoneStatusBarPolicy(View view, final Context context, CastController cast, HotspotController hotspot,
                                 UserInfoController userInfoController, BluetoothController bluetooth, Handler mHandler) {
         mView = view;
         mContext = context;
@@ -269,7 +270,7 @@ public class PhoneStatusBarPolicy implements Callback {
 
         jacState = new SystemStates();
         @SuppressLint("WrongConstant")
-        JancarManager jancarManager = (JancarManager) context.getSystemService("jancar_manager");
+        jancarManager = (JancarManager) context.getSystemService("jancar_manager");
         jancarManager.registerJacStateListener(jacState.asBinder());
         FlyLog.d("jancarManager.registerJacStateListener jancarManager=" + jancarManager);
 
@@ -365,13 +366,14 @@ public class PhoneStatusBarPolicy implements Callback {
                 if (DEBUG) Log.v(TAG, "btn_close_screen: onClick");
 //				if(mIsLauncher ){
                 if (!mIsCloseDisplay) {
-                    if (DEBUG) Log.v(TAG, "close display");
-                    mIsCloseDisplay = true;
-                    ComponentName toActivityFullScreen = new ComponentName("com.android.systemui", "com.android.systemui.settings.FullScreen");
-                    Intent intentFullScreen = new Intent();
-                    intentFullScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intentFullScreen.setComponent(toActivityFullScreen);
-                    mContext.startActivity(intentFullScreen);
+//                    if (DEBUG) Log.v(TAG, "close display");
+//                    mIsCloseDisplay = true;
+//                    ComponentName toActivityFullScreen = new ComponentName("com.android.systemui", "com.android.systemui.settings.FullScreen");
+//                    Intent intentFullScreen = new Intent();
+//                    intentFullScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    intentFullScreen.setComponent(toActivityFullScreen);
+//                    mContext.startActivity(intentFullScreen);
+                    jancarManager.requestDisplay(false);
                     //close screen
                 } else {
                     //open screen
