@@ -363,7 +363,7 @@ public class PhoneStatusBarPolicy implements Callback {
             public void onClick(View v) {
                 if (DEBUG) Log.v(TAG, "btn_close_screen: onClick");
 //				if(mIsLauncher ){
-                if (!mIsCloseDisplay) {
+//                if (!mIsCloseDisplay) {
 //                    if (DEBUG) Log.v(TAG, "close display");
 //                    mIsCloseDisplay = true;
 //                    ComponentName toActivityFullScreen = new ComponentName("com.android.systemui", "com.android.systemui.settings.FullScreen");
@@ -373,16 +373,16 @@ public class PhoneStatusBarPolicy implements Callback {
 //                    mContext.startActivity(intentFullScreen);
                     jancarManager.requestDisplay(false);
                     //close screen
-                } else {
-                    //open screen
-
-                }
-
-
-//				}
-                if (mIsCloseDisplay) {
-                    mIsCloseDisplay = false;
-                }
+//                } else {
+//                    //open screen
+//
+//                }
+//
+//
+////				}
+//                if (mIsCloseDisplay) {
+//                    mIsCloseDisplay = false;
+//                }
 
             }
         });
