@@ -20,6 +20,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center_horizontal|bottom"
             android:text="@string/qs_carsetting"
+            android:textSize="18px"
             android:textAllCaps="false" />
 
     </FrameLayout>
@@ -39,6 +40,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center_horizontal|bottom"
             android:text="@string/qs_volume_mode"
+            android:textSize="18px"
             android:textAllCaps="false" />
 
     </FrameLayout>
@@ -58,6 +60,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center_horizontal|bottom"
             android:text="@string/qs_volume_value"
+            android:textSize="18px"
             android:textAllCaps="false" />
 
     </FrameLayout>
@@ -77,6 +80,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center_horizontal|bottom"
             android:text="@string/qs_brightness"
+            android:textSize="18px"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite" />
     </FrameLayout>
@@ -97,6 +101,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center_horizontal|bottom"
             android:text="@string/qs_wifi"
+            android:textSize="18px"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite" />
     </FrameLayout>
@@ -117,7 +122,8 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center_horizontal|bottom"
             android:text="@string/qs_bt"
+            android:textSize="18px"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite" />
-    </FrameLayout>ut>
+    </FrameLayout>
 </LinearLayout>
