@@ -38,12 +38,12 @@ import android.widget.TextView;
 import com.android.internal.statusbar.StatusBarIcon;
 import com.android.internal.util.NotificationColorUtil;
 import com.android.systemui.BatteryMeterView;
-import com.android.systemui.statusbar.policy.KeyButtonView;
 import com.android.systemui.FontSizeUtils;
 import com.android.systemui.R;
 import com.android.systemui.statusbar.NotificationData;
 import com.android.systemui.statusbar.SignalClusterView;
 import com.android.systemui.statusbar.StatusBarIconView;
+import com.android.systemui.statusbar.policy.KeyButtonView;
 import com.android.systemui.tuner.TunerService;
 import com.android.systemui.tuner.TunerService.Tunable;
 
@@ -176,7 +176,7 @@ public class StatusBarIconController implements Tunable {
     public void addSystemIcon(String slot, int index, int viewIndex, StatusBarIcon icon) {
         boolean blocked = mIconBlacklist.contains(slot);
         StatusBarIconView view = new StatusBarIconView(mContext, slot, null, blocked);
-		view.setScaleType(ImageView.ScaleType.CENTER);
+		view.setScaleType(ImageView.ScaleType.FIT_XY);
         view.set(icon);
         mStatusIcons.addView(view, viewIndex, new LinearLayout.LayoutParams(40, mIconSize));
 //		mStatusIcons.addView(view, viewIndex, new LinearLayout.LayoutParams(
