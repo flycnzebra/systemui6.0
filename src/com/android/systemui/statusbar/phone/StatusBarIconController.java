@@ -178,7 +178,7 @@ public class StatusBarIconController implements Tunable {
         StatusBarIconView view = new StatusBarIconView(mContext, slot, null, blocked);
 		view.setScaleType(ImageView.ScaleType.FIT_XY);
         view.set(icon);
-        mStatusIcons.addView(view, viewIndex, new LinearLayout.LayoutParams(40, mIconSize));
+        mStatusIcons.addView(view, viewIndex, new LinearLayout.LayoutParams(40, 40));
 //		mStatusIcons.addView(view, viewIndex, new LinearLayout.LayoutParams(
 //                mIconSize-5, mIconSize));
         view = new StatusBarIconView(mContext, slot, null, blocked);
