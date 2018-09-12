@@ -73,7 +73,7 @@
     <dimen name="status_bar_icon_size">@*android:dimen/status_bar_icon_size</dimen>
 
     <!-- The font size for the clock -->
-    <dimen name="status_bar_clock_size">20sp</dimen>
+    <dimen name="status_bar_clock_size">28px</dimen>
 
     <!-- Height of a small notification in the status bar -->
     <dimen name="notification_min_height">64dp</dimen>
@@ -593,8 +593,8 @@
     <dimen name="private_status_bar_home_height">59px</dimen>
     <dimen name="private_status_bar_home_width">59px</dimen>
 
-    <dimen name="private_status_bar_statusicons_height">40px</dimen>
-    <dimen name="private_status_bar_statusicons_width">40px</dimen>
+    <dimen name="private_status_bar_statusicons_height">59px</dimen>
+    <dimen name="private_status_bar_statusicons_width">59px</dimen>
     
     <dimen name="private_status_bar_icon_size">40px</dimen>
 
