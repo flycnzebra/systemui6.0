@@ -38,6 +38,7 @@
         android:id="@+id/ethernet_combo"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:background="#2F00FF00"
         >
         <com.android.systemui.statusbar.AlphaOptimizedImageView
             android:theme="@style/DualToneLightTheme"
