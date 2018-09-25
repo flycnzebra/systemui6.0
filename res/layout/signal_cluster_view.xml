@@ -42,15 +42,17 @@
         <com.android.systemui.statusbar.AlphaOptimizedImageView
             android:theme="@style/DualToneLightTheme"
             android:id="@+id/ethernet"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_height="40px"
+            android:layout_width="40px"
+            android:scaleType="centerCrop"
             systemui:hasOverlappingRendering="false"
             />
         <com.android.systemui.statusbar.AlphaOptimizedImageView
             android:theme="@style/DualToneDarkTheme"
             android:id="@+id/ethernet_dark"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_height="40px"
+            android:layout_width="40px"
+            android:scaleType="centerCrop"
             android:alpha="0.0"
             systemui:hasOverlappingRendering="false"
             />
@@ -63,7 +65,7 @@
         <com.android.systemui.statusbar.AlphaOptimizedImageView
             android:theme="@style/DualToneLightTheme"
             android:id="@+id/wifi_signal"
-            android:layout_height="wrap_content"
+            android:layout_height="40px"
             android:layout_width="40px"
 			android:scaleType="centerCrop"
             systemui:hasOverlappingRendering="false"
@@ -71,9 +73,9 @@
         <com.android.systemui.statusbar.AlphaOptimizedImageView
             android:theme="@style/DualToneDarkTheme"
             android:id="@+id/wifi_signal_dark"
-            android:layout_height="wrap_content"
+            android:layout_height="40px"
             android:layout_width="40px"
-			android:scaleType="centerCrop"
+            android:scaleType="centerCrop"
             android:alpha="0.0"
             systemui:hasOverlappingRendering="false"
             />

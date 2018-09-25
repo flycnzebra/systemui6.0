@@ -586,7 +586,7 @@ public class PhoneStatusBarPolicy implements Callback {
     }
 
     private final void updateBluetooth() {
-        int iconId = R.drawable.statusbar_icon_bt_1;
+        int iconId = R.drawable.statusbar_icon_bt_noconnect;
         Message msg1 = mUIHandler.obtainMessage();
         String contentDescription =
                 mContext.getString(R.string.accessibility_quick_settings_bluetooth_on);
@@ -629,33 +629,35 @@ public class PhoneStatusBarPolicy implements Callback {
         if (mBluetooth != null) {
             bluetoothEnabled = mBluetooth.isBluetoothEnabled();
             if (mBluetooth.isBluetoothConnected()) {
-                iconId = R.drawable.stat_sys_data_bluetooth_connected;
+                iconId = R.drawable.statusbar_icon_bt_connect;
+            }else{
+                iconId = R.drawable.statusbar_icon_bt_noconnect;
             }
         }
-        if (bluetoothEnabled == true) {
-            switch (signal) {
-                case 0:
-                    iconId = R.drawable.statusbar_icon_signal_0;
-                    break;
-                case 1:
-                    iconId = R.drawable.statusbar_icon_signal_1;
-                    break;
-                case 2:
-                    iconId = R.drawable.statusbar_icon_signal_2;
-                    break;
-                case 3:
-                case 4:
-                    iconId = R.drawable.statusbar_icon_signal_3;
-                    break;
-                case 5:
-                    iconId = R.drawable.statusbar_icon_signal_4;
-                    break;
-            }
+//        if (bluetoothEnabled == true) {
+//            switch (signal) {
+//                case 0:
+//                    iconId = R.drawable.statusbar_icon_signal_0;
+//                    break;
+//                case 1:
+//                    iconId = R.drawable.statusbar_icon_signal_1;
+//                    break;
+//                case 2:
+//                    iconId = R.drawable.statusbar_icon_signal_2;
+//                    break;
+//                case 3:
+//                case 4:
+//                    iconId = R.drawable.statusbar_icon_signal_3;
+//                    break;
+//                case 5:
+//                    iconId = R.drawable.statusbar_icon_signal_4;
+//                    break;
+//            }
+//
+//        }
 
-        }
-
-        //mService.setIcon(SLOT_BT_SIGNAL, iconId, 0, contentDescription);
-        //mService.setIconVisibility(SLOT_BT_SIGNAL, bluetoothEnabled);
+        mService.setIcon(SLOT_BT_SIGNAL, iconId, 0, contentDescription);
+        mService.setIconVisibility(SLOT_BT_SIGNAL, bluetoothEnabled);
 
     }
 
