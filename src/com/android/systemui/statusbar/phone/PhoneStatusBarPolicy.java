@@ -568,7 +568,7 @@ public class PhoneStatusBarPolicy implements Callback {
     @Override
     public void onBluetoothDevicesChanged() {
         FlyLog.d("onBluetoothDevicesChanged");
-        updateBluetooth();
+//        updateBluetooth();
     }
 
     @Override
@@ -580,13 +580,13 @@ public class PhoneStatusBarPolicy implements Callback {
     @Override
     public void onBluetoothSignalChange(int signal) {
         FlyLog.d("onBluetoothSignalChange signal=%d",signal);
-        updateBluetoothSignal(signal);
+//        updateBluetoothSignal(signal);
     }
 
     @Override
     public void onBluetoothBatteryChange(int battery) {
         FlyLog.d("onBluetoothBatteryChange battery=%d",battery);
-        updateBluetoothBattery(battery);
+//        updateBluetoothBattery(battery);
     }
 
     private final void updateBluetooth() {
