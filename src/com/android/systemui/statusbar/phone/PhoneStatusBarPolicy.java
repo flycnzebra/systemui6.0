@@ -598,7 +598,7 @@ public class PhoneStatusBarPolicy implements Callback {
                 msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BT;
                 msg1.arg1 = 1;
                 mUIHandler.sendMessage(msg1);
-                iconId = R.drawable.statusbar_icon_bt_connected;
+                iconId = R.drawable.statusbar_icon_bt_connect;
                 contentDescription = mContext.getString(R.string.accessibility_bluetooth_connected);
             } else {
                 msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BT;
