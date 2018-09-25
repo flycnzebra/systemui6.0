@@ -586,7 +586,7 @@ public class PhoneStatusBarPolicy implements Callback {
     }
 
     private final void updateBluetooth() {
-        int iconId = R.drawable.statusbar_icon_bt_noconnect;
+        int iconId = R.drawable.stat_sys_data_bluetooth_noconnect;
         Message msg1 = mUIHandler.obtainMessage();
         String contentDescription =
                 mContext.getString(R.string.accessibility_quick_settings_bluetooth_on);
@@ -594,11 +594,11 @@ public class PhoneStatusBarPolicy implements Callback {
         if (mBluetooth != null) {
             bluetoothEnabled = mBluetooth.isBluetoothEnabled();
             if (mBluetooth.isBluetoothConnected()) {
-                //mView.updateQsbt(true);
+//                mView.updateQsbt(true);
                 msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BT;
                 msg1.arg1 = 1;
                 mUIHandler.sendMessage(msg1);
-                iconId = R.drawable.statusbar_icon_bt_connect;
+                iconId = R.drawable.stat_sys_data_bluetooth_connected;
                 contentDescription = mContext.getString(R.string.accessibility_bluetooth_connected);
             } else {
                 msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BT;
@@ -629,9 +629,9 @@ public class PhoneStatusBarPolicy implements Callback {
         if (mBluetooth != null) {
             bluetoothEnabled = mBluetooth.isBluetoothEnabled();
             if (mBluetooth.isBluetoothConnected()) {
-                iconId = R.drawable.statusbar_icon_bt_connect;
+                iconId = R.drawable.stat_sys_data_bluetooth_connected;
             }else{
-                iconId = R.drawable.statusbar_icon_bt_noconnect;
+                iconId = R.drawable.stat_sys_data_bluetooth_noconnect;
             }
         }
 //        if (bluetoothEnabled == true) {
@@ -668,7 +668,7 @@ public class PhoneStatusBarPolicy implements Callback {
         if (mBluetooth != null) {
             bluetoothEnabled = mBluetooth.isBluetoothEnabled();
             if (mBluetooth.isBluetoothConnected()) {
-                iconId = R.drawable.stat_sys_data_bluetooth_connected;
+                iconId = R.drawable.stat_sys_data_bluetooth_noconnect;
             }
         }
         if (bluetoothEnabled == true) {

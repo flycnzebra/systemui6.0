@@ -74,8 +74,8 @@ public class DemoStatusIcons extends LinearLayout implements DemoMode {
             }
             String bt = args.getString("bluetooth");
             if (bt != null) {
-                int iconId = bt.equals("disconnected") ? R.drawable.stat_sys_data_bluetooth
-                        : bt.equals("connected") ? R.drawable.stat_sys_data_bluetooth_connected
+                int iconId = bt.equals("disconnected") ? R.drawable.stat_sys_data_bluetooth_connected
+                        : bt.equals("connected") ? R.drawable.stat_sys_data_bluetooth_noconnect
                         : 0;
                 updateSlot("bluetooth", null, iconId);
             }
