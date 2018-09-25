@@ -623,17 +623,18 @@ public class PhoneStatusBarPolicy implements Callback {
     }
 
     private final void updateBluetoothSignal(int signal) {
-        int iconId = R.drawable.statusbar_icon_signal_4;
-        String contentDescription = "";
-        boolean bluetoothEnabled = false;
-        if (mBluetooth != null) {
-            bluetoothEnabled = mBluetooth.isBluetoothEnabled();
-            if (mBluetooth.isBluetoothConnected()) {
-                iconId = R.drawable.stat_sys_data_bluetooth_connected;
-            }else{
-                iconId = R.drawable.stat_sys_data_bluetooth_noconnect;
-            }
-        }
+        FlyLog.d("updateBluetoothSignal signal=%d",signal);
+//        int iconId = R.drawable.statusbar_icon_signal_4;
+//        String contentDescription = "";
+//        boolean bluetoothEnabled = false;
+//        if (mBluetooth != null) {
+//            bluetoothEnabled = mBluetooth.isBluetoothEnabled();
+//            if (mBluetooth.isBluetoothConnected()) {
+//                iconId = R.drawable.stat_sys_data_bluetooth_connected;
+//            }else{
+//                iconId = R.drawable.stat_sys_data_bluetooth_noconnect;
+//            }
+//        }
 //        if (bluetoothEnabled == true) {
 //            switch (signal) {
 //                case 0:
@@ -656,8 +657,8 @@ public class PhoneStatusBarPolicy implements Callback {
 //
 //        }
 
-        mService.setIcon(SLOT_BT_SIGNAL, iconId, 0, contentDescription);
-        mService.setIconVisibility(SLOT_BT_SIGNAL, bluetoothEnabled);
+//        mService.setIcon(SLOT_BT_SIGNAL, iconId, 0, contentDescription);
+//        mService.setIconVisibility(SLOT_BT_SIGNAL, bluetoothEnabled);
 
     }
 
