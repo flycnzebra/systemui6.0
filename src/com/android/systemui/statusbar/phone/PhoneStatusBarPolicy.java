@@ -608,8 +608,8 @@ public class PhoneStatusBarPolicy implements Callback {
             }
             mUIHandler.sendMessage(msg1);
         }
-//        mService.setIcon(SLOT_BLUETOOTH, iconId, 0, contentDescription);
-//        mService.setIconVisibility(SLOT_BLUETOOTH, bluetoothEnabled);
+        mService.setIcon(SLOT_BLUETOOTH, iconId, 0, contentDescription);
+        mService.setIconVisibility(SLOT_BLUETOOTH, bluetoothEnabled);
 
     }
 
