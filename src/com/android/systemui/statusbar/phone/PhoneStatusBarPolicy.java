@@ -599,7 +599,7 @@ public class PhoneStatusBarPolicy implements Callback {
             if (mBluetooth.isBluetoothConnected()) {
                 msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BT;
                 msg1.arg1 = 1;
-                iconId = R.drawable.stat_sys_data_bluetooth_noconnect;
+                iconId = R.drawable.stat_sys_data_bluetooth_connected;
                 contentDescription = mContext.getString(R.string.accessibility_bluetooth_connected);
             } else {
                 msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BT;
@@ -608,9 +608,8 @@ public class PhoneStatusBarPolicy implements Callback {
             }
             mUIHandler.sendMessage(msg1);
         }
-        mService.setIcon(SLOT_BLUETOOTH, iconId, 0, contentDescription);
-        mService.setIconVisibility(SLOT_BLUETOOTH, bluetoothEnabled);
-
+//        mService.setIcon(SLOT_BLUETOOTH, iconId, 0, contentDescription);
+//        mService.setIconVisibility(SLOT_BLUETOOTH, bluetoothEnabled);
 
     }
 
