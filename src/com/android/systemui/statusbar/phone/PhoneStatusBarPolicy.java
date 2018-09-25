@@ -592,26 +592,21 @@ public class PhoneStatusBarPolicy implements Callback {
     private final void updateBluetooth() {
         int iconId = R.drawable.stat_sys_data_bluetooth_noconnect;
         Message msg1 = mUIHandler.obtainMessage();
-        String contentDescription =
-                mContext.getString(R.string.accessibility_quick_settings_bluetooth_on);
+        String contentDescription = mContext.getString(R.string.accessibility_quick_settings_bluetooth_on);
         boolean bluetoothEnabled = false;
         if (mBluetooth != null) {
             bluetoothEnabled = mBluetooth.isBluetoothEnabled();
             if (mBluetooth.isBluetoothConnected()) {
-//                mView.updateQsbt(true);
                 msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BT;
                 msg1.arg1 = 1;
-                mUIHandler.sendMessage(msg1);
-                iconId = R.drawable.stat_sys_data_bluetooth_connected;
+                iconId = R.drawable.stat_sys_data_bluetooth_noconnect;
                 contentDescription = mContext.getString(R.string.accessibility_bluetooth_connected);
             } else {
                 msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BT;
                 msg1.arg1 = 0;
-                //mService.setIconVisibility(SLOT_BT_SIGNAL, false);
-                //mView.updateQsbt(false);
-                mUIHandler.sendMessage(msg1);
                 mService.setIconVisibility(SLOT_BT_BATTERY, false);
             }
+            mUIHandler.sendMessage(msg1);
         }
         mService.setIcon(SLOT_BLUETOOTH, iconId, 0, contentDescription);
         mService.setIconVisibility(SLOT_BLUETOOTH, bluetoothEnabled);
