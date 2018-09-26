@@ -14,11 +14,11 @@
      limitations under the License.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/volume_dialog_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipChildren="false"
-    android:background="#F00"
-    android:id="@+id/volume_dialog_row" >
+    android:gravity="center">
 
     <TextView
         android:id="@+id/volume_row_header"
@@ -26,45 +26,52 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textAppearance="@style/TextAppearance.Volume.Header"
         android:paddingBottom="0dp"
         android:paddingEnd="12dp"
         android:paddingStart="12dp"
-        android:paddingTop="4dp" />
+        android:paddingTop="4dp"
+        android:textAppearance="@style/TextAppearance.Volume.Header" />
 
-    <com.android.keyguard.AlphaOptimizedImageButton
-        android:id="@+id/volume_row_icon"
-        style="@style/VolumeButtons"
-        android:layout_width="@dimen/volume_button_size"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/volume_button_size"
         android:layout_below="@id/volume_row_header"
-        android:soundEffectsEnabled="false" />
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <SeekBar
-        android:id="@+id/volume_row_slider"
-        android:layout_width="355dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/volume_row_icon"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_below="@id/volume_row_header"
-        android:layout_marginEnd="0dp"
-        android:layout_toEndOf="@id/volume_row_icon"
-        android:layout_toStartOf="@+id/volume_settings_button"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:maxHeight="@dimen/volume_progress_max_h"
-        android:minHeight="@dimen/volume_progress_min_h"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
-        android:progressDrawable="@drawable/seekbar"
-        android:splitTrack="false"
-        android:thumb="@drawable/thumb" />
-    <com.android.keyguard.AlphaOptimizedImageButton
-        android:id="@+id/volume_settings_button"
-        style="@style/VolumeButtons"
-        android:layout_width="@dimen/volume_button_size"
-        android:layout_height="@dimen/volume_button_size"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/volume_row_header" />
+        <com.android.keyguard.AlphaOptimizedImageButton
+            android:id="@+id/volume_row_icon"
+            style="@style/VolumeButtons"
+            android:layout_width="@dimen/volume_button_size"
+            android:layout_height="@dimen/volume_button_size"
+            android:soundEffectsEnabled="false" />
 
+        <!--<SeekBar-->
+            <!--android:id="@+id/volume_row_slider"-->
+            <!--android:layout_width="@dimen/volume_seekbar_width"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:focusable="false"-->
+            <!--android:focusableInTouchMode="false"-->
+            <!--android:maxHeight="@dimen/volume_progress_max_h"-->
+            <!--android:minHeight="@dimen/volume_progress_min_h"-->
+            <!--android:progressDrawable="@drawable/seekbar_style"-->
+            <!--android:splitTrack="false"-->
+            <!--android:thumbOffset="5px"-->
+            <!--android:thumb="@drawable/seekbar_thumb" />-->
+        <SeekBar
+            android:id="@+id/ac_music_seekBar"
+            android:layout_width="@dimen/volume_seekbar_width"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:progressDrawable="@drawable/seekbar_style"
+            android:splitTrack="false"
+            android:thumb="@drawable/seekbar_thumb"
+            android:thumbOffset="5px" />
+
+        <com.android.keyguard.AlphaOptimizedImageButton
+            android:id="@+id/volume_settings_button"
+            style="@style/VolumeButtons"
+            android:layout_width="@dimen/volume_button_size"
+            android:layout_height="@dimen/volume_button_size" />
+    </LinearLayout>
 </RelativeLayout>

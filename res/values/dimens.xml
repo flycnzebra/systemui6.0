@@ -607,10 +607,10 @@
     <dimen name="source_tab_width">565px</dimen>
     <dimen name="source_tab_height">159px</dimen>
 
-     <dimen name="volume_progress_min_h">6px</dimen>
-    <dimen name="volume_progress_max_h">6px</dimen>
+     <dimen name="volume_progress_min_h">16px</dimen>
+    <dimen name="volume_progress_max_h">16px</dimen>
 
-    <dimen name="volume_seekbar_width">415px</dimen>
+    <dimen name="volume_seekbar_width">385px</dimen>
     <dimen name="volume_seekbar_height">6px</dimen>
 
 	<dimen name="volume_dialog_width">553px</dimen>
