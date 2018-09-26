@@ -29,7 +29,7 @@
         android:layout_alignParentRight="true"
         android:textColor="#FFF"
         android:textSize="18px"
-        android:gravity="center" />
+        android:gravity="left|center" />
 
     <com.android.keyguard.AlphaOptimizedImageButton
         android:id="@+id/volume_expand_button"
