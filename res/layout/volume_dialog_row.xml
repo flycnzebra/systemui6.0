@@ -36,13 +36,13 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/volume_button_size"
         android:layout_below="@id/volume_row_header"
-        android:background="#F00"
         android:gravity="center"
         android:orientation="horizontal">
 
         <com.android.keyguard.AlphaOptimizedImageButton
             android:id="@+id/volume_row_icon"
             style="@style/VolumeButtons"
+            android:background="#F00"
             android:layout_width="@dimen/volume_button_size"
             android:layout_height="@dimen/volume_button_size"
             android:soundEffectsEnabled="false" />
@@ -59,6 +59,7 @@
 
         <com.android.keyguard.AlphaOptimizedImageButton
             android:id="@+id/volume_settings_button"
+            android:background="#0F0"
             style="@style/VolumeButtons"
             android:layout_width="@dimen/volume_button_size"
             android:layout_height="@dimen/volume_button_size" />
