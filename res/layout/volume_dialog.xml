@@ -20,7 +20,7 @@
     android:layout_height="@dimen/volume_dialog_height"
     android:layout_marginBottom="@dimen/volume_dialog_margin_bottom"
 
-    android:background="@drawable/volume_background"
+    android:background="#FF0000"
     android:translationZ="4dp" >
 
 	 <TextView
