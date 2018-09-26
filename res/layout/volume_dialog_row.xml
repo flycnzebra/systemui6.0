@@ -17,6 +17,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipChildren="false"
+    android:background="#F00"
     android:id="@+id/volume_dialog_row" >
 
     <TextView
@@ -41,22 +42,23 @@
 
     <SeekBar
         android:id="@+id/volume_row_slider"
-        android:layout_width="200px"
+        android:layout_width="355dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/volume_row_icon"
         android:layout_alignWithParentIfMissing="true"
         android:layout_below="@id/volume_row_header"
+        android:layout_marginEnd="0dp"
         android:layout_toEndOf="@id/volume_row_icon"
         android:layout_toStartOf="@+id/volume_settings_button"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:splitTrack="false"
-        android:progressDrawable="@drawable/seekbar"
-        android:thumb="@drawable/thumb"
-        android:minHeight="@dimen/volume_progress_min_h"
         android:maxHeight="@dimen/volume_progress_max_h"
+        android:minHeight="@dimen/volume_progress_min_h"
         android:paddingEnd="8dp"
-        android:paddingStart="8dp" />
+        android:paddingStart="8dp"
+        android:progressDrawable="@drawable/seekbar"
+        android:splitTrack="false"
+        android:thumb="@drawable/thumb" />
     <com.android.keyguard.AlphaOptimizedImageButton
         android:id="@+id/volume_settings_button"
         style="@style/VolumeButtons"
