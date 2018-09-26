@@ -41,7 +41,7 @@
 
     <SeekBar
         android:id="@+id/volume_row_slider"
-        android:layout_width="@dimen/volume_seekbar_width"
+        android:layout_width="200px"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/volume_row_icon"
         android:layout_alignWithParentIfMissing="true"
