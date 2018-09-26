@@ -963,10 +963,10 @@ public class VolumeDialogController {
 					mWorker.obtainMessage(W.VOLUME_CHANGED, AudioManager.STREAM_AUXIN, 4113).sendToTarget();
 
 				}else{
-					level = mAudio.getStreamVolume(AudioSystem.STREAM_RING);
+					level = mAudio.getStreamVolume(AudioSystem.STREAM_MUSIC);
 					currentVolume = level;
-					changed = updateStreamLevelW(AudioSystem.STREAM_RING, level);
-					mWorker.obtainMessage(W.VOLUME_CHANGED, AudioSystem.STREAM_RING, 4113).sendToTarget();
+					changed = updateStreamLevelW(AudioSystem.STREAM_MUSIC, level);
+					mWorker.obtainMessage(W.VOLUME_CHANGED, AudioSystem.STREAM_MUSIC, 4113).sendToTarget();
 				}
                 
 				dismiss();
