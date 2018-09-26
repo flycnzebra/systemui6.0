@@ -18,7 +18,6 @@
     android:id="@+id/volume_zen_footer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#00F"
     android:orientation="vertical" > <!-- extends LinearLayout -->
 
     <View

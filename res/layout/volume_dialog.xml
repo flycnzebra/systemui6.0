@@ -27,7 +27,9 @@
         android:layout_width="@dimen/volume_button_size"
         android:layout_height="@dimen/volume_button_size"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="18px" />
+        android:textColor="#FFF"
+        android:textSize="18px"
+        android:gravity="center" />
 
     <com.android.keyguard.AlphaOptimizedImageButton
         android:id="@+id/volume_expand_button"
