@@ -44,7 +44,6 @@
             style="@style/VolumeButtons"
             android:layout_width="@dimen/volume_button_size"
             android:layout_height="@dimen/volume_button_size"
-            android:scaleType="centerCrop"
             android:soundEffectsEnabled="false" />
 
         <SeekBar

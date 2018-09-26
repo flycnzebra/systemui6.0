@@ -611,7 +611,7 @@
     <dimen name="volume_progress_max_h">16px</dimen>
 
     <dimen name="volume_seekbar_width">400px</dimen>
-    <dimen name="volume_seekbar_height">6px</dimen>
+    <dimen name="volume_seekbar_height">16px</dimen>
 
 	<dimen name="volume_dialog_width">500px</dimen>
     <dimen name="volume_dialog_height">60px</dimen>
