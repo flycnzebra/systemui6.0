@@ -19,18 +19,16 @@
     android:layout_width="@dimen/volume_dialog_width"
     android:layout_height="@dimen/volume_dialog_height"
     android:layout_marginBottom="@dimen/volume_dialog_margin_bottom"
+    android:background="@drawable/volume_background"
+    android:translationZ="4dp">
 
-    android:background="#FF0000"
-    android:translationZ="4dp" >
+    <TextView
+        android:id="@+id/volume_value"
+        android:layout_width="@dimen/volume_button_size"
+        android:layout_height="@dimen/volume_button_size"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="18px" />
 
-	 <TextView
-    android:id="@+id/volume_value"
-    android:layout_width="@dimen/volume_button_size"
-    android:layout_height="@dimen/volume_button_size"
-    android:layout_alignParentRight="true"
-    android:layout_marginTop="12px"
-    />    
-    
     <com.android.keyguard.AlphaOptimizedImageButton
         android:id="@+id/volume_expand_button"
         style="@style/VolumeButtons"
@@ -38,11 +36,10 @@
         android:layout_height="@dimen/volume_button_size"
         android:layout_alignParentLeft="true"
         android:clickable="true"
-        android:visibility="gone"
         android:soundEffectsEnabled="false"
         android:src="@drawable/ic_volume_collapse_animation"
+        android:visibility="gone"
         tools:ignore="RtlHardcoded" />
-	
 
 
     <LinearLayout
@@ -50,14 +47,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp" >
-
+        android:paddingBottom="12px"
+        android:paddingTop="12px">
         <!-- volume rows added and removed here! :-) -->
-
         <include layout="@layout/volume_zen_footer" />
     </LinearLayout>
-    
 
 
 </RelativeLayout>
