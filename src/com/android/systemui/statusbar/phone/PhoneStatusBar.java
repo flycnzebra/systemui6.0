@@ -2394,12 +2394,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 break;
             case R.id.volume_mode_btn:
                 Log.d(TAG, "atc6068 volume_mode_btn");
-//				ComponentName toActivityAudio = new ComponentName("com.jancar.audio", "com.jancar.audio.MainActivity");
-//                Intent intentAduio = new Intent();
-//				intentAduio.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                intentAduio.setComponent(toActivityAudio);
-//                mContext.startActivity(intentAduio);
-                jancarManager.requestPage("eq");
+				ComponentName toActivityAudio = new ComponentName("com.jancar.audio", "com.jancar.audio.MainActivity");
+                Intent intentAduio = new Intent();
+				intentAduio.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intentAduio.setComponent(toActivityAudio);
+                mContext.startActivity(intentAduio);
+//                jancarManager.requestPage("eq");
                 makeExpandedInvisible();
                 break;
             case R.id.volume_value_btn:
