@@ -573,7 +573,7 @@
     
 
     <!-- Standard image button size for volume dialog buttons -->
-    <dimen name="volume_button_size">60px</dimen>
+    <dimen name="volume_button_size">20px</dimen>
 
     <!-- Volume dialog root view bottom margin, at rest -->
     <dimen name="volume_dialog_margin_bottom">4dp</dimen>

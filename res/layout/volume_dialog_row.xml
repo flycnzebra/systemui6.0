@@ -46,18 +46,6 @@
             android:layout_height="@dimen/volume_button_size"
             android:soundEffectsEnabled="false" />
 
-        <!--<SeekBar-->
-        <!--android:id="@+id/volume_row_slider"-->
-        <!--android:layout_width="@dimen/volume_seekbar_width"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:focusable="false"-->
-        <!--android:focusableInTouchMode="false"-->
-        <!--android:maxHeight="@dimen/volume_progress_max_h"-->
-        <!--android:minHeight="@dimen/volume_progress_min_h"-->
-        <!--android:progressDrawable="@drawable/seekbar_style"-->
-        <!--android:splitTrack="false"-->
-        <!--android:thumbOffset="5px"-->
-        <!--android:thumb="@drawable/seekbar_thumb" />-->
         <SeekBar
             android:id="@+id/volume_row_slider"
             android:layout_width="@dimen/volume_seekbar_width"
