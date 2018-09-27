@@ -16,9 +16,9 @@
 
 <!--    android:background="@drawable/status_bar_closed_default_background" -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:systemui="http://schemas.android.com/apk/res/com.android.systemui"
-    android:layout_width="wrap_content"
+    android:layout_width="500px"
     android:layout_height="@dimen/volume_button_size"
     android:gravity="center"
     android:orientation="horizontal">
@@ -29,6 +29,7 @@
         android:layout_width="@dimen/volume_button_size"
         android:layout_height="@dimen/volume_button_size"
         android:scaleType="center"
+        android:layout_alignParentLeft="true"
         android:soundEffectsEnabled="false" />
 
     <SeekBar
@@ -39,11 +40,13 @@
         android:progressDrawable="@drawable/seekbar_style"
         android:splitTrack="false"
         android:thumb="@drawable/seekbar_thumb"
+        android:layout_toRightOf="@+id/toggle"
         android:thumbOffset="5px" />
 
     <TextView
         android:id="@+id/backlight_value"
         android:layout_width="@dimen/volume_button_size"
         android:layout_height="@dimen/volume_button_size"
+        android:layout_alignParentRight="true"
         android:gravity="left|center" />
-</LinearLayout>
+</RelativeLayout>
