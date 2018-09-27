@@ -36,7 +36,7 @@
     <string name="app3rd"> </string>
     <string name="launcher">Home</string>
 
-    <string name="qs_carsetting">Device</string>    
+    <string name="qs_carsetting">Car Settings</string>
     <string name="qs_volume_mode">Sound</string>    
     <string name="qs_volume_value">Volume</string>    
     <string name="qs_brightness">Brightness</string>    

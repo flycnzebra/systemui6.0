@@ -2384,9 +2384,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         switch (v.getId()) {
             case R.id.carsetting_btn:
                 Log.d(TAG, "atc6068 carsetting_btn");
-				ComponentName toActivityCarsetting = new ComponentName("com.android.settings", "com.ATCSetting.mainui.MainActivity");
+				ComponentName toActivityCarsetting = new ComponentName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
                 Intent intentCarsetting = new Intent();
 				intentCarsetting.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				intentCarsetting.putExtra("position", 6);
                 intentCarsetting.setComponent(toActivityCarsetting);
                 mContext.startActivity(intentCarsetting);
 //                jancarManager.requestPage("setting");
