@@ -51,10 +51,7 @@
             android:layout_width="@dimen/volume_seekbar_width"
             android:layout_height="16px"
             android:layout_centerVertical="true"
-            android:progressDrawable="@drawable/seekbar_style"
-            android:splitTrack="false"
-            android:thumb="@drawable/seekbar_thumb"
-            android:thumbOffset="5px" />
+            android:splitTrack="false" />
 
         <com.android.keyguard.AlphaOptimizedImageButton
             android:id="@+id/volume_settings_button"
