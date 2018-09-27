@@ -22,10 +22,8 @@
     >
     <ImageView
         android:id="@+id/toggle"
-        android:layout_width="40px"
-        android:layout_height="40px"
-        android:layout_marginTop="12px"
-        android:layout_marginLeft="20px"
+        android:layout_width="50px"
+        android:layout_height="50px"
         android:gravity="center"
         android:background="@drawable/brightness_icon"
         />
@@ -35,12 +33,10 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/toggle"
         android:layout_centerVertical="true"
-        android:progressDrawable="@drawable/seekbar"
-        android:thumb="@drawable/thumb"
+        android:progressDrawable="@drawable/seekbar_style"
+        android:thumb="@drawable/seekbar_thumb"
         android:minHeight="@dimen/volume_progress_min_h"
         android:maxHeight="@dimen/volume_progress_max_h"
-        android:paddingEnd="15px"
-        android:paddingStart="15px"
         android:splitTrack="false"
         />
     <TextView
