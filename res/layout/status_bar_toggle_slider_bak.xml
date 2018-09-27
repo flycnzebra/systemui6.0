@@ -25,7 +25,7 @@
         android:layout_width="@dimen/volume_button_size"
         android:layout_height="@dimen/volume_button_size"
         android:gravity="center"
-        android:background="@drawable/brightness_icon"
+        android:background="@drawable/brightness_icon1"
         />
     <com.android.systemui.settings.ToggleSeekBar
         android:id="@+id/slider"
@@ -46,6 +46,8 @@
     	android:layout_height="@dimen/volume_button_size"
     	android:layout_toEndOf="@id/slider"
         android:layout_centerVertical="true"
+        android:textColor="#FFF"
+        android:textSize="18px"
         android:gravity="left|center"
         />
 </merge>
