@@ -18,34 +18,28 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:systemui="http://schemas.android.com/apk/res/com.android.systemui">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+
+    <com.android.keyguard.AlphaOptimizedImageButton
+        android:id="@+id/toggle"
+        style="@style/VolumeButtons"
+        android:layout_width="@dimen/volume_button_size"
         android:layout_height="@dimen/volume_button_size"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:scaleType="center"
+        android:soundEffectsEnabled="false" />
 
-        <com.android.keyguard.AlphaOptimizedImageButton
-            android:id="@+id/toggle"
-            style="@style/VolumeButtons"
-            android:layout_width="@dimen/volume_button_size"
-            android:layout_height="@dimen/volume_button_size"
-            android:scaleType="center"
-            android:soundEffectsEnabled="false" />
+    <SeekBar
+        android:id="@+id/slider"
+        android:layout_width="@dimen/volume_seekbar_width"
+        android:layout_height="16px"
+        android:layout_centerVertical="true"
+        android:progressDrawable="@drawable/seekbar_style"
+        android:splitTrack="false"
+        android:thumb="@drawable/seekbar_thumb"
+        android:thumbOffset="5px" />
 
-        <SeekBar
-            android:id="@+id/slider"
-            android:layout_width="@dimen/volume_seekbar_width"
-            android:layout_height="16px"
-            android:layout_centerVertical="true"
-            android:progressDrawable="@drawable/seekbar_style"
-            android:splitTrack="false"
-            android:thumb="@drawable/seekbar_thumb"
-            android:thumbOffset="5px" />
-
-        <TextView
-            android:id="@+id/backlight_value"
-            android:layout_width="@dimen/volume_button_size"
-            android:layout_height="@dimen/volume_button_size"
-            android:gravity="left|center" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/backlight_value"
+        android:layout_width="@dimen/volume_button_size"
+        android:layout_height="@dimen/volume_button_size"
+        android:gravity="left|center" />
 </merge>
