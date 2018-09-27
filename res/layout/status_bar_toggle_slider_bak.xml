@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  * Copyright (C) 2010 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,41 +15,35 @@
 -->
 
 <!--    android:background="@drawable/status_bar_closed_default_background" -->
-<merge
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:systemui="http://schemas.android.com/apk/res/com.android.systemui"
-    >
-    <ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/volume_button_size"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <com.android.keyguard.AlphaOptimizedImageButton
         android:id="@+id/toggle"
-        android:layout_width="40px"
-        android:layout_height="40px"
-        android:layout_marginTop="12px"
-        android:layout_marginLeft="20px"
-        android:gravity="center"
-        android:background="@drawable/brightness_icon"
-        />
-    <com.android.systemui.settings.ToggleSeekBar
+        style="@style/VolumeButtons"
+        android:layout_width="@dimen/volume_button_size"
+        android:layout_height="@dimen/volume_button_size"
+        android:scaleType="center"
+        android:soundEffectsEnabled="false" />
+
+    <SeekBar
         android:id="@+id/slider"
         android:layout_width="@dimen/volume_seekbar_width"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/toggle"
+        android:layout_height="16px"
         android:layout_centerVertical="true"
-        android:progressDrawable="@drawable/seekbar"
-        android:thumb="@drawable/thumb"
-        android:minHeight="@dimen/volume_progress_min_h"
-        android:maxHeight="@dimen/volume_progress_max_h"
-        android:paddingEnd="15px"
-        android:paddingStart="15px"
+        android:progressDrawable="@drawable/seekbar_style"
         android:splitTrack="false"
-        />
+        android:thumb="@drawable/seekbar_thumb"
+        android:thumbOffset="5px" />
+
     <TextView
         android:id="@+id/backlight_value"
         android:layout_width="@dimen/volume_button_size"
-    	android:layout_height="@dimen/volume_button_size"
-    	android:layout_toEndOf="@id/slider"
-        android:layout_centerVertical="true"
-        android:gravity="center"
-        android:layout_marginTop="12px"
-        android:layout_marginRight="12px"
-        />
-</merge>
+        android:layout_height="@dimen/volume_button_size"
+        android:gravity="left|center" />
+</LinearLayout>
