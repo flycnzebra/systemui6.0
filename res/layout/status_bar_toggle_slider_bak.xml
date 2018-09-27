@@ -20,7 +20,7 @@
 
     <ImageView
         android:id="@+id/toggle"
-        android:layout_width="40px"
+        android:layout_width="@dimen/volume_button_size"
         android:layout_height="@dimen/volume_button_size"
         android:layout_marginLeft="10px"
         android:scaleType="center"
@@ -31,6 +31,7 @@
         android:layout_width="@dimen/volume_seekbar_width"
         android:layout_height="16px"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="-10px"
         android:layout_marginTop="17px"
         android:layout_toEndOf="@id/toggle"
         android:maxHeight="@dimen/volume_progress_max_h"
