@@ -46,7 +46,7 @@
         android:layout_height="@dimen/volume_button_size"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/slider"
-        android:gravity="left|center"
+        android:gravity="start|center"
         android:textColor="#FFF"
         android:textSize="18px" />
 </merge>
