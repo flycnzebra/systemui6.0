@@ -60,7 +60,7 @@
 
             <TextView
                 android:id="@+id/app_title"
-                android:layout_width="200px"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="start|center"
                 android:singleLine="true"
