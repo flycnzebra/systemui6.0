@@ -10,7 +10,7 @@
         android:layout_width="@dimen/source_tab_button_width"
         android:layout_height="@dimen/source_tab_height"
         android:layout_marginTop="12px"
-        android:layout_marginLeft="29px">
+        android:layout_marginStart="29px">
 
         <Button
             android:layout_width="@dimen/source_tab_button_width"
@@ -34,7 +34,7 @@
         android:layout_width="@dimen/source_tab_button_width"
         android:layout_height="@dimen/source_tab_height"
         android:layout_marginTop="12px"
-        android:layout_marginLeft="25px"
+        android:layout_marginStart="25px"
         android:layout_toEndOf="@id/radio_rl">
 
         <Button
@@ -58,7 +58,7 @@
         android:layout_width="@dimen/source_tab_button_width"
         android:layout_height="@dimen/source_tab_height"
         android:layout_toEndOf="@id/music_rl"
-        android:layout_marginLeft="25px"
+        android:layout_marginStart="25px"
         android:layout_marginTop="12px">
 
         <Button
@@ -80,7 +80,7 @@
     <RelativeLayout
         android:id="@+id/btmusic_rl"
         android:layout_toEndOf="@id/video_rl"
-        android:layout_marginLeft="25px"
+        android:layout_marginStart="25px"
         android:layout_marginTop="12px"
         android:layout_width="@dimen/source_tab_button_width"
         android:layout_height="@dimen/source_tab_height">

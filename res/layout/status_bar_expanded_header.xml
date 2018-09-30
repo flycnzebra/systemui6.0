@@ -125,7 +125,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="10px"
+        android:layout_marginStart="10px"
         android:layout_marginTop="@dimen/clock_collapsed_bottom_margin"
         android:layout_toEndOf="@+id/clock">
 

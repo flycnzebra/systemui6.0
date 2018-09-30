@@ -8,8 +8,8 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="1px"
-        android:layout_marginRight="1px"
+        android:layout_marginStart="1px"
+        android:layout_marginEnd="1px"
         android:background="@drawable/qs_carsetting">
 
         <Button
@@ -28,8 +28,8 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="1px"
-        android:layout_marginRight="1px"
+        android:layout_marginStart="1px"
+        android:layout_marginEnd="1px"
         android:background="@drawable/qs_volume_mode">
 
         <Button
@@ -48,8 +48,8 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="1px"
-        android:layout_marginRight="1px"
+        android:layout_marginStart="1px"
+        android:layout_marginEnd="1px"
         android:background="@drawable/qs_volume_value">
 
         <Button
@@ -68,8 +68,8 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="1px"
-        android:layout_marginRight="1px"
+        android:layout_marginStart="1px"
+        android:layout_marginEnd="1px"
         android:background="@drawable/qs_brightness">
 
         <Button
@@ -89,8 +89,8 @@
         android:id="@+id/wifi_rl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="1px"
-        android:layout_marginRight="1px"
+        android:layout_marginStart="1px"
+        android:layout_marginEnd="1px"
         android:background="@drawable/qs_wifi_enable">
 
         <Button
@@ -110,8 +110,8 @@
         android:id="@+id/bt_rl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="1px"
-        android:layout_marginRight="1px"
+        android:layout_marginStart="1px"
+        android:layout_marginEnd="1px"
         android:background="@drawable/qs_bt_enable">
 
         <Button
