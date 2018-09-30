@@ -52,7 +52,7 @@
                 android:id="@+id/home"
                 android:layout_width="@dimen/private_status_bar_home_width"
                 android:layout_height="@dimen/private_status_bar_home_height"
-                android:layout_marginStart="16px"
+                android:layout_marginStart="8px"
                 android:contentDescription="@string/accessibility_home"
                 android:src="@drawable/statusbar_icon_home"
                 sysui:keyCode="3"
@@ -65,7 +65,7 @@
                 android:gravity="start|center"
                 android:singleLine="true"
                 android:textSize="22px"
-                android:text="@string/app_title"
+                android:text="@string/launcher"
                 android:textColor="#ffffff" />
 
             <com.android.systemui.statusbar.AlphaOptimizedFrameLayout
