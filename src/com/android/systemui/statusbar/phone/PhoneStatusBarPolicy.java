@@ -355,6 +355,8 @@ public class PhoneStatusBarPolicy implements Callback {
         mSourceTabDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mSourceTabDialog.setContentView(floatview);
         apptitle = (TextView) mView.findViewById(R.id.app_title);
+        apptitle.setText(PkUtils.getFocusActivityLabel(mContext));
+
         btn_back = (ImageView) mView.findViewById(R.id.back);
         mRecentView = (KeyButtonView) mView.findViewById(R.id.recent_apps007);
         btn_close_screen = (KeyButtonView) mView.findViewById(R.id.close_screen);

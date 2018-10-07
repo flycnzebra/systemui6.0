@@ -1,6 +1,8 @@
 package com.android.systemui.jancar;
 
 import android.annotation.TargetApi;
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.LauncherActivityInfo;
 import android.content.pm.LauncherApps;
@@ -25,7 +27,7 @@ public class PkUtils {
         LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
         if (launcherApps == null) return retLst;
         List<UserHandle> userHandles = getUserProfiles(context);
-        if(userHandles==null) return retLst;
+        if (userHandles == null) return retLst;
         for (UserHandle userHandle : userHandles) {
             List<LauncherActivityInfo> addList = launcherApps.getActivityList(null, userHandle);
             if (addList != null && !addList.isEmpty()) {
@@ -41,7 +43,7 @@ public class PkUtils {
         LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
         if (launcherApps == null) return retLst;
         List<UserHandle> userHandles = getUserProfiles(context);
-        if(userHandles==null) return retLst;
+        if (userHandles == null) return retLst;
         for (UserHandle userHandle : userHandles) {
             List<LauncherActivityInfo> addList = launcherApps.getActivityList(packageName, userHandle);
             if (addList != null && !addList.isEmpty()) {
@@ -49,6 +51,27 @@ public class PkUtils {
             }
         }
         return retLst;
+    }
+
+    public static String getFocusActivityLabel(Context context) {
+        String str = "";
+        try {
+            ActivityManager am = (ActivityManager) context.getSystemService(context.ACTIVITY_SERVICE);
+            ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
+            String strpackage = cn.getPackageName();
+            String strclass = cn.getClassName();
+            List<LauncherActivityInfo> list = PkUtils.getLauncgerActivitys(strpackage, context);
+            for (LauncherActivityInfo info : list) {
+                if (strclass.equals(info.getComponentName().getClassName())) {
+                    FlyLog.d("activity info =%s", info.getName());
+                    str = (String) info.getLabel();
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            FlyLog.e(e.toString());
+        }
+        return str;
     }
 
 }
