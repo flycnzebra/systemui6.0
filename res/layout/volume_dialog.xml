@@ -48,9 +48,7 @@
         android:id="@+id/volume_dialog_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="12px"
-        android:paddingTop="12px">
+        android:orientation="vertical">
         <!-- volume rows added and removed here! :-) -->
         <include layout="@layout/volume_zen_footer" />
     </LinearLayout>
