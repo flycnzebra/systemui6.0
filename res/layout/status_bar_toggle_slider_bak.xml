@@ -48,5 +48,6 @@
         android:layout_toEndOf="@id/slider"
         android:gravity="start|center"
         android:textColor="#FFF"
+        android:layout_marginBottom="8px"
         android:textSize="22px" />
 </merge>
