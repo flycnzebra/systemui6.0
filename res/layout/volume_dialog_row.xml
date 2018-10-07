@@ -44,7 +44,7 @@
             style="@style/VolumeButtons"
             android:layout_width="@dimen/volume_button_size"
             android:layout_height="@dimen/volume_button_size"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             android:paddingStart="10px"
             android:soundEffectsEnabled="false" />
 

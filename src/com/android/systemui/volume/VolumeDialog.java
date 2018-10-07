@@ -62,7 +62,6 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityManager.AccessibilityStateChangeListener;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -208,18 +207,17 @@ public class VolumeDialog {
         addRow(AudioManager.STREAM_RING,
                 R.drawable.ic_volume_ringer, R.drawable.ic_volume_ringer_mute, true);
         addRow(AudioManager.STREAM_MUSIC,
-                R.drawable.ic_music, R.drawable.ic_music, true);
+                R.drawable.ic_volume_music, R.drawable.ic_volume_music_n, true);
         addRow(AudioManager.STREAM_ALARM,
                 R.drawable.ic_volume_alarm, R.drawable.ic_volume_alarm_mute, false);
         addRow(AudioManager.STREAM_GIS,
                 R.drawable.ic_volume_gis, R.drawable.ic_volume_gis_mute, true);
         addRow(AudioManager.STREAM_AUXIN,
-                R.drawable.ic_music, R.drawable.ic_music, true);
-
+                R.drawable.ic_volume_music, R.drawable.ic_volume_music_n, true);
         addRow(AudioManager.STREAM_VOICE_CALL,
-                R.drawable.ic_btphone, R.drawable.ic_btphone, false);
+                R.drawable.ic_volume_btphone, R.drawable.ic_volume_btphone_n, false);
         addRow(AudioManager.STREAM_BLUETOOTH_SCO,
-                R.drawable.ic_btphone, R.drawable.ic_btphone, false);
+                R.drawable.ic_volume_btphone, R.drawable.ic_volume_btphone_n, false);
         addRow(AudioManager.STREAM_SYSTEM,
                 R.drawable.ic_volume_system, R.drawable.ic_volume_system_mute, false);
 

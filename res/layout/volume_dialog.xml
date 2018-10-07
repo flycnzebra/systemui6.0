@@ -28,7 +28,7 @@
         android:layout_height="@dimen/volume_button_size"
         android:layout_alignParentEnd="true"
         android:textColor="#FFF"
-        android:textSize="18px"
+        android:textSize="22px"
         android:gravity="start|center" />
 
     <com.android.keyguard.AlphaOptimizedImageButton
