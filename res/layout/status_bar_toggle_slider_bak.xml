@@ -24,7 +24,7 @@
         android:layout_height="@dimen/volume_button_size"
         android:layout_marginStart="10px"
         android:scaleType="center"
-        android:background="@drawable/brightness_icon1" />
+        android:background="@drawable/ic_brightness" />
 
     <com.android.systemui.settings.ToggleSeekBar
         android:id="@+id/slider"
