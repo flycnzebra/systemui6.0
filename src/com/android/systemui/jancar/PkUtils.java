@@ -10,6 +10,8 @@ import android.os.Build;
 import android.os.UserHandle;
 import android.os.UserManager;
 
+import com.android.systemui.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,14 +61,23 @@ public class PkUtils {
             ActivityManager am = (ActivityManager) context.getSystemService(context.ACTIVITY_SERVICE);
             ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
             String strpackage = cn.getPackageName();
-            String strclass = cn.getClassName();
-            List<LauncherActivityInfo> list = PkUtils.getLauncgerActivitys(strpackage, context);
-            for (LauncherActivityInfo info : list) {
-                if (strclass.equals(info.getComponentName().getClassName())) {
-                    FlyLog.d("activity info =%s", info.getName());
-                    str = (String) info.getLabel();
+            switch (strpackage) {
+                case "com.android.systemui":
+                case "com.jancar.launcher":
+                case "com.android.launcher3":
+                    str = (context.getString(R.string.launcher));
                     break;
-                }
+                default:
+                    String strclass = cn.getClassName();
+                    List<LauncherActivityInfo> list = PkUtils.getLauncgerActivitys(strpackage, context);
+                    for (LauncherActivityInfo info : list) {
+                        if (strclass.equals(info.getComponentName().getClassName())) {
+                            FlyLog.d("activity info =%s", info.getName());
+                            str = (String) info.getLabel();
+                            break;
+                        }
+                    }
+                    break;
             }
         } catch (Exception e) {
             FlyLog.e(e.toString());
