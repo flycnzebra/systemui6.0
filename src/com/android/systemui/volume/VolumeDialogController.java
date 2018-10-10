@@ -940,7 +940,12 @@ public class VolumeDialogController {
 				if (D.BUG) Log.d(TAG, "STREAM_VOICE_CALL active ? " + voicecall_active);
 				if (D.BUG) Log.d(TAG, "STREAM_AUXIN active ? " + avin_active);
 
-				if(active_bt_sco){
+                if(voicecall_active){
+                    level = mAudio.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+                    currentVolume = level;
+                    changed = updateStreamLevelW(AudioManager.STREAM_VOICE_CALL, level);
+                    mWorker.obtainMessage(W.VOLUME_CHANGED, AudioManager.STREAM_VOICE_CALL, 4113).sendToTarget();
+                }else if(active_bt_sco){
 					level = mAudio.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
 					currentVolume = level;
 					changed = updateStreamLevelW(AudioManager.STREAM_BLUETOOTH_SCO, level);
