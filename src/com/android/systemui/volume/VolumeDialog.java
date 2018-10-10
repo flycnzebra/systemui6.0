@@ -411,6 +411,7 @@ public class VolumeDialog {
         row.icon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(stream==0) return;
                 Events.writeEvent(mContext, Events.EVENT_ICON_CLICK, row.stream, row.iconState);
                 mController.setActiveStream(row.stream);
                 if (row.stream == AudioManager.STREAM_RING) {
