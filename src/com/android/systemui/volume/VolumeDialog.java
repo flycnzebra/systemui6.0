@@ -216,7 +216,7 @@ public class VolumeDialog {
                 R.drawable.ic_volume_music, R.drawable.ic_volume_music_n, true);
         addRow(AudioManager.STREAM_VOICE_CALL,
                 R.drawable.ic_volume_btphone, R.drawable.ic_volume_btphone_n, false);
-        addRow(AudioManager.STREAM_BLUETOOTH_SCO,
+        addRow(AudioManager.STREAM_VOICE_CALL,
                 R.drawable.ic_volume_btphone, R.drawable.ic_volume_btphone_n, false);
         addRow(AudioManager.STREAM_SYSTEM,
                 R.drawable.ic_volume_system, R.drawable.ic_volume_system_mute, false);
@@ -412,7 +412,6 @@ public class VolumeDialog {
             @Override
             public void onClick(View v) {
                 Events.writeEvent(mContext, Events.EVENT_ICON_CLICK, row.stream, row.iconState);
-				
                 mController.setActiveStream(row.stream);
                 if (row.stream == AudioManager.STREAM_RING) {
                     final boolean hasVibrator = mController.hasVibrator();
