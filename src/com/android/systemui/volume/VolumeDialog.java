@@ -69,6 +69,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.android.systemui.R;
+import com.android.systemui.jancar.FlyLog;
 import com.android.systemui.statusbar.policy.ZenModeController;
 import com.android.systemui.volume.VolumeDialogController.State;
 import com.android.systemui.volume.VolumeDialogController.StreamState;
@@ -205,7 +206,7 @@ public class VolumeDialog {
         });
 
         addRow(AudioManager.STREAM_RING,
-                R.drawable.ic_volume_ringer, R.drawable.ic_volume_ringer_mute, true);
+                R.drawable.ic_volume_ring, R.drawable.ic_volume_ring_n, true);
         addRow(AudioManager.STREAM_MUSIC,
                 R.drawable.ic_volume_music, R.drawable.ic_volume_music_n, true);
         addRow(AudioManager.STREAM_ALARM,
@@ -411,6 +412,7 @@ public class VolumeDialog {
         row.icon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                FlyLog.d("STREAM_ = %d",stream);
                 Events.writeEvent(mContext, Events.EVENT_ICON_CLICK, row.stream, row.iconState);
                 mController.setActiveStream(row.stream);
                 if (row.stream == AudioManager.STREAM_RING) {
