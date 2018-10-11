@@ -2389,8 +2389,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 				intentCarsetting.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				intentCarsetting.putExtra("position", 6);
                 intentCarsetting.setComponent(toActivityCarsetting);
-                mContext.startActivity(intentCarsetting);
-//                jancarManager.requestPage("setting");
+//                mContext.startActivity(intentCarsetting);
+                jancarManager.requestPage("carsetting",intentCarsetting);
                 makeExpandedInvisible();
                 break;
             case R.id.volume_mode_btn:
@@ -2400,8 +2400,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 				intentAduio.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intentAduio.setComponent(toActivityAudio);
                 intentAduio.putExtra("position", 3);
-                mContext.startActivity(intentAduio);
-//                jancarManager.requestPage("eq");
+//                mContext.startActivity(intentAduio);
+                jancarManager.requestPage("eq",intentAduio);
                 makeExpandedInvisible();
                 break;
             case R.id.volume_value_btn:
@@ -2442,7 +2442,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 intentWifi.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intentWifi.setComponent(toActivityWifi);
                 intentWifi.putExtra("position", 0);
-                mContext.startActivity(intentWifi);
+//                mContext.startActivity(intentWifi);
+                jancarManager.requestPage("wifi",intentWifi);
                 makeExpandedInvisible();
                 break;
             case R.id.qs_bt_btn:
@@ -2453,8 +2454,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 intentBt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intentBt.setComponent(toActivityBt);
                 intentBt.putExtra("position", 1);
-                mContext.startActivity(intentBt);
-//                jancarManager.requestPage("btset");
+//                mContext.startActivity(intentBt);
+                jancarManager.requestPage("btset",intentBt);
                 makeExpandedInvisible();
                 break;
 

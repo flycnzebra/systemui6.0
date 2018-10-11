@@ -413,6 +413,8 @@ public class VolumeDialog {
             @Override
             public void onClick(View v) {
                 FlyLog.d("STREAM_ = %d",stream);
+                //TODO:临时禁用关闭蓝牙通话声音
+                if(stream==AudioManager.STREAM_VOICE_CALL) return;
                 Events.writeEvent(mContext, Events.EVENT_ICON_CLICK, row.stream, row.iconState);
                 mController.setActiveStream(row.stream);
                 if (row.stream == AudioManager.STREAM_RING) {
