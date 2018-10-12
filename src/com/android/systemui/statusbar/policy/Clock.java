@@ -41,6 +41,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import libcore.icu.LocaleData;
 
 /**
  * Digital clock for the status bar.
@@ -153,16 +154,15 @@ public class Clock extends TextView implements DemoMode {
     }
 
     private final CharSequence getSmallTime() {
-//        Context context = getContext();
-//        boolean is24 = DateFormat.is24HourFormat(context, ActivityManager.getCurrentUser());
-//        LocaleData d = LocaleData.get(context.getResources().getConfiguration().locale);
+        Context context = getContext();
+        boolean is24 = DateFormat.is24HourFormat(context, ActivityManager.getCurrentUser());
+        LocaleData d = LocaleData.get(context.getResources().getConfiguration().locale);
 
         final char MAGIC1 = '\uEF00';
         final char MAGIC2 = '\uEF01';
 
         SimpleDateFormat sdf;
-//        String format = is24 ? d.timeFormat_Hm : d.timeFormat_hm;
-        String format = "HH:mm";
+        String format = is24 ? d.timeFormat_Hm : d.timeFormat_hm;
         if (!format.equals(mClockFormatString)) {
             /*
              * Search for an unquoted "a" in the format string, so we can
@@ -191,7 +191,7 @@ public class Clock extends TextView implements DemoMode {
                         a--;
                     }
                     format = format.substring(0, a) + MAGIC1 + format.substring(a, b)
-                        + "a" + MAGIC2 + format.substring(b + 1);
+                            + "a" + MAGIC2 + format.substring(b + 1);
                 }
             }
             mClockFormat = sdf = new SimpleDateFormat(format);
@@ -212,7 +212,7 @@ public class Clock extends TextView implements DemoMode {
                     if (mAmPmStyle == AM_PM_STYLE_SMALL) {
                         CharacterStyle style = new RelativeSizeSpan(0.7f);
                         formatted.setSpan(style, magic1, magic2,
-                                          Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+                                Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
                     }
                     formatted.delete(magic2, magic2 + 1);
                     formatted.delete(magic1, magic1 + 1);
