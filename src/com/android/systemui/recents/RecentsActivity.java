@@ -404,9 +404,8 @@ public class RecentsActivity extends Activity implements RecentsView.RecentsView
                 final ActivityManager am = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
                 final List<ActivityManager.RecentTaskInfo> recentTasks =am.getRecentTasks(255, ActivityManager.RECENT_IGNORE_UNAVAILABLE);
                 for(ActivityManager.RecentTaskInfo rt:recentTasks ) {
-                    am.removeTask(rt.persistentId, 0);
+                    am.removeTask(rt.persistentId);
                 }
-                finish();
             }
         });
     }
