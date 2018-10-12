@@ -402,7 +402,7 @@ public class RecentsActivity extends Activity implements RecentsView.RecentsView
             @Override
             public void onClick(View v) {
                 final ActivityManager am = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-                final List<ActivityManager.RecentTaskInfo> recentTasks =am.getRecentTasks(255, ActivityManager.RECENT_IGNORE_UNAVAILABLE);
+                final List<ActivityManager.RecentTaskInfo> recentTasks =am.getRecentTasks(50, ActivityManager.RECENT_IGNORE_UNAVAILABLE);
                 for(ActivityManager.RecentTaskInfo rt:recentTasks ) {
                     am.removeTask(rt.persistentId);
                 }
