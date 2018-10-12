@@ -45,7 +45,7 @@
             android:id="@+id/head_linear"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.45"
+            android:layout_weight="0.40"
             android:orientation="horizontal">
 
             <com.android.systemui.statusbar.policy.KeyButtonView
@@ -106,7 +106,7 @@
             android:id="@+id/middle_linear"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.1"
+            android:layout_weight="0.2"
             android:orientation="horizontal">
 
             <com.android.systemui.statusbar.policy.Clock
@@ -123,7 +123,7 @@
             android:id="@+id/end_linear"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.45"
+            android:layout_weight="0.40"
 			android:gravity="end"
             android:orientation="horizontal">
 
