@@ -414,7 +414,7 @@ public class VolumeDialog {
             public void onClick(View v) {
                 FlyLog.d("STREAM_ = %d",stream);
                 //TODO:临时禁用关闭蓝牙通话声音
-                if(stream==AudioManager.STREAM_VOICE_CALL) return;
+//                if(stream==AudioManager.STREAM_VOICE_CALL) return;
                 Events.writeEvent(mContext, Events.EVENT_ICON_CLICK, row.stream, row.iconState);
                 mController.setActiveStream(row.stream);
                 if (row.stream == AudioManager.STREAM_RING) {
@@ -726,10 +726,8 @@ public class VolumeDialog {
         final boolean isMusicStream = row.stream == AudioManager.STREAM_MUSIC;
         final boolean isGISStream = row.stream == AudioManager.STREAM_GIS;
         final boolean isAuxInStream = row.stream == AudioManager.STREAM_AUXIN;
-        final boolean isRingVibrate = isRingStream
-                && mState.ringerModeInternal == AudioManager.RINGER_MODE_VIBRATE;
-        final boolean isRingSilent = isRingStream
-                && mState.ringerModeInternal == AudioManager.RINGER_MODE_SILENT;
+        final boolean isRingVibrate = isRingStream && mState.ringerModeInternal == AudioManager.RINGER_MODE_VIBRATE;
+        final boolean isRingSilent = isRingStream && mState.ringerModeInternal == AudioManager.RINGER_MODE_SILENT;
         final boolean isZenAlarms = mState.zenMode == Global.ZEN_MODE_ALARMS;
         final boolean isZenNone = mState.zenMode == Global.ZEN_MODE_NO_INTERRUPTIONS;
         final boolean isZenPriority = mState.zenMode == Global.ZEN_MODE_IMPORTANT_INTERRUPTIONS;
