@@ -434,22 +434,22 @@ public class VolumeDialog {
                     }
                 } else {
                     final boolean vmute = row.ss.level == 0;
-					boolean ismute = mController.getStreamMute(stream);
-					if (D.BUG) Log.d(TAG, "ismute : " + ismute 
-						+ " row.lastAudibleLevel: " + row.lastAudibleLevel);
-					if(!ismute){
-						//mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);	
-						mController.setStreamMute(stream,true);
-						//row.ss.level = 0;
-
-					}else{
-						mController.setStreamMute(stream,false);
-						mController.setStreamVolume(stream, ismute ? row.lastAudibleLevel : 0);
-
-					}
-					if(row.lastAudibleLevel > 0){
-						saveLastVolume(""+stream,row.lastAudibleLevel);
-					}
+//					boolean ismute = mController.getStreamMute(stream);
+//					if (D.BUG) Log.d(TAG, "ismute : " + ismute
+//						+ " row.lastAudibleLevel: " + row.lastAudibleLevel);
+//					if(!ismute){
+//						//mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
+//						mController.setStreamMute(stream,true);
+//						//row.ss.level = 0;
+//
+//					}else{
+//						mController.setStreamMute(stream,false);
+						mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
+//
+//					}
+//					if(row.lastAudibleLevel > 0){
+//						saveLastVolume(""+stream,row.lastAudibleLevel);
+//					}
 					
                 }
                 row.userAttempt = 0;  // reset the grace period, slider should update immediately
