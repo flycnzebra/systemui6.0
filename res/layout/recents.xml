@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2014 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2014 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,8 +12,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!-- Status Bar Scrim View -->
@@ -31,20 +29,21 @@
         android:id="@+id/recents_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="true">
-    </com.android.systemui.recents.views.RecentsView>
+        android:focusable="true" />
 
     <!-- Empty View -->
-    <ViewStub android:id="@+id/empty_view_stub"
-           android:layout="@layout/recents_empty"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent" />
+    <ViewStub
+        android:id="@+id/empty_view_stub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/recents_empty" />
 
     <!-- Debug Overlay View -->
-    <ViewStub android:id="@+id/debug_overlay_stub"
-           android:layout="@layout/recents_debug_overlay"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent" />
+    <ViewStub
+        android:id="@+id/debug_overlay_stub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/recents_debug_overlay" />
 
     <!-- Nav Bar Scrim View -->
     <ImageView
@@ -54,10 +53,16 @@
         android:layout_gravity="center_horizontal|bottom"
         android:scaleType="fitXY"
         android:src="@drawable/recents_lower_gradient" />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_recent_clear"
-        android:layout_marginBottom="50px"
-        android:layout_marginEnd="50px"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="right|center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50px"
+            android:src="@drawable/ic_recent_clear" />
+    </RelativeLayout>
 </FrameLayout>
