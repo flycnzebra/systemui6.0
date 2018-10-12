@@ -391,62 +391,62 @@ public class PhoneStatusBarPolicy implements Callback {
 
     }
 
-    public void setDefaultLastVolume() {
-
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
-        int level;
-        int lastVolume;
-
-        level = mAudio.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
-        if (level == 0) {
-            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_BLUETOOTH_SCO, 15);
-            mAudio.setStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO, lastVolume, 0);
-            level = mAudio.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
-            if (level != lastVolume) {
-                Log.d(TAG, " STREAM_BLUETOOTH_SCO lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
-            }
-        }
-
-        level = mAudio.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
-        if (level == 0) {
-            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_VOICE_CALL, 15);
-            mAudio.setStreamVolume(AudioManager.STREAM_VOICE_CALL, lastVolume, 0);
-            level = mAudio.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
-            if (level != lastVolume) {
-                Log.d(TAG, " STREAM_VOICE_CALL lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
-            }
-        }
-        level = mAudio.getStreamVolume(AudioManager.STREAM_GIS);
-        if (level == 0) {
-            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_GIS, 15);
-            mAudio.setStreamVolume(AudioManager.STREAM_GIS, lastVolume, 0);
-            level = mAudio.getStreamVolume(AudioManager.STREAM_GIS);
-            if (level != lastVolume) {
-                Log.d(TAG, " STREAM_GIS lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
-            }
-        }
-        level = mAudio.getStreamVolume(AudioManager.STREAM_MUSIC);
-        if (level == 0) {
-            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_MUSIC, 15);
-            mAudio.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, 0);
-            level = mAudio.getStreamVolume(AudioManager.STREAM_MUSIC);
-            if (level != lastVolume) {
-                Log.d(TAG, " STREAM_MUSIC lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
-            }
-        }
-        level = mAudio.getStreamVolume(AudioManager.STREAM_AUXIN);
-        if (level == 0) {
-            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_AUXIN, 15);
-            mAudio.setStreamVolume(AudioManager.STREAM_AUXIN, lastVolume, 0);
-            level = mAudio.getStreamVolume(AudioManager.STREAM_AUXIN);
-            if (level != lastVolume) {
-                Log.d(TAG, " STREAM_AUXIN lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
-            }
-        }
-        //level = mAudio.getStreamVolume(AudioManager.STREAM_RING);
-
-
-    }
+//    public void setDefaultLastVolume() {
+//
+//        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
+//        int level;
+//        int lastVolume;
+//
+//        level = mAudio.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
+//        if (level == 0) {
+//            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_BLUETOOTH_SCO, 15);
+//            mAudio.setStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO, lastVolume, 0);
+//            level = mAudio.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
+//            if (level != lastVolume) {
+//                Log.d(TAG, " STREAM_BLUETOOTH_SCO lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
+//            }
+//        }
+//
+//        level = mAudio.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+//        if (level == 0) {
+//            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_VOICE_CALL, 15);
+//            mAudio.setStreamVolume(AudioManager.STREAM_VOICE_CALL, lastVolume, 0);
+//            level = mAudio.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+//            if (level != lastVolume) {
+//                Log.d(TAG, " STREAM_VOICE_CALL lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
+//            }
+//        }
+//        level = mAudio.getStreamVolume(AudioManager.STREAM_GIS);
+//        if (level == 0) {
+//            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_GIS, 15);
+//            mAudio.setStreamVolume(AudioManager.STREAM_GIS, lastVolume, 0);
+//            level = mAudio.getStreamVolume(AudioManager.STREAM_GIS);
+//            if (level != lastVolume) {
+//                Log.d(TAG, " STREAM_GIS lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
+//            }
+//        }
+//        level = mAudio.getStreamVolume(AudioManager.STREAM_MUSIC);
+//        if (level == 0) {
+//            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_MUSIC, 15);
+//            mAudio.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, 0);
+//            level = mAudio.getStreamVolume(AudioManager.STREAM_MUSIC);
+//            if (level != lastVolume) {
+//                Log.d(TAG, " STREAM_MUSIC lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
+//            }
+//        }
+//        level = mAudio.getStreamVolume(AudioManager.STREAM_AUXIN);
+//        if (level == 0) {
+//            lastVolume = sharedPreferences.getInt("" + AudioManager.STREAM_AUXIN, 15);
+//            mAudio.setStreamVolume(AudioManager.STREAM_AUXIN, lastVolume, 0);
+//            level = mAudio.getStreamVolume(AudioManager.STREAM_AUXIN);
+//            if (level != lastVolume) {
+//                Log.d(TAG, " STREAM_AUXIN lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
+//            }
+//        }
+//        //level = mAudio.getStreamVolume(AudioManager.STREAM_RING);
+//
+//
+//    }
 
     private void saveCurrentSource(int value) {
         if (DEBUG) Log.d(TAG, "saveCurrentSource value=" + value);

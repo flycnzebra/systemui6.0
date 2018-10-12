@@ -460,14 +460,15 @@ public class VolumeDialog {
         return row;
     }
 
-	private void saveLastVolume(String stream , int value){
-		if (D.BUG) Log.d(TAG, "saveLastVolume stream=" + stream + " value=" + value);
-		SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-		editor.putInt(stream,value);
-		editor.commit();
+//	private void saveLastVolume(String stream , int value){
+//		if (D.BUG) Log.d(TAG, "saveLastVolume stream=" + stream + " value=" + value);
+//		SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
+//		SharedPreferences.Editor editor = sharedPreferences.edit();
+//		editor.putInt(stream,value);
+//		editor.commit();
+//
+//	}
 
-	}
     public void destroy() {
         mController.removeCallback(mControllerCallbackH);
     }
@@ -781,7 +782,7 @@ public class VolumeDialog {
                 mController.vibrate();
             }
             row.cachedIconRes = iconRes;
-            row.icon.setImageResource(row.iconRes);
+            row.icon.setImageResource(iconRes);
         }
         row.iconState =
                 iconRes == R.drawable.ic_volume_ringer_vibrate ? Events.ICON_STATE_VIBRATE
