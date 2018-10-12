@@ -216,9 +216,9 @@ public class VolumeDialog {
         addRow(AudioManager.STREAM_AUXIN,
                 R.drawable.ic_volume_music, R.drawable.ic_volume_music_n, true);
         addRow(AudioManager.STREAM_VOICE_CALL,
-                R.drawable.ic_volume_btphone, R.drawable.ic_volume_btphone_n, false);
+                R.drawable.ic_volume_btphone, R.drawable.ic_volume_btphone_n, true);
         addRow(AudioManager.STREAM_BLUETOOTH_SCO,
-                R.drawable.ic_volume_btphone, R.drawable.ic_volume_btphone_n, false);
+                R.drawable.ic_volume_btphone, R.drawable.ic_volume_btphone_n, true);
         addRow(AudioManager.STREAM_SYSTEM,
                 R.drawable.ic_volume_system, R.drawable.ic_volume_system_mute, false);
 
