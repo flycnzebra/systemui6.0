@@ -62,7 +62,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50px"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="100px"
             android:src="@drawable/ic_recent_clear" />
     </RelativeLayout>
 </FrameLayout>
