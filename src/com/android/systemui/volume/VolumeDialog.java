@@ -726,6 +726,7 @@ public class VolumeDialog {
         final boolean isMusicStream = row.stream == AudioManager.STREAM_MUSIC;
         final boolean isGISStream = row.stream == AudioManager.STREAM_GIS;
         final boolean isAuxInStream = row.stream == AudioManager.STREAM_AUXIN;
+        final boolean isVoiceCallStream = row.stream == AudioManager.STREAM_VOICE_CALL;
         final boolean isRingVibrate = isRingStream && mState.ringerModeInternal == AudioManager.RINGER_MODE_VIBRATE;
         final boolean isRingSilent = isRingStream && mState.ringerModeInternal == AudioManager.RINGER_MODE_SILENT;
         final boolean isZenAlarms = mState.zenMode == Global.ZEN_MODE_ALARMS;
@@ -733,8 +734,7 @@ public class VolumeDialog {
         final boolean isZenPriority = mState.zenMode == Global.ZEN_MODE_IMPORTANT_INTERRUPTIONS;
         final boolean isRingZenNone = (isRingStream || isSystemStream) && isZenNone;
         final boolean isRingLimited = isRingStream && isZenPriority;
-        final boolean zenMuted = isZenAlarms ? (isRingStream || isSystemStream)
-                : isZenNone ? (isRingStream || isSystemStream || isAlarmStream
+        final boolean zenMuted = isZenAlarms ? (isRingStream || isSystemStream) : isZenNone ? (isRingStream || isSystemStream || isAlarmStream
                 || isMusicStream || isGISStream || isAuxInStream)
                 : false;
 
@@ -781,7 +781,7 @@ public class VolumeDialog {
                 mController.vibrate();
             }
             row.cachedIconRes = iconRes;
-            row.icon.setImageResource(iconRes);
+            row.icon.setImageResource(row.iconRes);
         }
         row.iconState =
                 iconRes == R.drawable.ic_volume_ringer_vibrate ? Events.ICON_STATE_VIBRATE
