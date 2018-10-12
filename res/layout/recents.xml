@@ -60,11 +60,12 @@
         android:gravity="right|center">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/recent_clean_all"
+            android:layout_width="70px"
+            android:layout_height="70px"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="100px"
+            android:layout_marginEnd="70px"
             android:src="@drawable/ic_recent_clear" />
     </RelativeLayout>
 </FrameLayout>
