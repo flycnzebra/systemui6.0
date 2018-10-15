@@ -2444,8 +2444,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     intentWifi.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intentWifi.setComponent(toActivityWifi);
                     intentWifi.putExtra("position", 0);
-                mContext.startActivity(intentWifi);
-//                    jancarManager.requestPage("wifi", intentWifi);
+//                mContext.startActivity(intentWifi);
+                    jancarManager.requestPage("wifi", intentWifi);
                     makeExpandedInvisible();
                     break;
                 case R.id.qs_bt_btn:
