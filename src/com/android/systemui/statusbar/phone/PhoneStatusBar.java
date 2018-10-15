@@ -115,6 +115,7 @@ import com.android.systemui.R;
 import com.android.systemui.assist.AssistManager;
 import com.android.systemui.doze.DozeHost;
 import com.android.systemui.doze.DozeLog;
+import com.android.systemui.jancar.FlyLog;
 import com.android.systemui.keyguard.KeyguardViewMediator;
 import com.android.systemui.qs.QSPanel;
 import com.android.systemui.recents.ScreenPinningRequest;
@@ -2381,84 +2382,88 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.carsetting_btn:
-                Log.d(TAG, "atc6068 carsetting_btn");
-				ComponentName toActivityCarsetting = new ComponentName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
-                Intent intentCarsetting = new Intent();
-				intentCarsetting.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				intentCarsetting.putExtra("position", 6);
-                intentCarsetting.setComponent(toActivityCarsetting);
+        try {
+            switch (v.getId()) {
+                case R.id.carsetting_btn:
+                    Log.d(TAG, "atc6068 carsetting_btn");
+                    ComponentName toActivityCarsetting = new ComponentName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
+                    Intent intentCarsetting = new Intent();
+                    intentCarsetting.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intentCarsetting.putExtra("position", 6);
+                    intentCarsetting.setComponent(toActivityCarsetting);
 //                mContext.startActivity(intentCarsetting);
-                jancarManager.requestPage("carsetting",intentCarsetting);
-                makeExpandedInvisible();
-                break;
-            case R.id.volume_mode_btn:
-                Log.d(TAG, "atc6068 volume_mode_btn");
-				ComponentName toActivityAudio = new ComponentName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
-                Intent intentAduio = new Intent();
-				intentAduio.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intentAduio.setComponent(toActivityAudio);
-                intentAduio.putExtra("position", 3);
+                    jancarManager.requestPage("carsetting", intentCarsetting);
+                    makeExpandedInvisible();
+                    break;
+                case R.id.volume_mode_btn:
+                    Log.d(TAG, "atc6068 volume_mode_btn");
+                    ComponentName toActivityAudio = new ComponentName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
+                    Intent intentAduio = new Intent();
+                    intentAduio.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intentAduio.setComponent(toActivityAudio);
+                    intentAduio.putExtra("position", 3);
 //                mContext.startActivity(intentAduio);
-                jancarManager.requestPage("eq",intentAduio);
-                makeExpandedInvisible();
-                break;
-            case R.id.volume_value_btn:
-                Log.d(TAG, "atc6068 volume_value_btn");
-                Intent intent = new Intent();
-                intent.setAction(VolumeDialogController.BROADCAST_SHOW_VOLUME_BAR);
+                    jancarManager.requestPage("eq", intentAduio);
+                    makeExpandedInvisible();
+                    break;
+                case R.id.volume_value_btn:
+                    Log.d(TAG, "atc6068 volume_value_btn");
+                    Intent intent = new Intent();
+                    intent.setAction(VolumeDialogController.BROADCAST_SHOW_VOLUME_BAR);
 				/*intent.putExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, 9);
 				intent.putExtra(AudioManager.EXTRA_VOLUME_STREAM_VALUE, 20);
 				intent.putExtra(AudioManager.EXTRA_PREV_VOLUME_STREAM_VALUE, 20);
 				intent.putExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE_ALIAS,9);
 				intent.setAction(AudioManager.VOLUME_CHANGED_ACTION);*/
-                mContext.sendBroadcast(intent);
-                makeExpandedInvisible();
+                    mContext.sendBroadcast(intent);
+                    makeExpandedInvisible();
 
-                break;
-            case R.id.brightness_btn:
-                Log.d(TAG, "atc6068 brightness_btn");
+                    break;
+                case R.id.brightness_btn:
+                    Log.d(TAG, "atc6068 brightness_btn");
 				/*ComponentName toActivityBrightness = new ComponentName("com.android.systemui", "com.android.systemui.settings.BrightnessDialog");
 		                 Intent intentBrightness = new Intent();
 						 intentBrightness.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		                 intentBrightness.setComponent(toActivityBrightness);
 		                 mContext.startActivity(intentBrightness);
 		              */
-                Message msg1 = mUIHandler.obtainMessage();
-                msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BRIGHTNESS;
-                mUIHandler.sendMessage(msg1);
-                makeExpandedInvisible();
-                break;
-            case R.id.qs_wifi_btn:
-                Log.d(TAG, "atc6068 qs_wifi_btn");
+                    Message msg1 = mUIHandler.obtainMessage();
+                    msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BRIGHTNESS;
+                    mUIHandler.sendMessage(msg1);
+                    makeExpandedInvisible();
+                    break;
+                case R.id.qs_wifi_btn:
+                    Log.d(TAG, "atc6068 qs_wifi_btn");
 //                Intent intentWifi = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
 //                intentWifi.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                mContext.startActivity(intentWifi);
 //                jancarManager.requestPage("wifi");
-                ComponentName toActivityWifi = new ComponentName("com.jancar.settingss",
-                        "com.jancar.settings.view.activity.MainActivity");
-                Intent intentWifi = new Intent();
-                intentWifi.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intentWifi.setComponent(toActivityWifi);
-                intentWifi.putExtra("position", 0);
+                    ComponentName toActivityWifi = new ComponentName("com.jancar.settingss",
+                            "com.jancar.settings.view.activity.MainActivity");
+                    Intent intentWifi = new Intent();
+                    intentWifi.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intentWifi.setComponent(toActivityWifi);
+                    intentWifi.putExtra("position", 0);
 //                mContext.startActivity(intentWifi);
-                jancarManager.requestPage("wifi",intentWifi);
-                makeExpandedInvisible();
-                break;
-            case R.id.qs_bt_btn:
-                Log.d(TAG, "atc6068 qs_bt_btn");
-                ComponentName toActivityBt = new ComponentName("com.jancar.settingss",
-                        "com.jancar.settings.view.activity.MainActivity");
-                Intent intentBt = new Intent();
-                intentBt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intentBt.setComponent(toActivityBt);
-                intentBt.putExtra("position", 1);
+                    jancarManager.requestPage("wifi", intentWifi);
+                    makeExpandedInvisible();
+                    break;
+                case R.id.qs_bt_btn:
+                    Log.d(TAG, "atc6068 qs_bt_btn");
+                    ComponentName toActivityBt = new ComponentName("com.jancar.settingss",
+                            "com.jancar.settings.view.activity.MainActivity");
+                    Intent intentBt = new Intent();
+                    intentBt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intentBt.setComponent(toActivityBt);
+                    intentBt.putExtra("position", 1);
 //                mContext.startActivity(intentBt);
-                jancarManager.requestPage("btset",intentBt);
-                makeExpandedInvisible();
-                break;
+                    jancarManager.requestPage("btset", intentBt);
+                    makeExpandedInvisible();
+                    break;
 
+            }
+        }catch (Exception e){
+            FlyLog.e(e.toString());
         }
     }
 
