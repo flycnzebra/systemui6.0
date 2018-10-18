@@ -911,9 +911,7 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_SYSTEM)) {
                     changed = updateStreamLevelW(stream, get_level);
                     if (oldLevel != 0) {
-                        saveLastVolume("" + stream, level);
-                    } else {
-//                        setLastVolume(stream);
+                        saveLastVolume("" + stream, oldLevel);
                     }
                 } else {
                     if (D.BUG) Log.d(TAG, "VOLUME_CHANGED stream is :" + stream + " don't care");
