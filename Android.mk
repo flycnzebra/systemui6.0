@@ -5,8 +5,7 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := $(call all-java-files-under, src) \
     src/com/android/systemui/EventLogTags.logtags
 
-LOCAL_STATIC_JAVA_LIBRARIES := ICS \
-								Keyguard \
+LOCAL_STATIC_JAVA_LIBRARIES :=  Keyguard \
 								com.mediatek.systemui.ext \
 								android-support-v4-systemui \
      							

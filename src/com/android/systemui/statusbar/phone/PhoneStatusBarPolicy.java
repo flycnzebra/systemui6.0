@@ -128,7 +128,6 @@ public class PhoneStatusBarPolicy implements Callback {
     ///M: Add for bug fix ALPS02302321
     private boolean mIsPluginWithMic;
     private boolean mIsPluginWithoutMic;
-    private JacState jacState = null;
     private WindowManager floatWindowManager;
     private View floatview;
     PopupWindow mPopupWindow;
@@ -159,6 +158,7 @@ public class PhoneStatusBarPolicy implements Callback {
     private final CustomSourceTabDialog mSourceTabDialog;
     public static int mCurrentApp = 0;
 
+    private JacState jacState = null;
     private JancarManager jancarManager;
 
     private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {

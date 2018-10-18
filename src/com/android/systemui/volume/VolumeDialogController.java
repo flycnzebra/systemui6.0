@@ -46,6 +46,7 @@ import android.util.Log;
 import android.util.SparseArray;
 
 import com.android.systemui.R;
+import com.android.systemui.jancar.FlyLog;
 import com.android.systemui.qs.tiles.DndTile;
 
 import java.io.FileDescriptor;
@@ -881,6 +882,7 @@ public class VolumeDialogController {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            FlyLog.d("on Receive intent=%s",intent.toUri(0));
             final String action = intent.getAction();
             boolean changed = false;
             mUnmuteFlag = 0;
