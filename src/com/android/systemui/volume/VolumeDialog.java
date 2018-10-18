@@ -454,9 +454,9 @@ public class VolumeDialog {
                     mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
 //
 //					}
-//					if(row.lastAudibleLevel > 0){
-//						saveLastVolume(""+stream,row.lastAudibleLevel);
-//					}
+					if(row.lastAudibleLevel > 0){
+						saveLastVolume(""+stream,row.lastAudibleLevel);
+					}
 
                 }
                 row.userAttempt = 0;  // reset the grace period, slider should update immediately
@@ -467,14 +467,14 @@ public class VolumeDialog {
         return row;
     }
 
-//	private void saveLastVolume(String stream , int value){
-//		if (D.BUG) Log.d(TAG, "saveLastVolume stream=" + stream + " value=" + value);
-//		SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
-//		SharedPreferences.Editor editor = sharedPreferences.edit();
-//		editor.putInt(stream,value);
-//		editor.commit();
-//
-//	}
+	private void saveLastVolume(String stream , int value){
+		if (D.BUG) Log.d(TAG, "saveLastVolume stream=" + stream + " value=" + value);
+		SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putInt(stream,value);
+		editor.commit();
+
+	}
 
     public void destroy() {
         mController.removeCallback(mControllerCallbackH);
