@@ -77,7 +77,6 @@ import com.android.systemui.volume.VolumeDialogController.StreamState;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import ICommon.ICMessage;
 import com.android.systemui.statusbar.phone.PhoneStatusBarPolicy;
 
 import android.content.SharedPreferences;
@@ -946,22 +945,12 @@ public class VolumeDialog {
     private final VolumeDialogController.Callbacks mControllerCallbackH
             = new VolumeDialogController.Callbacks() {
         @Override
-        public void onShowRequested(int reason, int currentVolume) {
-        	currentVolumeValue = currentVolume;
-			if (D.BUG) Log.d(TAG, "currentVolumeValue : " + currentVolumeValue);
-			if(PhoneStatusBarPolicy.mCurrentApp != ICMessage.SourceIndex_BackCar){
-				showH(reason);
-				Log.d(TAG, "mCurrentApp = " + PhoneStatusBarPolicy.mCurrentApp);
-			}else{
-				Log.d(TAG, "is backcar source,don't show volumebar");
-			}
-
-			
+        public void onShowRequested(int reason) {
+            showH(reason);
         }
 
         @Override
         public void onDismissRequested(int reason) {
-        	if (D.BUG) Log.d(TAG, "onDismissRequested reason: " + reason);
             dismissH(reason);
         }
 

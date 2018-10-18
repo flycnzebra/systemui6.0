@@ -22,15 +22,13 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import ICommon.ICMessage;
-import android.content.SharedPreferences;
 
 import java.util.ArrayList;
 
 public abstract class PanelBar extends FrameLayout {
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     public static final String TAG = PanelBar.class.getSimpleName();
-    private static final boolean SPEW = true;
+    private static final boolean SPEW = false;
 
     public static final void LOG(String fmt, Object... args) {
         if (!DEBUG) return;
@@ -107,19 +105,9 @@ public abstract class PanelBar extends FrameLayout {
     public boolean panelsEnabled() {
         return true;
     }
-	
-	private int getCurrentSource(){
-		SharedPreferences sharedPreferences = mContext.getSharedPreferences("current_source", Context.MODE_PRIVATE);
-		int currentSource;
-		currentSource = sharedPreferences.getInt("source",0);
-		if (DEBUG) Log.v(TAG, "currentSource =" + currentSource );
-		return currentSource;
-	}
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-    	int currentSource = 0;
-		boolean enabled = false;
         // Allow subclasses to implement enable/disable semantics
         if (!panelsEnabled()) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -139,16 +127,7 @@ public abstract class PanelBar extends FrameLayout {
                 mTouchingPanel = null;
                 return true;
             }
-			//modify by atc6068,close pull-down statusbar
-			//btphone need close pull-down
-			currentSource= getCurrentSource();
-			if(currentSource == ICMessage.SourceIndex_BTPhone){
-				enabled = false;
-			}else{
-				enabled = panel.isEnabled();
-			}
-            //boolean enabled = panel.isEnabled();
-            //boolean enabled = false;
+            boolean enabled = panel.isEnabled();
             if (DEBUG) LOG("PanelBar.onTouch: state=%d ACTION_DOWN: panel %s %s", mState, panel,
                     (enabled ? "" : " (disabled)"));
             if (!enabled) {
@@ -190,7 +169,7 @@ public abstract class PanelBar extends FrameLayout {
     public void panelExpansionChanged(PanelView panel, float frac, boolean expanded) {
         boolean fullyClosed = true;
         PanelView fullyOpenedPanel = null;
-        if (SPEW) LOG("panelExpansionChanged: start state=%d panel=%s expanded = %s", mState, panel.getName(),expanded);
+        if (SPEW) LOG("panelExpansionChanged: start state=%d panel=%s", mState, panel.getName());
         mPanelExpandedFractionSum = 0f;
         for (PanelView pv : mPanels) {
             pv.setVisibility(expanded ? View.VISIBLE : View.INVISIBLE);

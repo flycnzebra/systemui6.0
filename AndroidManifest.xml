@@ -395,6 +395,7 @@
                 <category android:name="android.intent.category.DESK_DOCK" />
             </intent-filter>
         </activity>
+        <!--
         <activity
             android:name=".settings.FullScreen"
             android:label="@string/quick_settings_brightness_dialog_title"
@@ -408,6 +409,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        -->
         <!-- Doze with notifications, run in main sysui process for every user  -->
         <service
             android:name=".doze.DozeService"

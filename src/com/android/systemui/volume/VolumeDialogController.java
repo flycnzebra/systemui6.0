@@ -333,8 +333,7 @@ public class VolumeDialogController {
             mCallbacks.onStateChanged(mState);
         }
         if (showUI) {
-            if (D.BUG) Log.d(TAG, "onShowRequested currentVolume: " + currentVolume);
-            mCallbacks.onShowRequested(Events.SHOW_REASON_VOLUME_CHANGED, currentVolume);
+            mCallbacks.onShowRequested(Events.SHOW_REASON_VOLUME_CHANGED);
         }
         if (showVibrateHint) {
             mCallbacks.onShowVibrateHint();
@@ -685,12 +684,12 @@ public class VolumeDialogController {
         }
 
         @Override
-        public void onShowRequested(final int reason, final int currentVolume) {
+        public void onShowRequested(final int reason) {
             for (final Map.Entry<Callbacks, Handler> entry : mCallbackMap.entrySet()) {
                 entry.getValue().post(new Runnable() {
                     @Override
                     public void run() {
-                        entry.getKey().onShowRequested(reason, currentVolume);
+                        entry.getKey().onShowRequested(reason);
                     }
                 });
             }
@@ -1095,7 +1094,7 @@ public class VolumeDialogController {
                     mCallbacks.onStateChanged(mState);
                 }
                 if (showUI) {
-                    mCallbacks.onShowRequested(Events.SHOW_REASON_REMOTE_VOLUME_CHANGED, currentVolume);
+                    mCallbacks.onShowRequested(Events.SHOW_REASON_REMOTE_VOLUME_CHANGED);
                 }
             }
         }
@@ -1237,7 +1236,7 @@ public class VolumeDialogController {
     }
 
     public interface Callbacks {
-        void onShowRequested(int reason, int currentVolume);
+        void onShowRequested(int reason);
 
         void onDismissRequested(int reason);
 
