@@ -1141,7 +1141,7 @@ public class VolumeDialog {
             final int userLevel = getImpliedLevel(seekBar, progress);
             if (mVolumeValue != null) {
                 if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
-                String level = "   " + userLevel;
+                String level = "" + userLevel;
                 mVolumeValue.setText(level);
             }
 
