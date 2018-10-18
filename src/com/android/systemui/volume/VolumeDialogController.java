@@ -923,6 +923,9 @@ public class VolumeDialogController {
 //                            //setLastVolume(stream);
 //                        }
 //                    }
+                    if(oldLevel==0){
+                        setLastVolume(stream);
+                    }
                 } else {
                     if (D.BUG) Log.d(TAG, "VOLUME_CHANGED stream is :" + stream + " don't care");
                     return;
