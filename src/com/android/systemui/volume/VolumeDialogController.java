@@ -1036,15 +1036,10 @@ public class VolumeDialogController {
     private void setLastVolume(int stream) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
         int lastVolume;
-        int level;
         lastVolume = sharedPreferences.getInt("" + stream, 15);
         mAudio.adjustStreamVolume(stream, AudioManager.ADJUST_UNMUTE, 0);
         mAudio.setStreamVolume(stream, lastVolume, 0);
-        Log.d(TAG, " setStreamVolume: " + stream + " lastVolume: " + lastVolume);
-        level = mAudio.getStreamVolume(stream);
-        if (level != lastVolume) {
-            Log.d(TAG, " stream: " + stream + " lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
-        }
+        FlyLog.d("setLastVolume stream=%d,lastVolume=%d",stream,lastVolume);
     }
 
 
