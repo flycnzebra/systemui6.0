@@ -351,7 +351,6 @@ public class VolumeDialogController {
             mUnmuteFlag++;
             if (mUnmuteFlag == 2) {
                 boolean ismute = mAudio.isStreamMute(stream);
-                if (D.BUG) Log.d(TAG, "isStreamMute stream: " + stream + " ismute :" + ismute);
                 if (ismute) {
                     setLastVolume(stream);
                 }
