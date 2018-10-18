@@ -438,22 +438,12 @@ public class VolumeDialog {
                     }
                 } else {
                     final boolean vmute = row.ss.level == 0;
-//					boolean ismute = mController.getStreamMute(stream);
-//					if (D.BUG) Log.d(TAG, "ismute : " + ismute
-//						+ " row.lastAudibleLevel: " + row.lastAudibleLevel);
-//					if(!ismute){
-//						//mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
-//						mController.setStreamMute(stream,true);
-//						//row.ss.level = 0;
-//
-//					}else{
-//						mController.setStreamMute(stream,false);
+                    boolean ismute = mController.getStreamMute(stream);
+                    mController.setStreamMute(stream, !ismute);
                     mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
-//
-//					}
-					if(row.lastAudibleLevel > 0){
-						saveLastVolume(""+stream,row.lastAudibleLevel);
-					}
+                    if (row.lastAudibleLevel > 0) {
+                        mController.saveLastVolume("" + stream, row.lastAudibleLevel);
+                    }
 
                 }
                 row.userAttempt = 0;  // reset the grace period, slider should update immediately
@@ -463,15 +453,6 @@ public class VolumeDialog {
         row.settingsButton.setOnClickListener(mClickSettings);
         return row;
     }
-
-	private void saveLastVolume(String stream , int value){
-		FlyLog.d("saveLastVolume stream=" + stream + " value=" + value);
-		SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-		editor.putInt(stream,value);
-		editor.commit();
-
-	}
 
     public void destroy() {
         mController.removeCallback(mControllerCallbackH);
@@ -492,7 +473,7 @@ public class VolumeDialog {
         if (D.BUG) Log.d(TAG, "mIgnoreState : " + mIgnoreState);
         if (D.BUG) Log.d(TAG, "showH r=" + Events.DISMISS_REASONS[reason]);
         if ((mVolumeValue != null) && (mCountShow == 1)) {//only first show set volume
-            mVolumeValue.setText(""+VolumeDialogController.currentVolume);
+            mVolumeValue.setText("" + VolumeDialogController.currentVolume);
         }
         mHandler.removeMessages(H.SHOW);
         mHandler.removeMessages(H.DISMISS);

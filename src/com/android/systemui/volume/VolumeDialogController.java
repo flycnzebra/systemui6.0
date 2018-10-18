@@ -258,7 +258,7 @@ public class VolumeDialogController {
     }
 
     public void setStreamVolume(int stream, int level) {
-        FlyLog.d("setStreamVolume strem=%d,level=%d",stream,level);
+        FlyLog.d("setStreamVolume strem=%d,level=%d", stream, level);
         if (mDestroyed) return;
         if (D.BUG) Log.d(TAG, "setStreamVolume stream:" + stream + " level: " + level);
         //mWorker.obtainMessage(W.SET_STREAM_VOLUME, stream, level).sendToTarget();
@@ -895,8 +895,7 @@ public class VolumeDialogController {
                     mAudio.adjustStreamVolume(AudioManager.STREAM_AUXIN, AudioManager.ADJUST_UNMUTE, 0);
                 }
                 final int level = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_VALUE, -1);
-                final int oldLevel = intent
-                        .getIntExtra(AudioManager.EXTRA_PREV_VOLUME_STREAM_VALUE, -1);
+                final int oldLevel = intent.getIntExtra(AudioManager.EXTRA_PREV_VOLUME_STREAM_VALUE, -1);
 
                 int get_level = mAudio.getStreamVolume(stream);
                 if (D.BUG) Log.d(TAG, "onReceive VOLUME_CHANGED_ACTION stream=" + stream
@@ -911,20 +910,10 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_RING) ||
                         (stream == AudioManager.STREAM_SYSTEM)) {
                     changed = updateStreamLevelW(stream, get_level);
-                    //mWorker.obtainMessage(W.VOLUME_CHANGED, stream, 4113).sendToTarget();
-                    //currentVolume = level;
-                    //if (D.BUG) Log.d(TAG, "currentVolume: " + currentVolume);
-                    //saveLastVolume(""+stream,oldLevel);
-//                    if (oldLevel != 0) {
-//                        saveLastVolume("" + stream, oldLevel);
-//                    } else {
-//                        if ((get_level == 0) || (get_level == 1)) {
-//                            //if(get_level == 0){
-//                            //setLastVolume(stream);
-//                        }
-//                    }
-                    if(oldLevel==0){
-                        setLastVolume(stream);
+                    if (oldLevel != 0) {
+                        saveLastVolume("" + stream, level);
+                    } else {
+//                        setLastVolume(stream);
                     }
                 } else {
                     if (D.BUG) Log.d(TAG, "VOLUME_CHANGED stream is :" + stream + " don't care");
@@ -1029,22 +1018,21 @@ public class VolumeDialogController {
         }
     }
 
-//    private void saveLastVolume(String stream, int value) {
-//        if (D.BUG) Log.d(TAG, "saveLastVolume stream=" + stream + " value=" + value);
-//        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putInt(stream, value);
-//        editor.commit();
-//
-//    }
+    public void saveLastVolume(String stream, int value) {
+        if (D.BUG) Log.d(TAG, "saveLastVolume stream=" + stream + " value=" + value);
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(stream, value);
+        editor.apply();
+    }
 
-    private void setLastVolume(int stream) {
+    public void setLastVolume(int stream) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
         int lastVolume;
         lastVolume = sharedPreferences.getInt("" + stream, 15);
         mAudio.adjustStreamVolume(stream, AudioManager.ADJUST_UNMUTE, 0);
         mAudio.setStreamVolume(stream, lastVolume, 0);
-        FlyLog.d("setLastVolume stream=%d,lastVolume=%d",stream,lastVolume);
+        FlyLog.d("setLastVolume stream=%d,lastVolume=%d", stream, lastVolume);
     }
 
 
