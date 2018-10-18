@@ -874,15 +874,17 @@ public class VolumeDialogController {
             filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
             filter.addAction(BROADCAST_SHOW_VOLUME_BAR);
             mContext.registerReceiver(this, filter, null, mWorker);
+            FlyLog.d("registerReceiver");
         }
 
         public void destroy() {
             mContext.unregisterReceiver(this);
+            FlyLog.d("registerReceiver");
         }
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            FlyLog.d("on Receive intent=%s",intent.toUri(0));
+//            FlyLog.d("on Receive intent=%s",intent.toUri(0));
             final String action = intent.getAction();
             boolean changed = false;
             mUnmuteFlag = 0;

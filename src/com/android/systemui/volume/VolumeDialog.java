@@ -419,9 +419,6 @@ public class VolumeDialog {
         row.icon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                FlyLog.d("STREAM_ = %d", stream);
-                //TODO:临时禁用关闭蓝牙通话声音
-//                if(stream==AudioManager.STREAM_VOICE_CALL) return;
                 Events.writeEvent(mContext, Events.EVENT_ICON_CLICK, row.stream, row.iconState);
                 mController.setActiveStream(row.stream);
                 if (row.stream == AudioManager.STREAM_RING) {
@@ -468,7 +465,7 @@ public class VolumeDialog {
     }
 
 	private void saveLastVolume(String stream , int value){
-		if (D.BUG) Log.d(TAG, "saveLastVolume stream=" + stream + " value=" + value);
+		FlyLog.d("saveLastVolume stream=" + stream + " value=" + value);
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putInt(stream,value);
