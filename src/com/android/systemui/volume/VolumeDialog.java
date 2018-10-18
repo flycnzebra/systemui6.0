@@ -439,7 +439,13 @@ public class VolumeDialog {
                 } else {
                     final boolean vmute = row.ss.level == 0;
                     boolean ismute = mController.getStreamMute(stream);
-                    mController.setStreamMute(stream, ismute);
+                    if(!ismute){
+                        mController.setStreamMute(stream,true);
+
+                    }else{
+                        mController.setStreamMute(stream,false);
+
+                    }
                     mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
                     if (row.lastAudibleLevel > 0) {
                         mController.saveLastVolume("" + stream, row.lastAudibleLevel);
