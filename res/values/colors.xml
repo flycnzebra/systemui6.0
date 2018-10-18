@@ -76,20 +76,20 @@
     <color name="keyguard_affordance">#ffffffff</color>
 
     <!-- The color of the legacy notification background -->
-    <color name="notification_legacy_background_color">#FF135DAC</color>
+    <color name="notification_legacy_background_color">#ff262728</color>
 
     <!-- The color of the material notification background -->
-    <color name="notification_material_background_color">#FF135DAC</color>
+    <color name="notification_material_background_color">#ff262728</color>
 
     <!-- The color of the material notification background when dimmed -->
     <color name="notification_material_background_dimmed_color">#EF135DFF</color>
 
     <!-- The color of the material notification background when low priority -->
-    <color name="notification_material_background_low_priority_color">#FF135DAC</color>
+    <color name="notification_material_background_low_priority_color">#ff262728</color>
 
     <!-- The color of the material notification background for media notifications when no custom
          color is specified -->
-    <color name="notification_material_background_media_default_color">#FF135DAC</color>
+    <color name="notification_material_background_media_default_color">#ff262728</color>
 
     <!-- The color of the ripples on the untinted notifications -->
     <color name="notification_ripple_untinted_color">#28000000</color>
