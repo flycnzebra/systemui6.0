@@ -77,15 +77,16 @@ import com.android.systemui.volume.VolumeDialogController.StreamState;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.android.systemui.statusbar.phone.PhoneStatusBarPolicy;
 
 import android.content.SharedPreferences;
 
 /**
  * Visual presentation of the volume dialog.
- *
+ * <p>
  * A client of VolumeDialogController and its state model.
- *
+ * <p>
  * Methods ending in "H" must be called on the (ui) handler.
  */
 public class VolumeDialog {
@@ -103,7 +104,7 @@ public class VolumeDialog {
     private final ViewGroup mDialogView;
     private final ViewGroup mDialogContentView;
     private final ImageButton mExpandButton;
-	private final TextView mVolumeValue;
+    private final TextView mVolumeValue;
     private final View mSettingsButton;
     private final List<VolumeRow> mRows = new ArrayList<VolumeRow>();
     private final SpTexts mSpTexts;
@@ -119,8 +120,8 @@ public class VolumeDialog {
     private final VolumeDialogMotion mMotion;
 
     private boolean mShowing;
-	private boolean mIgnoreState =false;
-	private int mCountShow = 0;
+    private boolean mIgnoreState = false;
+    private int mCountShow = 0;
     private boolean mExpanded;
     private int mActiveStream;
     private boolean mShowHeaders = VolumePrefs.DEFAULT_SHOW_HEADERS;
@@ -134,11 +135,10 @@ public class VolumeDialog {
     private boolean mPendingStateChanged;
     private boolean mPendingRecheckAll;
     private long mCollapseTime;
-	//private final CustomSourceTabDialog mSourceTabDialog;
-	int currentVolumeValue = 0;
+    //private final CustomSourceTabDialog mSourceTabDialog;
 
     public VolumeDialog(Context context, int windowType, VolumeDialogController controller,
-            ZenModeController zenModeController, Callback callback) {
+                        ZenModeController zenModeController, Callback callback) {
         mContext = context;
         mController = controller;
         mCallback = callback;
@@ -146,9 +146,9 @@ public class VolumeDialog {
         mKeyguard = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
 
         mDialog = new CustomDialog(mContext);
-		//mSourceTabDialog = new CustomSourceTabDialog(mContext);
-		//mSourceTabDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-		//mSourceTabDialog.show();
+        //mSourceTabDialog = new CustomSourceTabDialog(mContext);
+        //mSourceTabDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        //mSourceTabDialog.show();
 
         final Window window = mDialog.getWindow();
         window.requestFeature(Window.FEATURE_NO_TITLE);
@@ -179,10 +179,10 @@ public class VolumeDialog {
         mDialogView = (ViewGroup) mDialog.findViewById(R.id.volume_dialog);
         mDialogContentView = (ViewGroup) mDialog.findViewById(R.id.volume_dialog_content);
         mExpandButton = (ImageButton) mDialogView.findViewById(R.id.volume_expand_button);
-		mVolumeValue = (TextView) mDialog.findViewById(R.id.volume_value);
+        mVolumeValue = (TextView) mDialog.findViewById(R.id.volume_value);
 
-		mExpandButton.setOnClickListener(mClickExpand);
-		//modify by atc6068
+        mExpandButton.setOnClickListener(mClickExpand);
+        //modify by atc6068
         //updateWindowWidthH();
         updateExpandButtonH();
         mLayoutTransition = new LayoutTransition();
@@ -190,19 +190,19 @@ public class VolumeDialog {
         mDialogContentView.setLayoutTransition(mLayoutTransition);
         mMotion = new VolumeDialogMotion(mDialog, mDialogView, mDialogContentView, mExpandButton,
                 new VolumeDialogMotion.Callback() {
-            @Override
-            public void onAnimatingChanged(boolean animating) {
-                if (animating) return;
-                if (mPendingStateChanged) {
-                    mHandler.sendEmptyMessage(H.STATE_CHANGED);
-                    mPendingStateChanged = false;
-                }
-                if (mPendingRecheckAll) {
-                    mHandler.sendEmptyMessage(H.RECHECK_ALL);
-                    mPendingRecheckAll = false;
-                }
-            }
-        });
+                    @Override
+                    public void onAnimatingChanged(boolean animating) {
+                        if (animating) return;
+                        if (mPendingStateChanged) {
+                            mHandler.sendEmptyMessage(H.STATE_CHANGED);
+                            mPendingStateChanged = false;
+                        }
+                        if (mPendingRecheckAll) {
+                            mHandler.sendEmptyMessage(H.RECHECK_ALL);
+                            mPendingRecheckAll = false;
+                        }
+                    }
+                });
 
         addRow(AudioManager.STREAM_RING,
                 R.drawable.ic_volume_ring, R.drawable.ic_volume_ring_n, true);
@@ -289,11 +289,11 @@ public class VolumeDialog {
         row.settingsButton.addOnLayoutChangeListener(new OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                    int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 final boolean moved = oldLeft != left || oldTop != top;
                 if (D.BUG) Log.d(TAG, "onLayoutChange moved=" + moved
                         + " old=" + new Rect(oldLeft, oldTop, oldRight, oldBottom).toShortString()
-                        + " new=" + new Rect(left,top,right,bottom).toShortString());
+                        + " new=" + new Rect(left, top, right, bottom).toShortString());
                 if (moved) {
                     for (int i = 0; i < mDialogContentView.getChildCount(); i++) {
                         final View c = mDialogContentView.getChildAt(i);
@@ -345,16 +345,24 @@ public class VolumeDialog {
 
     public void dump(PrintWriter writer) {
         writer.println(VolumeDialog.class.getSimpleName() + " state:");
-        writer.print("  mShowing: "); writer.println(mShowing);
-        writer.print("  mExpanded: "); writer.println(mExpanded);
+        writer.print("  mShowing: ");
+        writer.println(mShowing);
+        writer.print("  mExpanded: ");
+        writer.println(mExpanded);
         writer.print("  mExpandButtonAnimationRunning: ");
         writer.println(mExpandButtonAnimationRunning);
-        writer.print("  mActiveStream: "); writer.println(mActiveStream);
-        writer.print("  mDynamic: "); writer.println(mDynamic);
-        writer.print("  mShowHeaders: "); writer.println(mShowHeaders);
-        writer.print("  mAutomute: "); writer.println(mAutomute);
-        writer.print("  mSilentMode: "); writer.println(mSilentMode);
-        writer.print("  mCollapseTime: "); writer.println(mCollapseTime);
+        writer.print("  mActiveStream: ");
+        writer.println(mActiveStream);
+        writer.print("  mDynamic: ");
+        writer.println(mDynamic);
+        writer.print("  mShowHeaders: ");
+        writer.println(mShowHeaders);
+        writer.print("  mAutomute: ");
+        writer.println(mAutomute);
+        writer.print("  mSilentMode: ");
+        writer.println(mSilentMode);
+        writer.print("  mCollapseTime: ");
+        writer.println(mCollapseTime);
         writer.print("  mAccessibility.mFeedbackEnabled: ");
         writer.println(mAccessibility.mFeedbackEnabled);
     }
@@ -363,7 +371,7 @@ public class VolumeDialog {
         final int m = seekBar.getMax();
         final int n = m / 100 - 1;
         final int level = progress == 0 ? 0
-                : progress == m ? (m / 100) : (1 + (int)((progress / (float) m) * n));
+                : progress == m ? (m / 100) : (1 + (int) ((progress / (float) m) * n));
         return level;
     }
 
@@ -411,7 +419,7 @@ public class VolumeDialog {
         row.icon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                FlyLog.d("STREAM_ = %d",stream);
+                FlyLog.d("STREAM_ = %d", stream);
                 //TODO:临时禁用关闭蓝牙通话声音
 //                if(stream==AudioManager.STREAM_VOICE_CALL) return;
                 Events.writeEvent(mContext, Events.EVENT_ICON_CLICK, row.stream, row.iconState);
@@ -443,13 +451,13 @@ public class VolumeDialog {
 //
 //					}else{
 //						mController.setStreamMute(stream,false);
-						mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
+                    mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
 //
 //					}
 //					if(row.lastAudibleLevel > 0){
 //						saveLastVolume(""+stream,row.lastAudibleLevel);
 //					}
-					
+
                 }
                 row.userAttempt = 0;  // reset the grace period, slider should update immediately
             }
@@ -477,30 +485,28 @@ public class VolumeDialog {
     }
 
     public void dismiss(int reason) {
-		if (D.BUG) Log.d(TAG, "dismiss r=" + Events.DISMISS_REASONS[reason]);
+        if (D.BUG) Log.d(TAG, "dismiss r=" + Events.DISMISS_REASONS[reason]);
         mHandler.obtainMessage(H.DISMISS, reason, 0).sendToTarget();
     }
 
     private void showH(int reason) {
-		mCountShow ++;
-		mIgnoreState = false;
-		if (D.BUG) Log.d(TAG, "mIgnoreState : " + mIgnoreState);
+        mCountShow++;
+        mIgnoreState = false;
+        if (D.BUG) Log.d(TAG, "mIgnoreState : " + mIgnoreState);
         if (D.BUG) Log.d(TAG, "showH r=" + Events.DISMISS_REASONS[reason]);
-		if((mVolumeValue != null) &&(mCountShow == 1)){//only first show set volume
-			if (D.BUG) Log.d(TAG, "currentVolume = " + currentVolumeValue);
-				String level = "   " + currentVolumeValue;
-				mVolumeValue.setText(level);
-		}
+        if ((mVolumeValue != null) && (mCountShow == 1)) {//only first show set volume
+            mVolumeValue.setText(""+VolumeDialogController.currentVolume);
+        }
         mHandler.removeMessages(H.SHOW);
         mHandler.removeMessages(H.DISMISS);
         rescheduleTimeoutH();
-		
+
         if (mShowing) return;
         mShowing = true;
         mMotion.startShow();
         Events.writeEvent(mContext, Events.EVENT_SHOW_DIALOG, reason, mKeyguard.isKeyguardLocked());
         mController.notifyVisible(true);
-		
+
     }
 
     protected void rescheduleTimeoutH() {
@@ -521,8 +527,8 @@ public class VolumeDialog {
     }
 
     protected void dismissH(int reason) {
-		if (D.BUG) Log.d(TAG, "dismissH reason: " + reason);
-		mCountShow =0;
+        if (D.BUG) Log.d(TAG, "dismissH reason: " + reason);
+        mCountShow = 0;
         if (mMotion.isAnimating()) {
             return;
         }
@@ -536,8 +542,8 @@ public class VolumeDialog {
                 setExpandedH(false);
             }
         });
-		mIgnoreState = true;
-		if (D.BUG) Log.d(TAG, "mIgnoreState : " + mIgnoreState);
+        mIgnoreState = true;
+        if (D.BUG) Log.d(TAG, "mIgnoreState : " + mIgnoreState);
         Events.writeEvent(mContext, Events.EVENT_DISMISS_DIALOG, reason);
         mController.notifyVisible(false);
         synchronized (mSafetyWarningLock) {
@@ -633,7 +639,8 @@ public class VolumeDialog {
         for (VolumeRow row : mRows) {
             final boolean isActive = row == activeRow;
             final boolean visible = isVisibleH(row, isActive);
-			if (D.BUG) Log.d(TAG, "activeRow : " +activeRow + " visible :" + visible+ " mExpanded :" + mExpanded);
+            if (D.BUG)
+                Log.d(TAG, "activeRow : " + activeRow + " visible :" + visible + " mExpanded :" + mExpanded);
             Util.setVisOrGone(row.view, visible);
             Util.setVisOrGone(row.space, visible && mExpanded);
             final int expandButtonRes = mExpanded ? R.drawable.ic_volume_settings : 0;
@@ -654,7 +661,7 @@ public class VolumeDialog {
 
     private void trimObsoleteH() {
         if (D.BUG) Log.d(TAG, "trimObsoleteH");
-        for (int i = mRows.size() -1; i >= 0; i--) {
+        for (int i = mRows.size() - 1; i >= 0; i--) {
             final VolumeRow row = mRows.get(i);
             if (row.ss == null || !row.ss.dynamic) continue;
             if (!mDynamic.get(row.stream)) {
@@ -684,7 +691,8 @@ public class VolumeDialog {
                 addRow(stream, R.drawable.ic_volume_remote, R.drawable.ic_volume_remote_mute, true);
             }
         }
-		if (D.BUG) Log.d(TAG, "state.activeStream =" + state.activeStream + " mActiveStream =" +mActiveStream);
+        if (D.BUG)
+            Log.d(TAG, "state.activeStream =" + state.activeStream + " mActiveStream =" + mActiveStream);
 
         if ((mActiveStream != state.activeStream) && (state.activeStream != -1)) {
             mActiveStream = state.activeStream;
@@ -770,12 +778,12 @@ public class VolumeDialog {
         row.icon.setAlpha(iconEnabled ? 1 : 0.5f);
         final int iconRes =
                 isRingVibrate ? R.drawable.ic_volume_ringer_vibrate
-                : isRingSilent || zenMuted ? row.cachedIconRes
-                : ss.routedToBluetooth ?
+                        : isRingSilent || zenMuted ? row.cachedIconRes
+                        : ss.routedToBluetooth ?
                         (ss.muted ? R.drawable.ic_volume_media_bt_mute
                                 : R.drawable.ic_volume_media_bt)
-                : mAutomute && ss.level == 0 ? row.iconMuteRes
-                : (ss.muted ? row.iconMuteRes : row.iconRes);
+                        : mAutomute && ss.level == 0 ? row.iconMuteRes
+                        : (ss.muted ? row.iconMuteRes : row.iconRes);
         if (iconRes != row.cachedIconRes) {
             if (row.cachedIconRes != 0 && isRingVibrate) {
                 mController.vibrate();
@@ -785,11 +793,11 @@ public class VolumeDialog {
         }
         row.iconState =
                 iconRes == R.drawable.ic_volume_ringer_vibrate ? Events.ICON_STATE_VIBRATE
-                : (iconRes == R.drawable.ic_volume_media_bt_mute || iconRes == row.iconMuteRes)
+                        : (iconRes == R.drawable.ic_volume_media_bt_mute || iconRes == row.iconMuteRes)
                         ? Events.ICON_STATE_MUTE
-                : (iconRes == R.drawable.ic_volume_media_bt || iconRes == row.iconRes)
+                        : (iconRes == R.drawable.ic_volume_media_bt || iconRes == row.iconRes)
                         ? Events.ICON_STATE_UNMUTE
-                : Events.ICON_STATE_UNKNOWN;
+                        : Events.ICON_STATE_UNKNOWN;
         row.icon.setContentDescription(ss.name);
 
         // update slider
@@ -812,10 +820,10 @@ public class VolumeDialog {
         if (isActive && mExpanded) {
             row.slider.requestFocus();
         }
-		//atc6068
-		if(row.slider != null){
-		 	//row.slider.setThumb(mContext.getResources().getDrawable(R.drawable.thumb));
-		}
+        //atc6068
+        if (row.slider != null) {
+            //row.slider.setThumb(mContext.getResources().getDrawable(R.drawable.thumb));
+        }
 		/*
         final ColorStateList tint = isActive && row.slider.isEnabled() ? mActiveSliderTint
                 : mInactiveSliderTint;
@@ -824,13 +832,13 @@ public class VolumeDialog {
         row.slider.setProgressTintList(tint);
         row.slider.setThumbTintList(tint);
         */
-        
+
     }
 
     private void updateVolumeRowSliderH(VolumeRow row, boolean enable, int vlevel) {
-		if (D.BUG) Log.d(TAG, "updateVolumeRowSliderH vlevel=" + vlevel);
+        if (D.BUG) Log.d(TAG, "updateVolumeRowSliderH vlevel=" + vlevel);
 
-		row.slider.setEnabled(enable);
+        row.slider.setEnabled(enable);
         updateVolumeRowSliderTintH(row, row.stream == mActiveStream);
         if (row.tracking) {
             return;  // don't update if user is sliding
@@ -838,7 +846,7 @@ public class VolumeDialog {
         final int progress = row.slider.getProgress();
         final int level = getImpliedLevel(row.slider, progress);
         final boolean rowVisible = row.view.getVisibility() == View.VISIBLE;
-		if (D.BUG) Log.d(TAG, "rowVisible : " + rowVisible);
+        if (D.BUG) Log.d(TAG, "rowVisible : " + rowVisible);
         final boolean inGracePeriod = (SystemClock.uptimeMillis() - row.userAttempt)
                 < USER_ATTEMPT_GRACE_PERIOD;
         mHandler.removeMessages(H.RECHECK, row);
@@ -852,17 +860,17 @@ public class VolumeDialog {
             if (mShowing && rowVisible) {
                 return;  // don't clamp if visible
             }
-        }	
+        }
 
-		final int newProgress = vlevel * 100;
-		
-		if(rowVisible){
-			if (D.BUG) Log.d(TAG, "mIgnoreState : " + mIgnoreState);
-			if(!mIgnoreState){
-				if (D.BUG) Log.d(TAG, "setProgress newProgress=" + newProgress);
+        final int newProgress = vlevel * 100;
+
+        if (rowVisible) {
+            if (D.BUG) Log.d(TAG, "mIgnoreState : " + mIgnoreState);
+            if (!mIgnoreState) {
+                if (D.BUG) Log.d(TAG, "setProgress newProgress=" + newProgress);
                 row.slider.setProgress(newProgress);
-			}
-		}
+            }
+        }
 		/*
         if (progress != newProgress) {
 			if (D.BUG) Log.d(TAG,"progress :" + progress + "newProgress=" + newProgress + "mShowing :" + mShowing + "rowVisible :" + rowVisible);
@@ -994,9 +1002,10 @@ public class VolumeDialog {
         public void onShowSafetyWarning(int flags) {
             showSafetyWarningH(flags);
         }
-		@Override
-		public void onShowUI( ) {
-        	if (D.BUG) Log.d(TAG, "onShowUI ");
+
+        @Override
+        public void onShowUI() {
+            if (D.BUG) Log.d(TAG, "onShowUI ");
             mIgnoreState = false;
         }
     };
@@ -1043,14 +1052,30 @@ public class VolumeDialog {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case SHOW: showH(msg.arg1); break;
-                case DISMISS: dismissH(msg.arg1); break;
-                case RECHECK: recheckH((VolumeRow) msg.obj); break;
-                case RECHECK_ALL: recheckH(null); break;
-                case SET_STREAM_IMPORTANT: setStreamImportantH(msg.arg1, msg.arg2 != 0); break;
-                case RESCHEDULE_TIMEOUT: rescheduleTimeoutH(); break;
-                case STATE_CHANGED: onStateChangedH(mState); break;
-                case UPDATE_BOTTOM_MARGIN: updateDialogBottomMarginH(); break;
+                case SHOW:
+                    showH(msg.arg1);
+                    break;
+                case DISMISS:
+                    dismissH(msg.arg1);
+                    break;
+                case RECHECK:
+                    recheckH((VolumeRow) msg.obj);
+                    break;
+                case RECHECK_ALL:
+                    recheckH(null);
+                    break;
+                case SET_STREAM_IMPORTANT:
+                    setStreamImportantH(msg.arg1, msg.arg2 != 0);
+                    break;
+                case RESCHEDULE_TIMEOUT:
+                    rescheduleTimeoutH();
+                    break;
+                case STATE_CHANGED:
+                    onStateChangedH(mState);
+                    break;
+                case UPDATE_BOTTOM_MARGIN:
+                    updateDialogBottomMarginH();
+                    break;
             }
         }
     }
@@ -1089,6 +1114,7 @@ public class VolumeDialog {
             return false;
         }
     }
+
     public static void call() {
         Throwable t = new Throwable();
         StackTraceElement stack[] = t.getStackTrace();
@@ -1111,27 +1137,28 @@ public class VolumeDialog {
             if (mRow.ss == null) return;
             if (D.BUG) Log.d(TAG, AudioSystem.streamToString(mRow.stream)
                     + " onProgressChanged " + progress + " fromUser=" + fromUser);
-			//call();
-			final int userLevel = getImpliedLevel(seekBar, progress);
-			if(mVolumeValue != null){
-				if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
-				String level = "   " + userLevel;
-				mVolumeValue.setText(level);
-			}
+            //call();
+            final int userLevel = getImpliedLevel(seekBar, progress);
+            if (mVolumeValue != null) {
+                if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
+                String level = "   " + userLevel;
+                mVolumeValue.setText(level);
+            }
 
-			if (!fromUser) return;
+            if (!fromUser) return;
             if (mRow.ss.levelMin > 0) {
                 final int minProgress = mRow.ss.levelMin * 100;
                 if (progress < minProgress) {
-					if (D.BUG) Log.d(TAG, "setProgress minProgress=" + minProgress);
+                    if (D.BUG) Log.d(TAG, "setProgress minProgress=" + minProgress);
                     seekBar.setProgress(minProgress);
                 }
             }
-         
+
             if (mRow.ss.level != userLevel || mRow.ss.muted && userLevel > 0) {
                 mRow.userAttempt = SystemClock.uptimeMillis();
                 if (mRow.requestedLevel != userLevel) {
-					if (D.BUG) Log.d(TAG, "setStreamVolume mRow.stream : "+ mRow.stream + " userLevel = " + userLevel);
+                    if (D.BUG)
+                        Log.d(TAG, "setStreamVolume mRow.stream : " + mRow.stream + " userLevel = " + userLevel);
                     mController.setStreamVolume(mRow.stream, userLevel);
                     mRow.requestedLevel = userLevel;
                     Events.writeEvent(mContext, Events.EVENT_TOUCH_LEVEL_CHANGED, mRow.stream,
@@ -1143,22 +1170,22 @@ public class VolumeDialog {
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
-            if (D.BUG) Log.d(TAG, "onStartTrackingTouch"+ " " + mRow.stream);
+            if (D.BUG) Log.d(TAG, "onStartTrackingTouch" + " " + mRow.stream);
             mController.setActiveStream(mRow.stream);
             mRow.tracking = true;
         }
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            if (D.BUG) Log.d(TAG, "onStopTrackingTouch"+ " " + mRow.stream);
+            if (D.BUG) Log.d(TAG, "onStopTrackingTouch" + " " + mRow.stream);
             mRow.tracking = false;
             mRow.userAttempt = SystemClock.uptimeMillis();
             int userLevel = getImpliedLevel(seekBar, seekBar.getProgress());
             Events.writeEvent(mContext, Events.EVENT_TOUCH_LEVEL_DONE, mRow.stream, userLevel);
             if (mRow.ss == null) return;
             if (mRow.ss.level != userLevel) {
-               // mHandler.sendMessageDelayed(mHandler.obtainMessage(H.RECHECK, mRow),
-               //         USER_ATTEMPT_GRACE_PERIOD);
+                // mHandler.sendMessageDelayed(mHandler.obtainMessage(H.RECHECK, mRow),
+                //         USER_ATTEMPT_GRACE_PERIOD);
             }
         }
     }
@@ -1194,7 +1221,7 @@ public class VolumeDialog {
 
         @Override
         public boolean onRequestSendAccessibilityEvent(ViewGroup host, View child,
-                AccessibilityEvent event) {
+                                                       AccessibilityEvent event) {
             rescheduleTimeoutH();
             return super.onRequestSendAccessibilityEvent(host, child, event);
         }
@@ -1243,7 +1270,9 @@ public class VolumeDialog {
 
     public interface Callback {
         void onSettingsClicked();
+
         void onZenSettingsClicked();
+
         void onZenPrioritySettingsClicked();
     }
 }

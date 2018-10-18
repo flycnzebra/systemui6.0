@@ -107,7 +107,7 @@ public class VolumeDialogController {
     private int mUnmuteFlag = 0;
     private VolumePolicy mVolumePolicy;
     private boolean mShowDndTile = true;
-    int currentVolume = 0;
+    public static int currentVolume = 0;
 
     public VolumeDialogController(Context context, ComponentName component) {
         mContext = context.getApplicationContext();
