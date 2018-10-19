@@ -350,6 +350,7 @@ public class VolumeDialogController {
         if (fromKey) {
             mUnmuteFlag++;
             if (mUnmuteFlag == 2) {
+                FlyLog.d("set last stream=%d",stream);
                 boolean ismute = mAudio.isStreamMute(stream);
                 if (ismute) {
                     setLastVolume(stream);
