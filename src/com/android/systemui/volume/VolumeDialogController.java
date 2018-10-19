@@ -912,6 +912,8 @@ public class VolumeDialogController {
                     changed = updateStreamLevelW(stream, get_level);
                     if (oldLevel != 0) {
                         saveLastVolume("" + stream, oldLevel);
+                    }else{
+                        setLastVolume(stream);
                     }
                 } else {
                     if (D.BUG) Log.d(TAG, "VOLUME_CHANGED stream is :" + stream + " don't care");
