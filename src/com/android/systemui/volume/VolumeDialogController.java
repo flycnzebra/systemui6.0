@@ -347,17 +347,15 @@ public class VolumeDialogController {
             Events.writeEvent(mContext, Events.EVENT_KEY, stream, lastAudibleStreamVolume);
         }
 
-//        if (fromKey) {
-//            mUnmuteFlag++;
-//            if (mUnmuteFlag == 2) {
-//                FlyLog.d("set last stream=%d",stream);
-//                boolean ismute = mAudio.isStreamMute(stream);
-//                if (ismute) {
-//                    loadLastVolume(stream);
-//                }
-//            }
-//
-//        }
+        if (fromKey) {
+            if (flags == 4112) {
+                FlyLog.d("set last stream=%d",stream);
+                boolean ismute = mAudio.isStreamMute(stream);
+                if (ismute) {
+                    loadLastVolume(stream);
+                }
+            }
+        }
 
     }
 
