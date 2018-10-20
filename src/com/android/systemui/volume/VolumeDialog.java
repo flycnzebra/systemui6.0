@@ -713,6 +713,7 @@ public class VolumeDialog {
         final boolean isMusicStream = row.stream == AudioManager.STREAM_MUSIC;
         final boolean isGISStream = row.stream == AudioManager.STREAM_GIS;
         final boolean isAuxInStream = row.stream == AudioManager.STREAM_AUXIN;
+        final boolean isVoiceCallStream = row.stream == AudioManager.STREAM_VOICE_CALL;
         final boolean isRingVibrate = isRingStream && mState.ringerModeInternal == AudioManager.RINGER_MODE_VIBRATE;
         final boolean isRingSilent = isRingStream && mState.ringerModeInternal == AudioManager.RINGER_MODE_SILENT;
         final boolean isZenAlarms = mState.zenMode == Global.ZEN_MODE_ALARMS;
@@ -721,7 +722,7 @@ public class VolumeDialog {
         final boolean isRingZenNone = (isRingStream || isSystemStream) && isZenNone;
         final boolean isRingLimited = isRingStream && isZenPriority;
         final boolean zenMuted = isZenAlarms ? (isRingStream || isSystemStream) : isZenNone ? (isRingStream || isSystemStream || isAlarmStream
-                || isMusicStream || isGISStream || isAuxInStream)
+                || isMusicStream || isGISStream || isAuxInStream||isVoiceCallStream)
                 : false;
 
         // update slider max
