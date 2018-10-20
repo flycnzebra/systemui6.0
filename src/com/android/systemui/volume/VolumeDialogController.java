@@ -347,15 +347,14 @@ public class VolumeDialogController {
             Events.writeEvent(mContext, Events.EVENT_KEY, stream, lastAudibleStreamVolume);
         }
 
-//        if (fromKey) {
-//            if (flags == 4112) {
-//                FlyLog.d("set last stream=%d",stream);
-//                boolean ismute = mAudio.isStreamMute(stream);
-//                if (ismute) {
-//                    loadLastVolume(stream);
-//                }
-//            }
-//        }
+        if (fromKey) {
+            if (flags == 4112) {
+                FlyLog.d("set last stream=%d",stream);
+                if (mAudio.getStreamVolume(stream)==0) {
+                    loadLastVolume(stream);
+                }
+            }
+        }
 
     }
 
@@ -908,11 +907,11 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_SYSTEM)) {
                     FlyLog.d("reciver stream=%d, level=%d,oldlevel=%d,get_level=%d",stream,level,oldLevel,get_level);
                     changed = updateStreamLevelW(stream, get_level);
-//                    if (oldLevel != 0) {
-//                        saveLastVolume("" + stream, oldLevel);
-//                    }else{
-//                        loadLastVolume(stream);
-//                    }
+                    if (oldLevel != 0) {
+                        saveLastVolume(stream, oldLevel);
+                    }else{
+                        loadLastVolume(stream);
+                    }
                 } else {
                     FlyLog.e("don't care stream=%d, level=%d,oldlevel=%d,get_level=%d",stream,level,oldLevel,get_level);
                     return;
@@ -1016,10 +1015,10 @@ public class VolumeDialogController {
         }
     }
 
-    public void saveLastVolume(String stream, int value) {
+    public void saveLastVolume(int stream, int value) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(stream, value);
+        editor.putInt("STREAM"+stream, value);
         editor.apply();
         FlyLog.d("saveLastVolume stream=" + stream + " value=" + value);
     }
