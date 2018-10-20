@@ -440,6 +440,7 @@ public class VolumeDialog {
                     final boolean vmute = mController.getStreamMute(stream);
                     mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
                     mController.setStreamMute(stream,!vmute);
+                    FlyLog.d("stream mute is ="+mController.getStreamMute(stream));
                     if (row.lastAudibleLevel > 0) {
                         mController.saveLastVolume("" + stream, row.lastAudibleLevel);
                     }
