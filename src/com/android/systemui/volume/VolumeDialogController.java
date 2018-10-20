@@ -244,7 +244,7 @@ public class VolumeDialogController {
 
     public void setStreamMute(int stream, boolean mute) {
         if (mDestroyed) return;
-        if (D.BUG) Log.d(TAG, "setStreamMute stream:" + stream + " mute: " + mute);
+        FlyLog.d("setStreamMute stream:" + stream + " mute: " + mute);
         mWorker.obtainMessage(W.SET_STREAM_MUTE, stream, mute ? 1 : 0).sendToTarget();
     }
 
