@@ -514,11 +514,11 @@ public class VolumeDialogController {
     }
 
     private void onSetStreamMuteW(int stream, boolean mute) {
-        if (D.BUG) Log.d(TAG, "onSetStreamMuteW " + stream + " mute=" + mute);
+        FlyLog.d( "onSetStreamMuteW " + stream + " mute=" + mute);
         mAudio.adjustStreamVolume(stream, mute ? AudioManager.ADJUST_MUTE
                 : AudioManager.ADJUST_UNMUTE, 0);
         boolean ismute = mAudio.isStreamMute(stream);
-        if (D.BUG) Log.d(TAG, "isStreamMute " + stream + " ismute=" + ismute);
+        FlyLog.d( "isStreamMute " + stream + " ismute=" + ismute);
     }
 
     private void onSetStreamVolumeW(int stream, int level) {
