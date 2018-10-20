@@ -313,7 +313,7 @@ public class VolumeDialogController {
     }
 
     private void onVolumeChangedW(int stream, int flags) {
-        if (D.BUG) Log.d(TAG, "onVolumeChangedW stream: " + stream + " flags: " + flags);
+        FlyLog.d("onVolumeChangedW stream: " + stream + " flags: " + flags);
         final boolean showUI = (flags & AudioManager.FLAG_SHOW_UI) != 0;
         final boolean fromKey = (flags & AudioManager.FLAG_FROM_KEY) != 0;
         final boolean showVibrateHint = (flags & AudioManager.FLAG_SHOW_VIBRATE_HINT) != 0;
