@@ -438,14 +438,8 @@ public class VolumeDialog {
                     }
                 } else {
                     boolean ismute = mController.getStreamMute(stream);
-                    if(!ismute){
-                        mController.setStreamMute(stream,true);
-                        mController.setStreamVolume(stream, 0);
-                    }else{
-                        mController.setStreamMute(stream,false);
-                        mController.setStreamVolume(stream, row.lastAudibleLevel);
-
-                    }
+                    mController.setStreamMute(stream,!ismute);
+                    mController.setStreamVolume(stream, ismute?row.lastAudibleLevel:0);
                     if(row.lastAudibleLevel > 0){
                         mController.saveLastVolume(""+stream,row.lastAudibleLevel);
                     }
