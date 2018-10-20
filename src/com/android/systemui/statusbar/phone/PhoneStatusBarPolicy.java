@@ -184,14 +184,6 @@ public class PhoneStatusBarPolicy implements Callback {
                 int newUserId = intent.getIntExtra(Intent.EXTRA_USER_HANDLE, -1);
                 registerAlarmClockChanged(newUserId, true);
             }
-//            else if (intent.getAction().equals(Intent.ACTION_MEDIA_MOUNTED)
-//                    || intent.getAction().equals(Intent.ACTION_MEDIA_CHECKING)) {
-////                updateUsb(true);
-//            }
-//            else if (intent.getAction().equals(Intent.ACTION_MEDIA_REMOVED)
-//                    || intent.getAction().equals(Intent.ACTION_MEDIA_EJECT)) {
-////                updateUsb(false);
-//            }
             else if (intent.getAction().equals(ActivityThread.ACTION_ACTIVITY_STATE_CHANGED)) {
                 try {
                     Bundle bundle = intent.getExtras();
@@ -204,13 +196,11 @@ public class PhoneStatusBarPolicy implements Callback {
                             /**
                              * 隐藏返回图标
                              */
-
                             if ("com.jancar.launcher".equals(strpackage)) {
                                 btn_back.setVisibility(View.GONE);
                             } else {
                                 btn_back.setVisibility(View.VISIBLE);
                             }
-
                             /**
                              * 显示标题
                              */
@@ -239,13 +229,6 @@ public class PhoneStatusBarPolicy implements Callback {
                     FlyLog.e(e.toString());
                 }
             }
-            /// M: [Multi-User] Register Alarm intent by user @}
-//            else if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
-//				updateUsb(true);
-//			}
-//			else if (action.equals(Intent.ACTION_MEDIA_EJECT)) {
-//				updateUsb(false);
-//			}
         }
     };
 
@@ -290,8 +273,6 @@ public class PhoneStatusBarPolicy implements Callback {
         /// M: [Multi-User] Add user switched action for updating possible alarm icon.
         filter.addAction(Intent.ACTION_USER_SWITCHED);
 
-        //filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
-        //filter.addAction(Intent.ACTION_MEDIA_EJECT);
         /**
          * 监听Activity变化
          */
@@ -603,10 +584,6 @@ public class PhoneStatusBarPolicy implements Callback {
                 msg1.arg1 = 1;
                 iconId = R.drawable.stat_sys_data_bluetooth_connected;
                 contentDescription = mContext.getString(R.string.accessibility_bluetooth_connected);
-            } else {
-                msg1.what = PhoneStatusBar.MSG_UPDATE_QS_BT;
-                msg1.arg1 = 0;
-                mService.setIconVisibility(SLOT_BT_BATTERY, false);
             }
             mUIHandler.sendMessage(msg1);
         }
