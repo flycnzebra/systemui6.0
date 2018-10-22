@@ -458,10 +458,11 @@ public class VolumeDialog {
     }
 
     private void showH(int reason) {
-//        mCountShow++;
-//        if ((mVolumeValue != null) && (mCountShow == 1)) {
-//            mVolumeValue.setText("" + VolumeDialogController.currentVolume);
-//        }
+        mCountShow++;
+        if ((mVolumeValue != null) && (mCountShow == 1)) {
+            mVolumeValue.setText("" + VolumeDialogController.currentVolume);
+            FlyLog.d("setText volume %d",VolumeDialogController.currentVolume);
+        }
         mHandler.removeMessages(H.SHOW);
         mHandler.removeMessages(H.DISMISS);
         rescheduleTimeoutH();
@@ -1064,6 +1065,7 @@ public class VolumeDialog {
                 if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
                 String level = "" + userLevel;
                 mVolumeValue.setText(level);
+                FlyLog.d("setText volume %d",userLevel);
             }
 
             if (!fromUser) return;
