@@ -16,6 +16,8 @@
 
 package com.android.systemui.volume;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -33,6 +35,7 @@ import android.media.VolumePolicy;
 import android.media.session.MediaController.PlaybackInfo;
 import android.media.session.MediaSession.Token;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -324,10 +327,7 @@ public class VolumeDialogController {
             changed |= updateActiveStreamW(stream);
         }
         int lastAudibleStreamVolume = mAudio.getLastAudibleStreamVolume(stream);
-        if (D.BUG)
-            Log.d(TAG, "onVolumeChangedW stream: " + stream + " lastAudibleStreamVolume: " + lastAudibleStreamVolume);
-        //currentVolume = mAudio.getStreamVolume(stream);
-        changed |= updateStreamLevelW(stream, lastAudibleStreamVolume); //any sideeffect?
+        changed |= updateStreamLevelW(stream, lastAudibleStreamVolume);
         changed |= checkRoutedToBluetoothW(showUI ? AudioManager.STREAM_MUSIC : stream);
         if (changed) {
             mCallbacks.onStateChanged(mState);
@@ -361,7 +361,6 @@ public class VolumeDialogController {
 
     private boolean updateActiveStreamW(int activeStream) {
         if (activeStream == mState.activeStream) return false;
-        if (D.BUG) Log.d(TAG, "updateActiveStreamW activeStream: " + activeStream);
         mState.activeStream = activeStream;
         Events.writeEvent(mContext, Events.EVENT_ACTIVE_STREAM_CHANGED, activeStream);
         if (D.BUG) Log.d(TAG, "updateActiveStreamW " + activeStream);
@@ -380,6 +379,7 @@ public class VolumeDialogController {
         return ss;
     }
 
+    @SuppressLint("NewApi")
     private void onGetStateW() {
         for (int stream : STREAMS) {
             updateStreamLevelW(stream, mAudio.getLastAudibleStreamVolume(stream));
@@ -408,7 +408,6 @@ public class VolumeDialogController {
     }
 
     private boolean updateStreamLevelW(int stream, int level) {
-        if (D.BUG) Log.d(TAG, "updateStreamLevelW  stream : " + stream + " level : " + level);
         final StreamState ss = streamStateW(stream);
         if (ss.level == level) return false;
         ss.level = level;
@@ -434,7 +433,6 @@ public class VolumeDialogController {
     }
 
     private boolean updateStreamMuteW(int stream, boolean muted) {
-        if (D.BUG) Log.d(TAG, "updateStreamMuteW stream: " + stream + " muted: " + muted);
         final StreamState ss = streamStateW(stream);
         if (ss.muted == muted) return false;
         ss.muted = muted;
@@ -514,11 +512,8 @@ public class VolumeDialogController {
     }
 
     private void onSetStreamMuteW(int stream, boolean mute) {
-        FlyLog.d("onSetStreamMuteW " + stream + " mute=" + mute);
         mAudio.adjustStreamVolume(stream, mute ? AudioManager.ADJUST_MUTE
                 : AudioManager.ADJUST_UNMUTE, 0);
-        boolean ismute = mAudio.isStreamMute(stream);
-        FlyLog.d("isStreamMute " + stream + " ismute=" + ismute);
     }
 
     private void onSetStreamVolumeW(int stream, int level) {
@@ -527,23 +522,17 @@ public class VolumeDialogController {
             mMediaSessionsCallbacksW.setStreamVolume(stream, level);
             return;
         }
-        if(level==0){
-            mAudio.setStreamVolume(stream,1,0);
-            mAudio.adjustStreamVolume(stream,AudioManager.ADJUST_LOWER,0);
-        }else {
-            mAudio.adjustStreamVolume(stream,AudioManager.ADJUST_RAISE,0);
-            mAudio.setStreamVolume(stream, level, 0);
-        }
+        mAudio.setStreamVolume(stream, level, 0);
     }
 
     private void onSetActiveStreamW(int stream) {
-        if (D.BUG) Log.d(TAG, "onSetActiveStreamW " + stream);
         boolean changed = updateActiveStreamW(stream);
         if (changed) {
             mCallbacks.onStateChanged(mState);
         }
     }
 
+    @SuppressLint("NewApi")
     private void onSetExitConditionW(Condition condition) {
         mNoMan.setZenMode(mState.zenMode, condition != null ? condition.id : null, TAG);
     }
@@ -627,6 +616,7 @@ public class VolumeDialogController {
             super(looper);
         }
 
+        @SuppressLint("NewApi")
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -798,7 +788,6 @@ public class VolumeDialogController {
                 });
             }
         }
-
     }
 
 
@@ -1080,7 +1069,6 @@ public class VolumeDialogController {
         @Override
         public void onRemoteRemoved(Token token) {
             final int stream = mRemoteStreams.get(token);
-            if (D.BUG) Log.d(TAG, "onRemoteRemoved: stream " + stream);
             mState.states.remove(stream);
             if (mState.activeStream == stream) {
                 updateActiveStreamW(-1);
