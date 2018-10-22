@@ -1229,8 +1229,6 @@ public class VolumeDialogController {
 
         void onShowSilentHint();
 
-        void onShowUI();
-
         void onScreenOff();
 
         void onShowSafetyWarning(int flags);
