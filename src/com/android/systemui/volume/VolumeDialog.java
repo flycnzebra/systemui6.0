@@ -59,6 +59,7 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityManager.AccessibilityStateChangeListener;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -90,7 +91,7 @@ public class VolumeDialog {
 
     private static final long USER_ATTEMPT_GRACE_PERIOD = 1000;
     private static final int WAIT_FOR_RIPPLE = 200;
-    private static final int UPDATE_ANIMATION_DURATION = 0;
+    private static final int UPDATE_ANIMATION_DURATION = 80;
 
     private final Context mContext;
     private final H mHandler = new H();
@@ -807,40 +808,36 @@ public class VolumeDialog {
             }
         }
 
-        final int newProgress = VolumeDialogController.currentVolume * 100;
+        final int newProgress = level * 100;
 
         if (progress != newProgress) {
             if (mShowing && rowVisible) {
                 // animate!
-//                final int userLevel = getImpliedLevel(row.slider, newProgress);
-                String text = "" + VolumeDialogController.currentVolume;
+                final int userLevel = getImpliedLevel(row.slider, newProgress);
+                String text = "" + userLevel;
                 mVolumeValue.setText(text);
-                FlyLog.d("setText2 volume %d,stream=%d", VolumeDialogController.currentVolume, row.stream);
+                FlyLog.d("setText2 volume %d,stream=%d", userLevel, row.stream);
+                if (row.anim != null && row.anim.isRunning()
+                        && row.animTargetProgress == newProgress) {
+                    return;  // already animating to the target progress
+                }
+                // start/update animation
+                if (row.anim == null) {
+                    row.anim = ObjectAnimator.ofInt(row.slider, "progress", progress, newProgress);
+                    row.anim.setInterpolator(new DecelerateInterpolator());
+                } else {
+                    row.anim.cancel();
+                    row.anim.setIntValues(progress, newProgress);
+                }
+                row.animTargetProgress = newProgress;
+                row.anim.setDuration(UPDATE_ANIMATION_DURATION);
+                row.anim.start();
+            } else {
+                // update slider directly to clamped value
                 if (row.anim != null) {
                     row.anim.cancel();
                 }
                 row.slider.setProgress(newProgress);
-//                if (row.anim != null && row.anim.isRunning()
-//                        && row.animTargetProgress == newProgress) {
-//                    return;  // already animating to the target progress
-//                }
-                // start/update animation
-//                if (row.anim == null) {
-//                    row.anim = ObjectAnimator.ofInt(row.slider, "progress", progress, newProgress);
-//                    row.anim.setInterpolator(new DecelerateInterpolator());
-//                } else {
-//                    row.anim.cancel();
-//                    row.anim.setIntValues(progress, newProgress);
-//                }
-//                row.animTargetProgress = newProgress;
-//                row.anim.setDuration(UPDATE_ANIMATION_DURATION);
-//                row.anim.start();
-            } else {
-//                // update slider directly to clamped value
-//                if (row.anim != null) {
-//                    row.anim.cancel();
-//                }
-//                row.slider.setProgress(newProgress);
             }
         }
 
@@ -1065,9 +1062,9 @@ public class VolumeDialog {
             if (!fromUser) return;
             if (mRow.ss.levelMin > 0) {
                 final int minProgress = mRow.ss.levelMin * 100;
-//                if (progress < minProgress) {
-//                    seekBar.setProgress(minProgress);
-//                }
+                if (progress < minProgress) {
+                    seekBar.setProgress(minProgress);
+                }
             }
             final int userLevel = getImpliedLevel(seekBar, progress);
             if (mRow.ss.level != userLevel || mRow.ss.muted && userLevel > 0) {
