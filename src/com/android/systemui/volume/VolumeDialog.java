@@ -17,9 +17,6 @@
 
 package com.android.systemui.volume;
 
-import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_ALL_MASK;
-import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_GENERIC;
-
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
@@ -79,9 +76,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.android.systemui.statusbar.phone.PhoneStatusBarPolicy;
-
-import android.content.SharedPreferences;
+import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_ALL_MASK;
+import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_GENERIC;
 
 /**
  * Visual presentation of the volume dialog.
@@ -1048,8 +1044,6 @@ public class VolumeDialog {
         }
     }
 
-    private int seek = 0;
-
     private final class VolumeSeekBarChangeListener implements OnSeekBarChangeListener {
         private final VolumeRow mRow;
 
@@ -1059,11 +1053,17 @@ public class VolumeDialog {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            seek = progress;
             if (mRow.ss == null) return;
-            if (D.BUG) Log.d(TAG, AudioSystem.streamToString(mRow.stream)
+            FlyLog.d(AudioSystem.streamToString(mRow.stream)
                     + " onProgressChanged " + progress + " fromUser=" + fromUser);
             final int userLevel = getImpliedLevel(seekBar, progress);
+            if (mVolumeValue != null) {
+                if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
+                String level = "" + userLevel;
+                mVolumeValue.setText(level);
+                FlyLog.d("setText2 volume %d,stream=%d",userLevel,mRow.stream);
+            }
+
             if (!fromUser) return;
             if (mRow.ss.levelMin > 0) {
                 final int minProgress = mRow.ss.levelMin * 100;
@@ -1089,22 +1089,17 @@ public class VolumeDialog {
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
-            if (D.BUG) Log.d(TAG, "onStartTrackingTouch" + " " + mRow.stream);
+            FlyLog.d("onStartTrackingTouch" + " " + mRow.stream);
             mController.setActiveStream(mRow.stream);
             mRow.tracking = true;
         }
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            if (D.BUG) Log.d(TAG, "onStopTrackingTouch" + " " + mRow.stream);
-            int userLevel = getImpliedLevel(seekBar, seekBar.getProgress());
-            if (mVolumeValue != null) {
-                String level = "" + userLevel;
-                mVolumeValue.setText(level);
-                FlyLog.d("setText2 volume %d,stream=%d",userLevel,mRow.stream);
-            }
+            FlyLog.d( "onStopTrackingTouch" + " " + mRow.stream);
             mRow.tracking = false;
             mRow.userAttempt = SystemClock.uptimeMillis();
+            int userLevel = getImpliedLevel(seekBar, seekBar.getProgress());
             Events.writeEvent(mContext, Events.EVENT_TOUCH_LEVEL_DONE, mRow.stream, userLevel);
             if (mRow.ss == null) return;
             if (mRow.ss.level != userLevel) {
