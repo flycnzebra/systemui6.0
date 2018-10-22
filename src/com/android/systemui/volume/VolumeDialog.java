@@ -808,12 +808,12 @@ public class VolumeDialog {
             }
         }
 
-        final int newProgress = level * 100;
+        final int newProgress = VolumeDialogController.currentVolume * 100;
 
         if (progress != newProgress) {
             if (mShowing && rowVisible) {
                 // animate!
-                final int userLevel = getImpliedLevel(row.slider, newProgress);
+                final int userLevel = VolumeDialogController.currentVolume;
                 String text = "" + userLevel;
                 mVolumeValue.setText(text);
                 FlyLog.d("setText2 volume %d,stream=%d", userLevel, row.stream);
