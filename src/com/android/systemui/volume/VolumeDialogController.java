@@ -952,7 +952,6 @@ public class VolumeDialogController {
                 boolean voicecall_active = mAudio.isStreamActive(AudioManager.STREAM_VOICE_CALL);
                 boolean avin_active = mAudio.isStreamActive(AudioManager.STREAM_AUXIN);
 
-
                 FlyLog.d( "STREAM_BLUETOOTH_SCO active ? " + active_bt_sco);
                 FlyLog.d("STREAM_GIS active ? " + gis_active);
                 FlyLog.d( "STREAM_MUSIC active ? " + music_active);
@@ -974,7 +973,6 @@ public class VolumeDialogController {
                     currentVolume = level;
                     changed = updateStreamLevelW(AudioManager.STREAM_GIS, level);
                     mWorker.obtainMessage(W.VOLUME_CHANGED, AudioManager.STREAM_GIS, 4113).sendToTarget();
-
                 } else if (music_active) {
                     level = mAudio.getStreamVolume(AudioManager.STREAM_MUSIC);
                     currentVolume = level;
