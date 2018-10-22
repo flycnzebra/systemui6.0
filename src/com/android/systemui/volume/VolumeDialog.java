@@ -1065,7 +1065,7 @@ public class VolumeDialog {
                 if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
                 String level = "" + userLevel;
                 mVolumeValue.setText(level);
-                FlyLog.d("setText2 volume %d",userLevel);
+                FlyLog.d("setText2 volume %d,stream=%d",userLevel,mRow.stream);
             }
 
             if (!fromUser) return;
