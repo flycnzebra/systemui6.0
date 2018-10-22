@@ -116,8 +116,8 @@ public class VolumeDialog {
     private final LayoutTransition mLayoutTransition;
     private final Object mSafetyWarningLock = new Object();
     private final Accessibility mAccessibility = new Accessibility();
-    private final ColorStateList mActiveSliderTint;
-    private final ColorStateList mInactiveSliderTint;
+//    private final ColorStateList mActiveSliderTint;
+//    private final ColorStateList mInactiveSliderTint;
     private final VolumeDialogMotion mMotion;
 
     private boolean mShowing;
@@ -169,8 +169,8 @@ public class VolumeDialog {
         window.setAttributes(lp);
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
-        mActiveSliderTint = loadColorStateList(R.color.system_accent_color);
-        mInactiveSliderTint = loadColorStateList(R.color.volume_slider_inactive);
+//        mActiveSliderTint = loadColorStateList(R.color.system_accent_color);
+//        mInactiveSliderTint = loadColorStateList(R.color.volume_slider_inactive);
         mDialog.setContentView(R.layout.volume_dialog);
         mDialogView = (ViewGroup) mDialog.findViewById(R.id.volume_dialog);
         mDialogContentView = (ViewGroup) mDialog.findViewById(R.id.volume_dialog_content);
@@ -616,7 +616,7 @@ public class VolumeDialog {
             Util.setVisOrInvis(row.settingsButton, false);
             updateVolumeRowHeaderVisibleH(row);
             row.header.setAlpha(mExpanded && isActive ? 1 : 0.5f);
-            updateVolumeRowSliderTintH(row, isActive);
+//            updateVolumeRowSliderTintH(row, isActive);
         }
     }
 
@@ -776,20 +776,20 @@ public class VolumeDialog {
     }
 
     private void updateVolumeRowSliderTintH(VolumeRow row, boolean isActive) {
-        if (isActive && mExpanded) {
-            row.slider.requestFocus();
-        }
-        final ColorStateList tint = isActive && row.slider.isEnabled() ? mActiveSliderTint
-                : mInactiveSliderTint;
-        if (tint == row.cachedSliderTint) return;
-        row.cachedSliderTint = tint;
-        row.slider.setProgressTintList(tint);
-        row.slider.setThumbTintList(tint);
+//        if (isActive && mExpanded) {
+//            row.slider.requestFocus();
+//        }
+//        final ColorStateList tint = isActive && row.slider.isEnabled() ? mActiveSliderTint
+//                : mInactiveSliderTint;
+//        if (tint == row.cachedSliderTint) return;
+//        row.cachedSliderTint = tint;
+//        row.slider.setProgressTintList(tint);
+//        row.slider.setThumbTintList(tint);
     }
 
     private void updateVolumeRowSliderH(VolumeRow row, boolean enable, int vlevel) {
         row.slider.setEnabled(enable);
-        updateVolumeRowSliderTintH(row, row.stream == mActiveStream);
+//        updateVolumeRowSliderTintH(row, row.stream == mActiveStream);
         if (row.tracking) {
             return;  // don't update if user is sliding
         }
@@ -1059,22 +1059,27 @@ public class VolumeDialog {
             if (mRow.ss == null) return;
             if (D.BUG) Log.d(TAG, AudioSystem.streamToString(mRow.stream)
                     + " onProgressChanged " + progress + " fromUser=" + fromUser);
-            if (!fromUser) return;
-            if (mRow.ss.levelMin > 0) {
-                final int minProgress = mRow.ss.levelMin * 100;
-                if (progress < minProgress) {
-                    seekBar.setProgress(minProgress);
-                }
-            }
             final int userLevel = getImpliedLevel(seekBar, progress);
             if (mVolumeValue != null) {
                 if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
                 String level = "" + userLevel;
                 mVolumeValue.setText(level);
             }
+
+            if (!fromUser) return;
+            if (mRow.ss.levelMin > 0) {
+                final int minProgress = mRow.ss.levelMin * 100;
+                if (progress < minProgress) {
+                    if (D.BUG) Log.d(TAG, "setProgress minProgress=" + minProgress);
+                    seekBar.setProgress(minProgress);
+                }
+            }
+
             if (mRow.ss.level != userLevel || mRow.ss.muted && userLevel > 0) {
                 mRow.userAttempt = SystemClock.uptimeMillis();
                 if (mRow.requestedLevel != userLevel) {
+                    if (D.BUG)
+                        Log.d(TAG, "setStreamVolume mRow.stream : " + mRow.stream + " userLevel = " + userLevel);
                     mController.setStreamVolume(mRow.stream, userLevel);
                     mRow.requestedLevel = userLevel;
                     Events.writeEvent(mContext, Events.EVENT_TOUCH_LEVEL_CHANGED, mRow.stream,
