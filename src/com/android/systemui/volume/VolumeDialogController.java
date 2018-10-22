@@ -965,7 +965,7 @@ public class VolumeDialogController {
                 if (D.BUG) Log.d(TAG, "onReceive ACTION_CLOSE_SYSTEM_DIALOGS");
                 dismiss();
             } else if (action.equals(BROADCAST_SHOW_VOLUME_BAR)) {
-                if (D.BUG) Log.d(TAG, "onReceive BROADCAST_SHOW_VOLUME_BAR");
+                FlyLog.d( "onReceive BROADCAST_SHOW_VOLUME_BAR");
                 int level = 0;
 
                 boolean active_bt_sco = mAudio.isStreamActive(AudioSystem.STREAM_BLUETOOTH_SCO);
@@ -974,11 +974,11 @@ public class VolumeDialogController {
                 boolean voicecall_active = mAudio.isStreamActive(AudioManager.STREAM_VOICE_CALL);
                 boolean avin_active = mAudio.isStreamActive(AudioManager.STREAM_AUXIN);
 
-                if (D.BUG) Log.d(TAG, "STREAM_BLUETOOTH_SCO active ? " + active_bt_sco);
-                if (D.BUG) Log.d(TAG, "STREAM_GIS active ? " + gis_active);
-                if (D.BUG) Log.d(TAG, "STREAM_MUSIC active ? " + music_active);
-                if (D.BUG) Log.d(TAG, "STREAM_VOICE_CALL active ? " + voicecall_active);
-                if (D.BUG) Log.d(TAG, "STREAM_AUXIN active ? " + avin_active);
+                FlyLog.d( "STREAM_BLUETOOTH_SCO active ? " + active_bt_sco);
+                FlyLog.d("STREAM_GIS active ? " + gis_active);
+                FlyLog.d( "STREAM_MUSIC active ? " + music_active);
+                FlyLog.d( "STREAM_VOICE_CALL active ? " + voicecall_active);
+                FlyLog.d("STREAM_AUXIN active ? " + avin_active);
 
                 if (voicecall_active) {
                     level = mAudio.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
@@ -1006,14 +1006,12 @@ public class VolumeDialogController {
                     currentVolume = level;
                     changed = updateStreamLevelW(AudioManager.STREAM_AUXIN, level);
                     mWorker.obtainMessage(W.VOLUME_CHANGED, AudioManager.STREAM_AUXIN, 4113).sendToTarget();
-
                 } else {
                     level = mAudio.getStreamVolume(AudioSystem.STREAM_MUSIC);
                     currentVolume = level;
                     changed = updateStreamLevelW(AudioSystem.STREAM_MUSIC, level);
                     mWorker.obtainMessage(W.VOLUME_CHANGED, AudioSystem.STREAM_MUSIC, 4113).sendToTarget();
                 }
-
                 dismiss();
 
             }
