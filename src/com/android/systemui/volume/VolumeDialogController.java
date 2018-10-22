@@ -888,7 +888,7 @@ public class VolumeDialogController {
                     FlyLog.d("reciver stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
                     if (oldLevel == 0 && level == 1) {
                         loadLastVolume(stream);
-                    }else{
+                    } else if (level != 0) {
                         saveLastVolume(stream, level);
                     }
                     changed = updateStreamLevelW(stream, get_level);
@@ -1005,7 +1005,7 @@ public class VolumeDialogController {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
         int lastVolume;
         lastVolume = sharedPreferences.getInt("STREAM" + stream, 0);
-        if(lastVolume!=0){
+        if (lastVolume != 0) {
             setStreamVolume(stream, lastVolume);
         }
         FlyLog.d("loadLastVolume stream=%d,lastVolume=%d", stream, lastVolume);
