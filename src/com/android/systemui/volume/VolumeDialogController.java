@@ -343,16 +343,16 @@ public class VolumeDialogController {
             Events.writeEvent(mContext, Events.EVENT_KEY, stream, lastAudibleStreamVolume);
         }
 
-        if (fromKey) {
-            if (flags == 4113) {
-                int value = mAudio.getStreamVolume(stream);
-                FlyLog.d();
-                if (value == 0) {
-                    FlyLog.d("set last stream=%d,value=%d", stream, value);
-                    loadLastVolume(stream);
-                }
-            }
-        }
+//        if (fromKey) {
+//            if (flags == 4113) {
+//                int value = mAudio.getStreamVolume(stream);
+//                FlyLog.d();
+//                if (value == 0) {
+//                    FlyLog.d("set last stream=%d,value=%d", stream, value);
+//                    loadLastVolume(stream);
+//                }
+//            }
+//        }
 
     }
 
