@@ -461,7 +461,7 @@ public class VolumeDialog {
         mCountShow++;
         if ((mVolumeValue != null) && (mCountShow == 1)) {
             mVolumeValue.setText("" + VolumeDialogController.currentVolume);
-            FlyLog.d("setText volume %d",VolumeDialogController.currentVolume);
+            FlyLog.d("setText1 volume %d",VolumeDialogController.currentVolume);
         }
         mHandler.removeMessages(H.SHOW);
         mHandler.removeMessages(H.DISMISS);
@@ -1065,7 +1065,7 @@ public class VolumeDialog {
                 if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
                 String level = "" + userLevel;
                 mVolumeValue.setText(level);
-                FlyLog.d("setText volume %d",userLevel);
+                FlyLog.d("setText2 volume %d",userLevel);
             }
 
             if (!fromUser) return;
