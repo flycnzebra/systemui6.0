@@ -62,6 +62,7 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityManager.AccessibilityStateChangeListener;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -836,14 +837,6 @@ public class VolumeDialog {
 
         final int newProgress = vlevel * 100;
 
-        if (rowVisible) {
-            if (D.BUG) Log.d(TAG, "mIgnoreState : " + mIgnoreState);
-            if (!mIgnoreState) {
-                if (D.BUG) Log.d(TAG, "setProgress newProgress=" + newProgress);
-                row.slider.setProgress(newProgress);
-            }
-        }
-		/*
         if (progress != newProgress) {
 			if (D.BUG) Log.d(TAG,"progress :" + progress + "newProgress=" + newProgress + "mShowing :" + mShowing + "rowVisible :" + rowVisible);
             if (mShowing && rowVisible) {
@@ -873,7 +866,6 @@ public class VolumeDialog {
             }
            
         } 
-        */
 
     }
 

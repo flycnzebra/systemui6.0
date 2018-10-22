@@ -800,18 +800,6 @@ public class VolumeDialogController {
             }
         }
 
-
-        @Override
-        public void onShowUI() {
-            for (final Map.Entry<Callbacks, Handler> entry : mCallbackMap.entrySet()) {
-                entry.getValue().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        entry.getKey().onShowUI();
-                    }
-                });
-            }
-        }
     }
 
 
