@@ -313,7 +313,7 @@ public class VolumeDialogController {
     }
 
     private void onVolumeChangedW(int stream, int flags) {
-//        FlyLog.d("onVolumeChangedW stream: " + stream + " flags: " + flags);
+        FlyLog.d("onVolumeChangedW stream: " + stream + " flags: " + flags);
         final boolean showUI = (flags & AudioManager.FLAG_SHOW_UI) != 0;
         final boolean fromKey = (flags & AudioManager.FLAG_FROM_KEY) != 0;
         final boolean showVibrateHint = (flags & AudioManager.FLAG_SHOW_VIBRATE_HINT) != 0;
@@ -913,7 +913,7 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_ALARM) ||
                         (stream == AudioManager.STREAM_RING) ||
                         (stream == AudioManager.STREAM_SYSTEM)) {
-//                    FlyLog.d("reciver stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
+                    FlyLog.d("reciver stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
 //                    if (oldLevel != 0) {
 //                        saveLastVolume(stream, oldLevel);
 //                    }else{
