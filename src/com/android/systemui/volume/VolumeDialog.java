@@ -440,16 +440,6 @@ public class VolumeDialog {
                     final boolean vmute = row.ss.level == 0;
                     mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
                     mController.saveLastVolume(stream,row.lastAudibleLevel);
-//
-//                    final boolean vmute = mController.getStreamMute(stream);
-//                    mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
-//                    FlyLog.d("stream set mute is ="+!vmute);
-//                    mController.setStreamMute(stream,!vmute);
-//                    FlyLog.d("stream mute is ="+mController.getStreamMute(stream));
-//                    if (row.lastAudibleLevel > 0) {
-//                        mController.saveLastVolume("" + stream, row.lastAudibleLevel);
-//                    }
-
                 }
                 row.userAttempt = 0;  // reset the grace period, slider should update immediately
             }
