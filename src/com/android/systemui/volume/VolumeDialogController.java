@@ -906,12 +906,12 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_RING) ||
                         (stream == AudioManager.STREAM_SYSTEM)) {
                     FlyLog.d("reciver stream=%d, level=%d,oldlevel=%d,get_level=%d",stream,level,oldLevel,get_level);
-                    changed = updateStreamLevelW(stream, get_level);
                     if (oldLevel != 0) {
                         saveLastVolume(stream, oldLevel);
                     }else{
                         loadLastVolume(stream);
                     }
+                    changed = updateStreamLevelW(stream, get_level);
                 } else {
                     FlyLog.e("don't care stream=%d, level=%d,oldlevel=%d,get_level=%d",stream,level,oldLevel,get_level);
                     return;
@@ -1024,6 +1024,7 @@ public class VolumeDialogController {
     }
 
     public void loadLastVolume(int stream) {
+        FlyLog.d("loadLastVolume stream=%d", stream);
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
         int lastVolume;
         lastVolume = sharedPreferences.getInt("" + stream, 15);
