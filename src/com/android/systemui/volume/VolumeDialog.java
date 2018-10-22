@@ -839,7 +839,6 @@ public class VolumeDialog {
                 mVolumeValue.setText(text);
                 FlyLog.d("setText2 volume %d,stream=%d", userLevel, row.stream);
             }
-
         }
 
     }
