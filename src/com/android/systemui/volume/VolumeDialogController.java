@@ -887,7 +887,7 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_SYSTEM)) {
                     FlyLog.d("reciver stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
                     if (oldLevel == 0 && level == 1) {
-                        loadLastVolume(stream);
+//                        loadLastVolume(stream);
                     } else if (level != 0&&get_level!=0) {
                         saveLastVolume(stream, level);
                     }
