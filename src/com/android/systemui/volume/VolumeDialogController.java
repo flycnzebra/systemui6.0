@@ -333,9 +333,9 @@ public class VolumeDialogController {
         if (changed) {
             mCallbacks.onStateChanged(mState);
         }
-//        if (showUI) {
-//            mCallbacks.onShowRequested(Events.SHOW_REASON_VOLUME_CHANGED);
-//        }
+        if (showUI) {
+            mCallbacks.onShowRequested(Events.SHOW_REASON_VOLUME_CHANGED);
+        }
         if (showVibrateHint) {
             mCallbacks.onShowVibrateHint();
         }

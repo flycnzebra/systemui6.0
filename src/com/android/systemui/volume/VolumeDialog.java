@@ -977,7 +977,7 @@ public class VolumeDialog {
 
         @Override
         public void onShowUI() {
-            if (D.BUG) Log.d(TAG, "onShowUI ");
+            FlyLog.d("onShowUI");
             mIgnoreState = false;
         }
     };
