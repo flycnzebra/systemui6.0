@@ -112,7 +112,7 @@ public class VolumeDialog {
     private final LayoutTransition mLayoutTransition;
     private final Object mSafetyWarningLock = new Object();
     private final Accessibility mAccessibility = new Accessibility();
-//    private final ColorStateList mActiveSliderTint;
+    //    private final ColorStateList mActiveSliderTint;
 //    private final ColorStateList mInactiveSliderTint;
     private final VolumeDialogMotion mMotion;
 
@@ -430,7 +430,7 @@ public class VolumeDialog {
                 } else {
                     final boolean vmute = row.ss.level == 0;
                     mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
-                    mController.saveLastVolume(stream,row.lastAudibleLevel);
+                    mController.saveLastVolume(stream, row.lastAudibleLevel);
                 }
                 row.userAttempt = 0;  // reset the grace period, slider should update immediately
             }
@@ -457,7 +457,7 @@ public class VolumeDialog {
         mCountShow++;
         if ((mVolumeValue != null) && (mCountShow == 1)) {
             mVolumeValue.setText("" + VolumeDialogController.currentVolume);
-            FlyLog.d("setText1 volume %d",VolumeDialogController.currentVolume);
+            FlyLog.d("setText1 volume %d", VolumeDialogController.currentVolume);
         }
         mHandler.removeMessages(H.SHOW);
         mHandler.removeMessages(H.DISMISS);
@@ -834,6 +834,10 @@ public class VolumeDialog {
                     row.anim.cancel();
                 }
                 row.slider.setProgress(newProgress);
+                final int userLevel = getImpliedLevel(row.slider, progress);
+                String text = "" + userLevel;
+                mVolumeValue.setText(text);
+                FlyLog.d("setText2 volume %d,stream=%d", userLevel, row.stream);
             }
 
         }
@@ -1057,12 +1061,12 @@ public class VolumeDialog {
             FlyLog.d(AudioSystem.streamToString(mRow.stream)
                     + " onProgressChanged " + progress + " fromUser=" + fromUser);
             final int userLevel = getImpliedLevel(seekBar, progress);
-            if (mVolumeValue != null) {
-                if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
-                String level = "" + userLevel;
-                mVolumeValue.setText(level);
-                FlyLog.d("setText2 volume %d,stream=%d",userLevel,mRow.stream);
-            }
+//            if (mVolumeValue != null) {
+//                if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
+//                String level = "" + userLevel;
+//                mVolumeValue.setText(level);
+//                FlyLog.d("setText2 volume %d,stream=%d",userLevel,mRow.stream);
+//            }
 
             if (!fromUser) return;
             if (mRow.ss.levelMin > 0) {
@@ -1096,7 +1100,7 @@ public class VolumeDialog {
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            FlyLog.d( "onStopTrackingTouch" + " " + mRow.stream);
+            FlyLog.d("onStopTrackingTouch" + " " + mRow.stream);
             mRow.tracking = false;
             mRow.userAttempt = SystemClock.uptimeMillis();
             int userLevel = getImpliedLevel(seekBar, seekBar.getProgress());
