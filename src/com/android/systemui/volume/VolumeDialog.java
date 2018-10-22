@@ -91,7 +91,7 @@ public class VolumeDialog {
 
     private static final long USER_ATTEMPT_GRACE_PERIOD = 1000;
     private static final int WAIT_FOR_RIPPLE = 200;
-    private static final int UPDATE_ANIMATION_DURATION = 80;
+    private static final int UPDATE_ANIMATION_DURATION = 0;
 
     private final Context mContext;
     private final H mHandler = new H();
