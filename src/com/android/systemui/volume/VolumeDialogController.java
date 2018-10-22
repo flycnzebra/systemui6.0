@@ -527,7 +527,13 @@ public class VolumeDialogController {
             mMediaSessionsCallbacksW.setStreamVolume(stream, level);
             return;
         }
-        mAudio.setStreamVolume(stream, level, 0);
+        if(level==0){
+            mAudio.setStreamVolume(stream,1,0);
+            mAudio.adjustStreamVolume(stream,AudioManager.ADJUST_LOWER,0);
+        }else {
+            mAudio.adjustStreamVolume(stream,AudioManager.ADJUST_RAISE,0);
+            mAudio.setStreamVolume(stream, level, 0);
+        }
     }
 
     private void onSetActiveStreamW(int stream) {
@@ -909,8 +915,6 @@ public class VolumeDialogController {
                     FlyLog.d("reciver stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
                     if (oldLevel != 0) {
                         saveLastVolume(stream, oldLevel);
-                    } else {
-                        loadLastVolume(stream);
                     }
                     changed = updateStreamLevelW(stream, get_level);
                 } else {
