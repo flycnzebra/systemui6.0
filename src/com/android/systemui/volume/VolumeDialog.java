@@ -813,6 +813,10 @@ public class VolumeDialog {
         if (progress != newProgress) {
             if (mShowing && rowVisible) {
                 // animate!
+                final int userLevel = getImpliedLevel(row.slider, newProgress);
+                String text = "" + userLevel;
+                mVolumeValue.setText(text);
+                FlyLog.d("setText2 volume %d,stream=%d", userLevel, row.stream);
                 if (row.anim != null && row.anim.isRunning()
                         && row.animTargetProgress == newProgress) {
                     return;  // already animating to the target progress
@@ -834,10 +838,6 @@ public class VolumeDialog {
                     row.anim.cancel();
                 }
                 row.slider.setProgress(newProgress);
-                final int userLevel = getImpliedLevel(row.slider, progress);
-                String text = "" + userLevel;
-                mVolumeValue.setText(text);
-                FlyLog.d("setText2 volume %d,stream=%d", userLevel, row.stream);
             }
         }
 
