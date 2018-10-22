@@ -121,7 +121,6 @@ public class VolumeDialog {
     private final VolumeDialogMotion mMotion;
 
     private boolean mShowing;
-    private boolean mIgnoreState = false;
     private int mCountShow = 0;
     private boolean mExpanded;
     private int mActiveStream;
@@ -465,9 +464,6 @@ public class VolumeDialog {
 
     private void showH(int reason) {
         mCountShow++;
-        mIgnoreState = false;
-        if (D.BUG) Log.d(TAG, "mIgnoreState : " + mIgnoreState);
-        if (D.BUG) Log.d(TAG, "showH r=" + Events.DISMISS_REASONS[reason]);
         if ((mVolumeValue != null) && (mCountShow == 1)) {//only first show set volume
             mVolumeValue.setText("" + VolumeDialogController.currentVolume);
         }
@@ -516,8 +512,6 @@ public class VolumeDialog {
                 setExpandedH(false);
             }
         });
-        mIgnoreState = true;
-        if (D.BUG) Log.d(TAG, "mIgnoreState : " + mIgnoreState);
         Events.writeEvent(mContext, Events.EVENT_DISMISS_DIALOG, reason);
         mController.notifyVisible(false);
         synchronized (mSafetyWarningLock) {
@@ -965,12 +959,6 @@ public class VolumeDialog {
         @Override
         public void onShowSafetyWarning(int flags) {
             showSafetyWarningH(flags);
-        }
-
-        @Override
-        public void onShowUI() {
-            FlyLog.d("onShowUI");
-            mIgnoreState = false;
         }
     };
 
