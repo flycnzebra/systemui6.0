@@ -886,9 +886,10 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_RING) ||
                         (stream == AudioManager.STREAM_SYSTEM)) {
                     FlyLog.d("reciver stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
-                    saveLastVolume(stream, level);
                     if (oldLevel == 0 && level == 1) {
                         loadLastVolume(stream);
+                    }else{
+                        saveLastVolume(stream, level);
                     }
                     changed = updateStreamLevelW(stream, get_level);
                 } else {
