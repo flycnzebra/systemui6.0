@@ -320,10 +320,9 @@ public class VolumeDialogController {
         final boolean showSilentHint = (flags & AudioManager.FLAG_SHOW_SILENT_HINT) != 0;
         boolean changed = false;
 
-//        if (showUI) {
-//            mCallbacks.onShowUI();
-//            changed |= updateActiveStreamW(stream);
-//        }
+        if (showUI) {
+            changed |= updateActiveStreamW(stream);
+        }
         int lastAudibleStreamVolume = mAudio.getLastAudibleStreamVolume(stream);
         if (D.BUG)
             Log.d(TAG, "onVolumeChangedW stream: " + stream + " lastAudibleStreamVolume: " + lastAudibleStreamVolume);
@@ -334,6 +333,7 @@ public class VolumeDialogController {
             mCallbacks.onStateChanged(mState);
         }
         if (showUI) {
+            mCallbacks.onShowUI();
             mCallbacks.onShowRequested(Events.SHOW_REASON_VOLUME_CHANGED);
         }
         if (showVibrateHint) {
