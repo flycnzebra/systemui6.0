@@ -970,8 +970,6 @@ public class VolumeDialog {
             }
         }
 
-        public void onShowSafetyWarning(int flags) {
-            showSafetyWarningH
         @Override
         public void onShowSafetyWarning(int flags) {
             showSafetyWarningH(flags);
