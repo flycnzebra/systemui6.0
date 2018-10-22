@@ -345,10 +345,9 @@ public class VolumeDialogController {
 
         if (fromKey) {
             if (flags == 4113) {
-                int value = mAudio.getStreamVolume(stream);
-                FlyLog.d();
-                if (value == 0) {
-                    FlyLog.d("set last stream=%d,value=%d", stream, value);
+                boolean ismute = mAudio.isStreamMute(stream);
+                if (D.BUG) Log.d(TAG, "isStreamMute stream: " + stream + " ismute :"+ismute);
+                if(ismute){
                     loadLastVolume(stream);
                 }
             }
@@ -888,7 +887,7 @@ public class VolumeDialogController {
                     FlyLog.d("reciver stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
                     if (oldLevel == 0 && level == 1) {
                         loadLastVolume(stream);
-                    } else if (level != 0&&get_level!=0) {
+                    } else if (level != 0 && get_level != 0) {
                         saveLastVolume(stream, level);
                     }
                     changed = updateStreamLevelW(stream, level);
