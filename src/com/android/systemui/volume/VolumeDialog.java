@@ -458,10 +458,10 @@ public class VolumeDialog {
     }
 
     private void showH(int reason) {
-        mCountShow++;
-        if ((mVolumeValue != null) && (mCountShow == 1)) {//only first show set volume
-            mVolumeValue.setText("" + VolumeDialogController.currentVolume);
-        }
+//        mCountShow++;
+//        if ((mVolumeValue != null) && (mCountShow == 1)) {
+//            mVolumeValue.setText("" + VolumeDialogController.currentVolume);
+//        }
         mHandler.removeMessages(H.SHOW);
         mHandler.removeMessages(H.DISMISS);
         rescheduleTimeoutH();
