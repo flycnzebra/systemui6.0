@@ -1059,28 +1059,17 @@ public class VolumeDialog {
             if (mRow.ss == null) return;
             FlyLog.d(AudioSystem.streamToString(mRow.stream)
                     + " onProgressChanged " + progress + " fromUser=" + fromUser);
-            final int userLevel = getImpliedLevel(seekBar, progress);
-//            if (mVolumeValue != null) {
-//                if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
-//                String level = "" + userLevel;
-//                mVolumeValue.setText(level);
-//                FlyLog.d("setText2 volume %d,stream=%d",userLevel,mRow.stream);
-//            }
-
             if (!fromUser) return;
             if (mRow.ss.levelMin > 0) {
                 final int minProgress = mRow.ss.levelMin * 100;
                 if (progress < minProgress) {
-                    if (D.BUG) Log.d(TAG, "setProgress minProgress=" + minProgress);
                     seekBar.setProgress(minProgress);
                 }
             }
-
+            final int userLevel = getImpliedLevel(seekBar, progress);
             if (mRow.ss.level != userLevel || mRow.ss.muted && userLevel > 0) {
                 mRow.userAttempt = SystemClock.uptimeMillis();
                 if (mRow.requestedLevel != userLevel) {
-                    if (D.BUG)
-                        Log.d(TAG, "setStreamVolume mRow.stream : " + mRow.stream + " userLevel = " + userLevel);
                     mController.setStreamVolume(mRow.stream, userLevel);
                     mRow.requestedLevel = userLevel;
                     Events.writeEvent(mContext, Events.EVENT_TOUCH_LEVEL_CHANGED, mRow.stream,
@@ -1100,9 +1089,12 @@ public class VolumeDialog {
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
             FlyLog.d("onStopTrackingTouch" + " " + mRow.stream);
+            int userLevel = getImpliedLevel(seekBar, seekBar.getProgress());
+            String text = "" + userLevel;
+            mVolumeValue.setText(text);
+            FlyLog.d("setText2 volume %d,stream=%d", userLevel, mRow.stream);
             mRow.tracking = false;
             mRow.userAttempt = SystemClock.uptimeMillis();
-            int userLevel = getImpliedLevel(seekBar, seekBar.getProgress());
             Events.writeEvent(mContext, Events.EVENT_TOUCH_LEVEL_DONE, mRow.stream, userLevel);
             if (mRow.ss == null) return;
             if (mRow.ss.level != userLevel) {
