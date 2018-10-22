@@ -807,7 +807,7 @@ public class VolumeDialog {
             }
         }
 
-        final int newProgress = vlevel * 100;
+        final int newProgress = VolumeDialogController.currentVolume * 100;
 
         if (progress != newProgress) {
             if (mShowing && rowVisible) {
