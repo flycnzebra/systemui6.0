@@ -178,7 +178,7 @@ public class VolumeDialog {
         mVolumeValue = (TextView) mDialog.findViewById(R.id.volume_value);
 
         mExpandButton.setOnClickListener(mClickExpand);
-        updateWindowWidthH();
+//        updateWindowWidthH();
         updateExpandButtonH();
         mLayoutTransition = new LayoutTransition();
         mLayoutTransition.setDuration(new ValueAnimator().getDuration() / 2);
@@ -838,8 +838,8 @@ public class VolumeDialog {
                 }
                 row.slider.setProgress(newProgress);
             }
-           
-        } 
+
+        }
 
     }
 
@@ -917,7 +917,7 @@ public class VolumeDialog {
 
         @Override
         public void onConfigurationChanged() {
-            updateWindowWidthH();
+//            updateWindowWidthH();
             mSpTexts.update();
             mZenFooter.onConfigurationChanged();
         }
@@ -1067,6 +1067,11 @@ public class VolumeDialog {
                 }
             }
             final int userLevel = getImpliedLevel(seekBar, progress);
+            if (mVolumeValue != null) {
+                if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
+                String level = "" + userLevel;
+                mVolumeValue.setText(level);
+            }
             if (mRow.ss.level != userLevel || mRow.ss.muted && userLevel > 0) {
                 mRow.userAttempt = SystemClock.uptimeMillis();
                 if (mRow.requestedLevel != userLevel) {
