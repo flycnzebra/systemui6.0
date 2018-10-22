@@ -1048,6 +1048,8 @@ public class VolumeDialog {
         }
     }
 
+    private int seek = 0;
+
     private final class VolumeSeekBarChangeListener implements OnSeekBarChangeListener {
         private final VolumeRow mRow;
 
@@ -1057,17 +1059,11 @@ public class VolumeDialog {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            seek = progress;
             if (mRow.ss == null) return;
             if (D.BUG) Log.d(TAG, AudioSystem.streamToString(mRow.stream)
                     + " onProgressChanged " + progress + " fromUser=" + fromUser);
             final int userLevel = getImpliedLevel(seekBar, progress);
-            if (mVolumeValue != null) {
-                if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
-                String level = "" + userLevel;
-                mVolumeValue.setText(level);
-                FlyLog.d("setText2 volume %d,stream=%d",userLevel,mRow.stream);
-            }
-
             if (!fromUser) return;
             if (mRow.ss.levelMin > 0) {
                 final int minProgress = mRow.ss.levelMin * 100;
@@ -1101,9 +1097,14 @@ public class VolumeDialog {
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
             if (D.BUG) Log.d(TAG, "onStopTrackingTouch" + " " + mRow.stream);
+            int userLevel = getImpliedLevel(seekBar, seekBar.getProgress());
+            if (mVolumeValue != null) {
+                String level = "" + userLevel;
+                mVolumeValue.setText(level);
+                FlyLog.d("setText2 volume %d,stream=%d",userLevel,mRow.stream);
+            }
             mRow.tracking = false;
             mRow.userAttempt = SystemClock.uptimeMillis();
-            int userLevel = getImpliedLevel(seekBar, seekBar.getProgress());
             Events.writeEvent(mContext, Events.EVENT_TOUCH_LEVEL_DONE, mRow.stream, userLevel);
             if (mRow.ss == null) return;
             if (mRow.ss.level != userLevel) {
