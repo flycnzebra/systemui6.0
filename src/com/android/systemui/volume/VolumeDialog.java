@@ -1065,9 +1065,9 @@ public class VolumeDialog {
             if (!fromUser) return;
             if (mRow.ss.levelMin > 0) {
                 final int minProgress = mRow.ss.levelMin * 100;
-                if (progress < minProgress) {
-                    seekBar.setProgress(minProgress);
-                }
+//                if (progress < minProgress) {
+//                    seekBar.setProgress(minProgress);
+//                }
             }
             final int userLevel = getImpliedLevel(seekBar, progress);
             if (mRow.ss.level != userLevel || mRow.ss.muted && userLevel > 0) {
