@@ -17,13 +17,13 @@
 package com.android.systemui.volume;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -35,7 +35,6 @@ import android.media.VolumePolicy;
 import android.media.session.MediaController.PlaybackInfo;
 import android.media.session.MediaSession.Token;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -57,8 +56,6 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import android.content.SharedPreferences;
 
 /**
  * Source of truth for all state / events related to the volume dialog.  No presentation.
@@ -876,7 +873,6 @@ public class VolumeDialogController {
                 }
                 final int level = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_VALUE, -1);
                 final int oldLevel = intent.getIntExtra(AudioManager.EXTRA_PREV_VOLUME_STREAM_VALUE, -1);
-
                 int get_level = mAudio.getStreamVolume(stream);
                 if (D.BUG) Log.d(TAG, "onReceive VOLUME_CHANGED_ACTION stream=" + stream
                         + " level=" + level + " oldLevel=" + oldLevel + "get_level=" + get_level);
@@ -890,11 +886,10 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_RING) ||
                         (stream == AudioManager.STREAM_SYSTEM)) {
                     FlyLog.d("reciver stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
-//                    if (oldLevel != 0) {
-//                        saveLastVolume(stream, oldLevel);
-//                    }else{
-//                        loadLastVolume(stream);
-//                    }
+                    saveLastVolume(stream, level);
+                    if (oldLevel == 0 && level == 1) {
+                        loadLastVolume(stream);
+                    }
                     changed = updateStreamLevelW(stream, get_level);
                 } else {
 //                    FlyLog.e("don't care stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
@@ -941,21 +936,21 @@ public class VolumeDialogController {
                 if (D.BUG) Log.d(TAG, "onReceive ACTION_CLOSE_SYSTEM_DIALOGS");
                 dismiss();
             } else if (action.equals(BROADCAST_SHOW_VOLUME_BAR)) {
-                FlyLog.d( "onReceive BROADCAST_SHOW_VOLUME_BAR");
+                FlyLog.d("onReceive BROADCAST_SHOW_VOLUME_BAR");
                 dismiss();
                 int level = 0;
                 int type = mAudio.getCurrentAudioFocusContentType();
-                FlyLog.d("getCurrentAudioFocusContentType=%d",type);
+                FlyLog.d("getCurrentAudioFocusContentType=%d", type);
                 boolean active_bt_sco = mAudio.isStreamActive(AudioSystem.STREAM_BLUETOOTH_SCO);
                 boolean gis_active = mAudio.isStreamActive(AudioSystem.STREAM_GIS);
                 boolean music_active = mAudio.isStreamActive(AudioManager.STREAM_MUSIC);
                 boolean voicecall_active = mAudio.isStreamActive(AudioManager.STREAM_VOICE_CALL);
                 boolean avin_active = mAudio.isStreamActive(AudioManager.STREAM_AUXIN);
 
-                FlyLog.d( "STREAM_BLUETOOTH_SCO active ? " + active_bt_sco);
+                FlyLog.d("STREAM_BLUETOOTH_SCO active ? " + active_bt_sco);
                 FlyLog.d("STREAM_GIS active ? " + gis_active);
-                FlyLog.d( "STREAM_MUSIC active ? " + music_active);
-                FlyLog.d( "STREAM_VOICE_CALL active ? " + voicecall_active);
+                FlyLog.d("STREAM_MUSIC active ? " + music_active);
+                FlyLog.d("STREAM_VOICE_CALL active ? " + voicecall_active);
                 FlyLog.d("STREAM_AUXIN active ? " + avin_active);
 
                 if (voicecall_active) {
