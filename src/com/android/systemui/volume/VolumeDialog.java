@@ -836,11 +836,11 @@ public class VolumeDialog {
 //                row.anim.setDuration(UPDATE_ANIMATION_DURATION);
 //                row.anim.start();
             } else {
-                // update slider directly to clamped value
-                if (row.anim != null) {
-                    row.anim.cancel();
-                }
-                row.slider.setProgress(newProgress);
+//                // update slider directly to clamped value
+//                if (row.anim != null) {
+//                    row.anim.cancel();
+//                }
+//                row.slider.setProgress(newProgress);
             }
         }
 
