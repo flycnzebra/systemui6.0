@@ -666,6 +666,12 @@ public class VolumeDialog {
             row.slider.setMax(max);
         }
 
+        //设置音量数字
+        final int value = getImpliedLevel(row.slider,row.ss.level);
+        String str = "" + value;
+        row.vulumeText.setText(str);
+        FlyLog.d("setText2 volume %d,stream=%d", value, row.stream);
+
         // update header visible
         updateVolumeRowHeaderVisibleH(row);
 
@@ -718,11 +724,6 @@ public class VolumeDialog {
         // update slider
         final boolean enableSlider = !zenMuted;
         final int vlevel = row.ss.muted && (isRingVibrate || !isRingStream && !zenMuted) ? 0 : row.ss.level;
-        //设置音量数字
-        final int userLevel = getImpliedLevel(row.slider,vlevel);
-        String str = "" + userLevel;
-        row.vulumeText.setText(str);
-        FlyLog.d("setText2 volume %d,stream=%d", userLevel, row.stream);
         updateVolumeRowSliderH(row, enableSlider, vlevel);
     }
 
