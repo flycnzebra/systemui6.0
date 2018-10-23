@@ -321,6 +321,9 @@ public class VolumeDialogController {
             changed = updateActiveStreamW(stream);
         }
         int lastAudibleStreamVolume = mAudio.getLastAudibleStreamVolume(stream);
+        if(stream==AudioManager.STREAM_MUSIC){
+            FlyLog.d("states save up vaule", lastAudibleStreamVolume, stream);
+        }
         changed |= updateStreamLevelW(stream, lastAudibleStreamVolume);
         changed |= checkRoutedToBluetoothW(showUI ? AudioManager.STREAM_MUSIC : stream);
         if (changed) {
@@ -376,7 +379,12 @@ public class VolumeDialogController {
     @SuppressLint("NewApi")
     private void onGetStateW() {
         for (int stream : STREAMS) {
-            updateStreamLevelW(stream, mAudio.getLastAudibleStreamVolume(stream));
+            int lastAudibleStreamVolume = mAudio.getLastAudibleStreamVolume(stream);
+            if(stream==AudioManager.STREAM_MUSIC){
+                FlyLog.d("states save up 2 vaule", lastAudibleStreamVolume, stream);
+            }
+            updateStreamLevelW(stream, lastAudibleStreamVolume);
+
             streamStateW(stream).levelMin = mAudio.getStreamMinVolume(stream);
             streamStateW(stream).levelMax = mAudio.getStreamMaxVolume(stream);
             updateStreamMuteW(stream, mAudio.isStreamMute(stream));
