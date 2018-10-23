@@ -632,10 +632,7 @@ public class VolumeDialog {
 
     private void updateVolumeRowH(VolumeRow row) {
         if (mState == null) return;
-        final StreamState ss;
-        synchronized ( mState.states) {
-            ss = mState.states.get(row.stream);
-        }
+        final StreamState ss = mState.states.get(row.stream);
         if (ss == null) return;
         row.ss = ss;
         if (row.stream == AudioManager.STREAM_MUSIC) {
@@ -680,7 +677,7 @@ public class VolumeDialog {
             row.vulumeText.setText(str);
             row.slider.setProgress(value * 100);
             if (row.stream == AudioManager.STREAM_MUSIC) {
-                FlyLog.d("setText2 volume %d,stream=%d", value, row.stream);
+                FlyLog.d("states setText volume %d,stream=%d", value, row.stream);
             }
         }
         // update header visible

@@ -344,8 +344,8 @@ public class VolumeDialogController {
         if (fromKey) {
             if (flags == 4113) {
                 boolean ismute = mAudio.isStreamMute(stream);
-                if (D.BUG) Log.d(TAG, "isStreamMute stream: " + stream + " ismute :"+ismute);
-                if(ismute){
+                if (D.BUG) Log.d(TAG, "isStreamMute stream: " + stream + " ismute :" + ismute);
+                if (ismute) {
                     loadLastVolume(stream);
                 }
             }
@@ -357,9 +357,9 @@ public class VolumeDialogController {
         if (activeStream == mState.activeStream) return false;
         mState.activeStream = activeStream;
         Events.writeEvent(mContext, Events.EVENT_ACTIVE_STREAM_CHANGED, activeStream);
-        FlyLog.d( "updateActiveStreamW " + activeStream);
+        FlyLog.d("updateActiveStreamW " + activeStream);
         final int s = activeStream < DYNAMIC_STREAM_START_INDEX ? activeStream : -1;
-        FlyLog.d( "forceVolumeControlStream " + s);
+        FlyLog.d("forceVolumeControlStream " + s);
         mAudio.forceVolumeControlStream(s);
         return true;
     }
@@ -407,7 +407,7 @@ public class VolumeDialogController {
             return false;
         }
         ss.level = level;
-        FlyLog.d("setText2 volume %d", ss.level);
+        FlyLog.d("states save volume %d, stream=%d", ss.level, stream);
         if (isLogWorthy(stream)) {
             Events.writeEvent(mContext, Events.EVENT_LEVEL_CHANGED, stream, level);
         }
@@ -895,9 +895,7 @@ public class VolumeDialogController {
 //                    FlyLog.e("don't care stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
                     return;
                 }
-                synchronized (mState) {
-                    changed = updateStreamLevelW(stream, level);
-                }
+                changed = updateStreamLevelW(stream, level);
 
             } else if (action.equals(AudioManager.STREAM_DEVICES_CHANGED_ACTION)) {
                 final int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);
