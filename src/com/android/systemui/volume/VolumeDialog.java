@@ -630,11 +630,11 @@ public class VolumeDialog {
     }
 
     private void updateVolumeRowH(VolumeRow row) {
-        FlyLog.d("updateVolumeRowH s=%d,level=%d",row.stream,row.ss.level);
         if (mState == null) return;
         final StreamState ss = mState.states.get(row.stream);
         if (ss == null) return;
         row.ss = ss;
+        FlyLog.d("updateVolumeRowH s=%d,level=%d",row.stream,row.ss.level);
         if (ss.level > 0) {
             row.lastAudibleLevel = ss.level;
         }
