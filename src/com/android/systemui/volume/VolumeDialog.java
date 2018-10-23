@@ -723,9 +723,9 @@ public class VolumeDialog {
         row.icon.setContentDescription(ss.name);
 
         // update slider
-        final boolean enableSlider = !zenMuted;
-        final int vlevel = row.ss.muted && (isRingVibrate || !isRingStream && !zenMuted) ? 0 : row.ss.level;
-        updateVolumeRowSliderH(row, enableSlider, vlevel);
+//        final boolean enableSlider = !zenMuted;
+//        final int vlevel = row.ss.muted && (isRingVibrate || !isRingStream && !zenMuted) ? 0 : row.ss.level;
+//        updateVolumeRowSliderH(row, enableSlider, vlevel);
     }
 
     private void updateVolumeRowHeaderVisibleH(VolumeRow row) {
