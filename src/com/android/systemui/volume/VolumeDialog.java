@@ -612,7 +612,6 @@ public class VolumeDialog {
             rescheduleTimeoutH();
         }
         for (VolumeRow row : mRows) {
-            FlyLog.d("rows stream=%d,level=%d",row.stream,row.ss.level);
             updateVolumeRowH(row);
         }
         updateFooterH();
@@ -630,7 +629,7 @@ public class VolumeDialog {
     }
 
     private void updateVolumeRowH(VolumeRow row) {
-//        FlyLog.d("updateVolumeRowH s=" + row.stream);
+        FlyLog.d("updateVolumeRowH s=%d,level=%d",row.stream,row.ss.level);
         if (mState == null) return;
         final StreamState ss = mState.states.get(row.stream);
         if (ss == null) return;
@@ -648,10 +647,8 @@ public class VolumeDialog {
         final boolean isGISStream = row.stream == AudioManager.STREAM_GIS;
         final boolean isAuxInStream = row.stream == AudioManager.STREAM_AUXIN;
 		final boolean isVoiceCallStream = row.stream == AudioManager.STREAM_VOICE_CALL;
-        final boolean isRingVibrate = isRingStream
-                && mState.ringerModeInternal == AudioManager.RINGER_MODE_VIBRATE;
-        final boolean isRingSilent = isRingStream
-                && mState.ringerModeInternal == AudioManager.RINGER_MODE_SILENT;
+        final boolean isRingVibrate = isRingStream && mState.ringerModeInternal == AudioManager.RINGER_MODE_VIBRATE;
+        final boolean isRingSilent = isRingStream && mState.ringerModeInternal == AudioManager.RINGER_MODE_SILENT;
         final boolean isZenAlarms = mState.zenMode == Global.ZEN_MODE_ALARMS;
         final boolean isZenNone = mState.zenMode == Global.ZEN_MODE_NO_INTERRUPTIONS;
         final boolean isZenPriority = mState.zenMode == Global.ZEN_MODE_IMPORTANT_INTERRUPTIONS;
@@ -719,8 +716,11 @@ public class VolumeDialog {
 
         // update slider
         final boolean enableSlider = !zenMuted;
-        final int vlevel = row.ss.muted && (isRingVibrate || !isRingStream && !zenMuted) ? 0
-                : row.ss.level;
+        final int vlevel = row.ss.muted && (isRingVibrate || !isRingStream && !zenMuted) ? 0 : row.ss.level;
+        final int userLevel = getImpliedLevel(row.slider,vlevel);
+        String str = "" + userLevel;
+        row.vulumeText.setText(str);
+        FlyLog.d("setText2 volume %d,stream=%d", userLevel, row.stream);
         updateVolumeRowSliderH(row, enableSlider, vlevel);
     }
 
@@ -793,11 +793,6 @@ public class VolumeDialog {
                 }
                 row.slider.setProgress(vlevel);
             }
-
-            final int userLevel = getImpliedLevel(row.slider,vlevel);
-            String text = "" + userLevel;
-            row.vulumeText.setText(text);
-            FlyLog.d("setText2 volume %d,stream=%d", userLevel, row.stream);
         }
 
     }
