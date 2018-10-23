@@ -587,6 +587,7 @@ public class VolumeDialog {
     }
 
     private void onStateChangedH(State state) {
+        FlyLog.d("onStateChangedH");
         final boolean animating = mMotion.isAnimating();
         if (D.BUG) Log.d(TAG, "onStateChangedH animating=" + animating);
         mState = state;
@@ -717,6 +718,7 @@ public class VolumeDialog {
         // update slider
         final boolean enableSlider = !zenMuted;
         final int vlevel = row.ss.muted && (isRingVibrate || !isRingStream && !zenMuted) ? 0 : row.ss.level;
+        //设置音量数字
         final int userLevel = getImpliedLevel(row.slider,vlevel);
         String str = "" + userLevel;
         row.vulumeText.setText(str);
