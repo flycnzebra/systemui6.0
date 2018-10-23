@@ -1040,9 +1040,6 @@ public class VolumeDialog {
         public void onStopTrackingTouch(SeekBar seekBar) {
             FlyLog.d("onStopTrackingTouch" + " " + mRow.stream);
             int userLevel = getImpliedLevel(seekBar, seekBar.getProgress());
-            String text = "" + userLevel;
-            mRow.vulumeText.setText(text);
-            FlyLog.d("setText volume %d,stream=%d", userLevel, mRow.stream);
             mRow.tracking = false;
             mRow.userAttempt = SystemClock.uptimeMillis();
             Events.writeEvent(mContext, Events.EVENT_TOUCH_LEVEL_DONE, mRow.stream, userLevel);
