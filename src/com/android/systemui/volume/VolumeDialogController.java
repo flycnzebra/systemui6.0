@@ -407,7 +407,9 @@ public class VolumeDialogController {
             return false;
         }
         ss.level = level;
-        FlyLog.d("states save volume %d, stream=%d", ss.level, stream);
+        if(stream==AudioManager.STREAM_MUSIC){
+            FlyLog.d("states save volume %d, stream=%d", ss.level, stream);
+        }
         if (isLogWorthy(stream)) {
             Events.writeEvent(mContext, Events.EVENT_LEVEL_CHANGED, stream, level);
         }
