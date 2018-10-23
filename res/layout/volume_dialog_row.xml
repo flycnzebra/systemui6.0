@@ -65,6 +65,6 @@
             android:textColor="#FFF"
             android:textSize="22px"
             android:layout_marginBottom="2px"
-            android:gravity="center" />
+            android:gravity="start|center" />
     </LinearLayout>
 </RelativeLayout>
