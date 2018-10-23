@@ -673,7 +673,7 @@ public class VolumeDialog {
         updateVolumeRowHeaderVisibleH(row);
 
         //设置音量数字
-        if(mShowing&&row.view.getVisibility()==View.INVISIBLE) {
+        if(mShowing&&row.view.getVisibility()==View.VISIBLE) {
             final int value = row.ss.level;
             final int progress = row.slider.getProgress();
             if (progress != value * 100) {
