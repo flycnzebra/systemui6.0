@@ -807,6 +807,10 @@ public class VolumeDialog {
                 row.animTargetProgress = newProgress;
                 row.anim.setDuration(UPDATE_ANIMATION_DURATION);
                 row.anim.start();
+                final int userLevel = getImpliedLevel(row.slider,vlevel);
+                String text = "" + userLevel;
+                row.vulumeText.setText(text);
+                FlyLog.d("setText2 volume %d,stream=%d", userLevel, row.stream);
             } else {
                 // update slider directly to clamped value
                 if (row.anim != null) {
@@ -814,11 +818,6 @@ public class VolumeDialog {
                 }
                 row.slider.setProgress(newProgress);
             }
-
-            final int userLevel = getImpliedLevel(row.slider,vlevel);
-            String text = "" + userLevel;
-            row.vulumeText.setText(text);
-            FlyLog.d("setText2 volume %d,stream=%d", userLevel, row.stream);
         }
 
     }
