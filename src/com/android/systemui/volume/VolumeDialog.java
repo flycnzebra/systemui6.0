@@ -656,7 +656,9 @@ public class VolumeDialog {
             rescheduleTimeoutH();
         }
         for (VolumeRow row : mRows) {
-            updateVolumeRowH(row);
+            if(row.view.getVisibility()==View.INVISIBLE){
+                updateVolumeRowH(row);
+            }
         }
         updateFooterH();
     }
