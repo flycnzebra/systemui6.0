@@ -324,7 +324,7 @@ public class VolumeDialogController {
         if(stream==AudioManager.STREAM_MUSIC){
             FlyLog.d("states save up vaule", lastAudibleStreamVolume, stream);
         }
-        changed |= updateStreamLevelW(stream, lastAudibleStreamVolume);
+//        changed |= updateStreamLevelW(stream, lastAudibleStreamVolume);
         changed |= checkRoutedToBluetoothW(showUI ? AudioManager.STREAM_MUSIC : stream);
         if (changed) {
             FlyLog.d("changed mCallbacks.onStateChanged(mState)");
@@ -383,7 +383,7 @@ public class VolumeDialogController {
             if(stream==AudioManager.STREAM_MUSIC){
                 FlyLog.d("states save up 2 vaule", lastAudibleStreamVolume, stream);
             }
-            updateStreamLevelW(stream, lastAudibleStreamVolume);
+//            updateStreamLevelW(stream, lastAudibleStreamVolume);
 
             streamStateW(stream).levelMin = mAudio.getStreamMinVolume(stream);
             streamStateW(stream).levelMax = mAudio.getStreamMaxVolume(stream);
