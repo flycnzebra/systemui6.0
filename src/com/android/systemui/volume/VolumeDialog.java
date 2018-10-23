@@ -50,7 +50,6 @@ import android.view.View;
 import android.view.View.AccessibilityDelegate;
 import android.view.View.OnAttachStateChangeListener;
 import android.view.View.OnClickListener;
-import android.view.View.OnLayoutChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
@@ -271,26 +270,7 @@ public class VolumeDialog {
             mDialogContentView.addView(v, mDialogContentView.getChildCount() - 1, lp);
             row.space = v;
         }
-        row.vulumeText.addOnLayoutChangeListener(new OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                final boolean moved = oldLeft != left || oldTop != top;
-                if (D.BUG) Log.d(TAG, "onLayoutChange moved=" + moved
-                        + " old=" + new Rect(oldLeft, oldTop, oldRight, oldBottom).toShortString()
-                        + " new=" + new Rect(left, top, right, bottom).toShortString());
-                if (moved) {
-                    for (int i = 0; i < mDialogContentView.getChildCount(); i++) {
-                        final View c = mDialogContentView.getChildAt(i);
-                        if (!c.isShown()) continue;
-                        if (c == row.view) {
-                            repositionExpandAnim(row);
-                        }
-                        return;
-                    }
-                }
-            }
-        });
+        
         // add new row just before the footer
         mDialogContentView.addView(row.view, mDialogContentView.getChildCount() - 1);
         mRows.add(row);
@@ -318,7 +298,6 @@ public class VolumeDialog {
 
     private void repositionExpandAnim(VolumeRow row) {
         final int[] loc = new int[2];
-        row.vulumeText.getLocationInWindow(loc);
         final MarginLayoutParams mlp = (MarginLayoutParams) mDialogView.getLayoutParams();
         final int x = loc[0] - mlp.leftMargin;
         final int y = loc[1] - mlp.topMargin;
@@ -587,7 +566,7 @@ public class VolumeDialog {
             final boolean visible = isVisibleH(row, isActive);
             Util.setVisOrGone(row.view, visible);
             Util.setVisOrGone(row.space, visible && mExpanded);
-            Util.setVisOrInvis(row.vulumeText, false);
+
             updateVolumeRowHeaderVisibleH(row);
             row.header.setAlpha(mExpanded && isActive ? 1 : 0.5f);
 //            updateVolumeRowSliderTintH(row, isActive);

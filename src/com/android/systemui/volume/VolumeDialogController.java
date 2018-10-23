@@ -260,9 +260,7 @@ public class VolumeDialogController {
     public void setStreamVolume(int stream, int level) {
         FlyLog.d("setStreamVolume strem=%d,level=%d", stream, level);
         if (mDestroyed) return;
-        if (D.BUG) Log.d(TAG, "setStreamVolume stream:" + stream + " level: " + level);
-        //mWorker.obtainMessage(W.SET_STREAM_VOLUME, stream, level).sendToTarget();
-        onSetStreamVolumeW(stream, level);
+        mWorker.obtainMessage(W.SET_STREAM_VOLUME, stream, level).sendToTarget();
     }
 
     public void setActiveStream(int stream) {
@@ -282,7 +280,6 @@ public class VolumeDialogController {
 
     private void onNotifyVisibleW(boolean visible) {
         if (mDestroyed) return;
-        if (D.BUG) Log.d(TAG, "onNotifyVisibleW visible: " + visible);
         mAudio.notifyVolumeControllerVisible(mVolumeController, visible);
         if (!visible) {
             if (updateActiveStreamW(-1)) {
