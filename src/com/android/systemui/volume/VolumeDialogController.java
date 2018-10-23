@@ -344,15 +344,15 @@ public class VolumeDialogController {
             Events.writeEvent(mContext, Events.EVENT_KEY, stream, lastAudibleStreamVolume);
         }
 
-//        if (fromKey) {
-//            if (flags == 4113) {
-//                boolean ismute = mAudio.isStreamMute(stream);
-//                if (D.BUG) Log.d(TAG, "isStreamMute stream: " + stream + " ismute :" + ismute);
-//                if (ismute) {
-//                    loadLastVolume(stream);
-//                }
-//            }
-//        }
+        if (fromKey) {
+            if (flags == 4113) {
+                boolean ismute = mAudio.isStreamMute(stream);
+                if (D.BUG) Log.d(TAG, "isStreamMute stream: " + stream + " ismute :" + ismute);
+                if (ismute) {
+                    loadLastVolume(stream);
+                }
+            }
+        }
 
     }
 
@@ -895,11 +895,12 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_RING) ||
                         (stream == AudioManager.STREAM_SYSTEM)) {
                     FlyLog.d("reciver stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
-//                    if (oldLevel == 0 && level == 1) {
-//                        loadLastVolume(stream);
-//                    } else if (level != 0 && get_level != 0) {
-//                        saveLastVolume(stream, level);
-//                    }
+                    if (oldLevel == 0 && level == 1) {
+                        loadLastVolume(stream);
+                    } else{
+                        saveLastVolume(stream,level);
+                    }
+
                 } else {
 //                    FlyLog.e("don't care stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
                     return;
