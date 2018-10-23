@@ -669,19 +669,22 @@ public class VolumeDialog {
             row.slider.setMax(max);
         }
 
-        //设置音量数字
-        final int value = row.ss.level;
-        final int progress = row.slider.getProgress();
-        if (progress != value * 100) {
-            String str = "" + value;
-            row.vulumeText.setText(str);
-            row.slider.setProgress(value * 100);
-            if (row.stream == AudioManager.STREAM_MUSIC) {
-                FlyLog.d("states setText volume %d,stream=%d", value, row.stream);
-            }
-        }
         // update header visible
         updateVolumeRowHeaderVisibleH(row);
+
+        //设置音量数字
+        if(mShowing&&row.view.getVisibility()==View.INVISIBLE) {
+            final int value = row.ss.level;
+            final int progress = row.slider.getProgress();
+            if (progress != value * 100) {
+                String str = "" + value;
+                row.vulumeText.setText(str);
+                row.slider.setProgress(value * 100);
+                if (row.stream == AudioManager.STREAM_MUSIC) {
+                    FlyLog.d("states setText volume %d,stream=%d", value, row.stream);
+                }
+            }
+        }
 
         // update header text
         String text = ss.name;
