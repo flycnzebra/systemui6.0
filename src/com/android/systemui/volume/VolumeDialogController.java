@@ -403,8 +403,12 @@ public class VolumeDialogController {
 
     private boolean updateStreamLevelW(int stream, int level) {
         final StreamState ss = streamStateW(stream);
-        if (ss.level == level) return false;
+        if (ss.level == level) {
+            FlyLog.d("setText2 volume %d return", ss.level);
+            return false;
+        }
         ss.level = level;
+        FlyLog.d("setText2 volume %d", ss.level);
         if (isLogWorthy(stream)) {
             Events.writeEvent(mContext, Events.EVENT_LEVEL_CHANGED, stream, level);
         }
