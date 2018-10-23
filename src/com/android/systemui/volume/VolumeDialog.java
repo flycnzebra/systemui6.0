@@ -673,7 +673,7 @@ public class VolumeDialog {
     }
 
     private void updateVolumeRowH(VolumeRow row) {
-        if (D.BUG) Log.d(TAG, "updateVolumeRowH s=" + row.stream);
+        FlyLog.d("updateVolumeRowH s=" + row.stream);
         if (mState == null) return;
         final StreamState ss = mState.states.get(row.stream);
         if (ss == null) return;
@@ -698,9 +698,8 @@ public class VolumeDialog {
         final boolean isZenPriority = mState.zenMode == Global.ZEN_MODE_IMPORTANT_INTERRUPTIONS;
         final boolean isRingZenNone = (isRingStream || isSystemStream) && isZenNone;
         final boolean isRingLimited = isRingStream && isZenPriority;
-        final boolean zenMuted = isZenAlarms ? (isRingStream || isSystemStream) : isZenNone ? (isRingStream || isSystemStream || isAlarmStream
-                || isMusicStream || isGISStream || isAuxInStream || isVoiceCallStream)
-                : false;
+        final boolean zenMuted = isZenAlarms ? (isRingStream || isSystemStream) : isZenNone && (isRingStream || isSystemStream || isAlarmStream
+                || isMusicStream || isGISStream || isAuxInStream || isVoiceCallStream);
 
         // update slider max
         final int max = ss.levelMax * 100;
@@ -745,7 +744,11 @@ public class VolumeDialog {
                 mController.vibrate();
             }
             row.cachedIconRes = iconRes;
-            row.icon.setImageResource(iconRes);
+            FlyLog.d("set row image. stream=%d",row.stream);
+
+            if (mShowing && row.view.getVisibility()==View.VISIBLE) {
+                row.icon.setImageResource(iconRes);
+            }
         }
         row.iconState =
                 iconRes == R.drawable.ic_volume_ringer_vibrate ? Events.ICON_STATE_VIBRATE
