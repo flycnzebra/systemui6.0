@@ -204,11 +204,11 @@ public class VolumeDialog {
         addRow(AudioManager.STREAM_GIS,
                 R.drawable.ic_volume_gis, R.drawable.ic_volume_gis_mute, true);
         addRow(AudioManager.STREAM_AUXIN,
-                R.drawable.ic_volume_music, R.drawable.ic_volume_music_n, true);
+                R.drawable.ic_volume_music1, R.drawable.ic_volume_music1_n, true);
         addRow(AudioManager.STREAM_VOICE_CALL,
                 R.drawable.ic_volume_btphone, R.drawable.ic_volume_btphone_n, true);
         addRow(AudioManager.STREAM_BLUETOOTH_SCO,
-                R.drawable.ic_volume_btphone, R.drawable.ic_volume_btphone_n, true);
+                R.drawable.ic_volume_btphone1, R.drawable.ic_volume_btphone1_n, true);
         addRow(AudioManager.STREAM_SYSTEM,
                 R.drawable.ic_volume_system, R.drawable.ic_volume_system_mute, false);
 
@@ -745,10 +745,7 @@ public class VolumeDialog {
             }
             row.cachedIconRes = iconRes;
             FlyLog.d("set row image. stream=%d",row.stream);
-
-            if (mShowing && row.view.getVisibility()==View.VISIBLE) {
-                row.icon.setImageResource(iconRes);
-            }
+            row.icon.setImageResource(iconRes);
         }
         row.iconState =
                 iconRes == R.drawable.ic_volume_ringer_vibrate ? Events.ICON_STATE_VIBRATE
