@@ -650,7 +650,7 @@ public class VolumeDialog {
     }
 
     private void updateVolumeRowH(VolumeRow row) {
-        FlyLog.d("updateVolumeRowH s=" + row.stream);
+//        FlyLog.d("updateVolumeRowH s=" + row.stream);
         if (mState == null) return;
         final StreamState ss = mState.states.get(row.stream);
         if (ss == null) return;
@@ -788,36 +788,36 @@ public class VolumeDialog {
                 return;  // don't clamp if visible
             }
         }
-        final int newProgress = vlevel * 100;
-        if (progress != newProgress) {
+        if (progress/100 != vlevel) {
             if (mShowing && rowVisible) {
                 // animate!
                 if (row.anim != null && row.anim.isRunning()
-                        && row.animTargetProgress == newProgress) {
+                        && row.animTargetProgress == vlevel) {
                     return;  // already animating to the target progress
                 }
                 // start/update animation
                 if (row.anim == null) {
-                    row.anim = ObjectAnimator.ofInt(row.slider, "progress", progress, newProgress);
+                    row.anim = ObjectAnimator.ofInt(row.slider, "progress", progress, vlevel);
                     row.anim.setInterpolator(new DecelerateInterpolator());
                 } else {
                     row.anim.cancel();
-                    row.anim.setIntValues(progress, newProgress);
+                    row.anim.setIntValues(progress, vlevel);
                 }
-                row.animTargetProgress = newProgress;
+                row.animTargetProgress = vlevel;
                 row.anim.setDuration(UPDATE_ANIMATION_DURATION);
                 row.anim.start();
-                final int userLevel = getImpliedLevel(row.slider,vlevel);
-                String text = "" + userLevel;
-                row.vulumeText.setText(text);
-                FlyLog.d("setText2 volume %d,stream=%d", userLevel, row.stream);
             } else {
                 // update slider directly to clamped value
                 if (row.anim != null) {
                     row.anim.cancel();
                 }
-                row.slider.setProgress(newProgress);
+                row.slider.setProgress(vlevel);
             }
+
+            final int userLevel = getImpliedLevel(row.slider,vlevel);
+            String text = "" + userLevel;
+            row.vulumeText.setText(text);
+            FlyLog.d("setText2 volume %d,stream=%d", userLevel, row.stream);
         }
 
     }

@@ -327,6 +327,7 @@ public class VolumeDialogController {
         changed |= updateStreamLevelW(stream, lastAudibleStreamVolume);
         changed |= checkRoutedToBluetoothW(showUI ? AudioManager.STREAM_MUSIC : stream);
         if (changed) {
+            FlyLog.d("changed mCallbacks.onStateChanged(mState)");
             mCallbacks.onStateChanged(mState);
         }
         if (showUI) {
@@ -359,9 +360,9 @@ public class VolumeDialogController {
         if (activeStream == mState.activeStream) return false;
         mState.activeStream = activeStream;
         Events.writeEvent(mContext, Events.EVENT_ACTIVE_STREAM_CHANGED, activeStream);
-        if (D.BUG) Log.d(TAG, "updateActiveStreamW " + activeStream);
+        FlyLog.d( "updateActiveStreamW " + activeStream);
         final int s = activeStream < DYNAMIC_STREAM_START_INDEX ? activeStream : -1;
-        if (D.BUG) Log.d(TAG, "forceVolumeControlStream " + s);
+        FlyLog.d( "forceVolumeControlStream " + s);
         mAudio.forceVolumeControlStream(s);
         return true;
     }
