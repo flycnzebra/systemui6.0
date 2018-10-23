@@ -667,7 +667,7 @@ public class VolumeDialog {
         }
 
         //设置音量数字
-        final int value = getImpliedLevel(row.slider,row.ss.level);
+        final int value = row.ss.level;
         String str = "" + value;
         row.vulumeText.setText(str);
         FlyLog.d("setText2 volume %d,stream=%d", value, row.stream);
