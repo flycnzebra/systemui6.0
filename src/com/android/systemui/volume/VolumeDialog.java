@@ -589,7 +589,7 @@ public class VolumeDialog {
     private void onStateChangedH(State state) {
         FlyLog.d("onStateChangedH");
         final boolean animating = mMotion.isAnimating();
-        if (D.BUG) Log.d(TAG, "onStateChangedH animating=" + animating);
+        FlyLog.d("onStateChangedH animating=" + animating);
         mState = state;
         if (animating) {
             mPendingStateChanged = true;
