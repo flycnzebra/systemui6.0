@@ -318,7 +318,7 @@ public class VolumeDialogController {
         boolean changed = false;
 
         if (showUI) {
-            changed |= updateActiveStreamW(stream);
+            changed = updateActiveStreamW(stream);
         }
         int lastAudibleStreamVolume = mAudio.getLastAudibleStreamVolume(stream);
         changed |= updateStreamLevelW(stream, lastAudibleStreamVolume);
@@ -888,12 +888,11 @@ public class VolumeDialogController {
                     } else if (level != 0 && get_level != 0) {
                         saveLastVolume(stream, level);
                     }
-                    changed = updateStreamLevelW(stream, level);
                 } else {
 //                    FlyLog.e("don't care stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
                     return;
                 }
-
+                changed = updateStreamLevelW(stream, level);
 
             } else if (action.equals(AudioManager.STREAM_DEVICES_CHANGED_ACTION)) {
                 final int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);

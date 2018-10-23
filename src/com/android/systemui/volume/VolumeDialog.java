@@ -270,7 +270,7 @@ public class VolumeDialog {
             mDialogContentView.addView(v, mDialogContentView.getChildCount() - 1, lp);
             row.space = v;
         }
-        
+
         // add new row just before the footer
         mDialogContentView.addView(row.view, mDialogContentView.getChildCount() - 1);
         mRows.add(row);
@@ -425,7 +425,7 @@ public class VolumeDialog {
     }
 
     private void showH(int reason) {
-		if (D.BUG) Log.d(TAG, "showH r=" + Events.DISMISS_REASONS[reason]);
+        if (D.BUG) Log.d(TAG, "showH r=" + Events.DISMISS_REASONS[reason]);
         mHandler.removeMessages(H.SHOW);
         mHandler.removeMessages(H.DISMISS);
         rescheduleTimeoutH();
@@ -632,8 +632,8 @@ public class VolumeDialog {
         final StreamState ss = mState.states.get(row.stream);
         if (ss == null) return;
         row.ss = ss;
-        if(row.stream==AudioManager.STREAM_MUSIC){
-            FlyLog.d("updateVolumeRowH s=%d,level=%d",row.stream,row.ss.level);
+        if (row.stream == AudioManager.STREAM_MUSIC) {
+            FlyLog.d("updateVolumeRowH s=%d,level=%d", row.stream, row.ss.level);
         }
         if (ss.level > 0) {
             row.lastAudibleLevel = ss.level;
@@ -647,7 +647,7 @@ public class VolumeDialog {
         final boolean isMusicStream = row.stream == AudioManager.STREAM_MUSIC;
         final boolean isGISStream = row.stream == AudioManager.STREAM_GIS;
         final boolean isAuxInStream = row.stream == AudioManager.STREAM_AUXIN;
-		final boolean isVoiceCallStream = row.stream == AudioManager.STREAM_VOICE_CALL;
+        final boolean isVoiceCallStream = row.stream == AudioManager.STREAM_VOICE_CALL;
         final boolean isRingVibrate = isRingStream && mState.ringerModeInternal == AudioManager.RINGER_MODE_VIBRATE;
         final boolean isRingSilent = isRingStream && mState.ringerModeInternal == AudioManager.RINGER_MODE_SILENT;
         final boolean isZenAlarms = mState.zenMode == Global.ZEN_MODE_ALARMS;
@@ -656,9 +656,9 @@ public class VolumeDialog {
         final boolean isRingZenNone = (isRingStream || isSystemStream) && isZenNone;
         final boolean isRingLimited = isRingStream && isZenPriority;
         final boolean zenMuted = isZenAlarms ? (isRingStream || isSystemStream)
-		 : isZenNone ? (isRingStream || isSystemStream || isAlarmStream
-		 || isMusicStream || isGISStream || isAuxInStream || isVoiceCallStream)
-		 :false;
+                : isZenNone ? (isRingStream || isSystemStream || isAlarmStream
+                || isMusicStream || isGISStream || isAuxInStream || isVoiceCallStream)
+                : false;
 
         // update slider max
         final int max = ss.levelMax * 100;
@@ -668,13 +668,15 @@ public class VolumeDialog {
 
         //设置音量数字
         final int value = row.ss.level;
-        String str = "" + value;
-        row.vulumeText.setText(str);
-        row.slider.setProgress(value*100);
-        if(row.stream==AudioManager.STREAM_MUSIC){
-            FlyLog.d("setText2 volume %d,stream=%d", value, row.stream);
+        final int progress = row.slider.getProgress();
+        if (progress != value * 100) {
+            String str = "" + value;
+            row.vulumeText.setText(str);
+            row.slider.setProgress(value * 100);
+            if (row.stream == AudioManager.STREAM_MUSIC) {
+                FlyLog.d("setText2 volume %d,stream=%d", value, row.stream);
+            }
         }
-
         // update header visible
         updateVolumeRowHeaderVisibleH(row);
 
@@ -712,7 +714,7 @@ public class VolumeDialog {
                 mController.vibrate();
             }
             row.cachedIconRes = iconRes;
-            FlyLog.d("set row image. stream=%d",row.stream);
+            FlyLog.d("set row image. stream=%d", row.stream);
             row.icon.setImageResource(iconRes);
         }
         row.iconState =
@@ -774,7 +776,7 @@ public class VolumeDialog {
                 return;  // don't clamp if visible
             }
         }
-        if (progress/100 != vlevel) {
+        if (progress / 100 != vlevel) {
             if (mShowing && rowVisible) {
                 // animate!
                 if (row.anim != null && row.anim.isRunning()
