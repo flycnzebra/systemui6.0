@@ -587,9 +587,7 @@ public class VolumeDialog {
     }
 
     private void onStateChangedH(State state) {
-        FlyLog.d("onStateChangedH");
         final boolean animating = mMotion.isAnimating();
-        FlyLog.d("onStateChangedH animating=" + animating);
         mState = state;
         if (animating) {
             mPendingStateChanged = true;
@@ -671,7 +669,9 @@ public class VolumeDialog {
         String str = "" + value;
         row.vulumeText.setText(str);
         row.slider.setProgress(value*100);
-        FlyLog.d("setText2 volume %d,stream=%d", value, row.stream);
+        if(row.stream==AudioManager.STREAM_MUSIC){
+            FlyLog.d("setText2 volume %d,stream=%d", value, row.stream);
+        }
 
         // update header visible
         updateVolumeRowHeaderVisibleH(row);
