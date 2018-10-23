@@ -670,6 +670,7 @@ public class VolumeDialog {
         final int value = row.ss.level;
         String str = "" + value;
         row.vulumeText.setText(str);
+        row.slider.setProgress(value*100);
         FlyLog.d("setText2 volume %d,stream=%d", value, row.stream);
 
         // update header visible
@@ -1034,7 +1035,7 @@ public class VolumeDialog {
             int userLevel = getImpliedLevel(seekBar, seekBar.getProgress());
             String text = "" + userLevel;
             mRow.vulumeText.setText(text);
-            FlyLog.d("setText2 volume %d,stream=%d", userLevel, mRow.stream);
+            FlyLog.d("setText volume %d,stream=%d", userLevel, mRow.stream);
             mRow.tracking = false;
             mRow.userAttempt = SystemClock.uptimeMillis();
             Events.writeEvent(mContext, Events.EVENT_TOUCH_LEVEL_DONE, mRow.stream, userLevel);
