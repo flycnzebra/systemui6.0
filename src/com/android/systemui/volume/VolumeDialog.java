@@ -632,7 +632,9 @@ public class VolumeDialog {
         final StreamState ss = mState.states.get(row.stream);
         if (ss == null) return;
         row.ss = ss;
-        FlyLog.d("updateVolumeRowH s=%d,level=%d",row.stream,row.ss.level);
+        if(row.stream==AudioManager.STREAM_MUSIC){
+            FlyLog.d("updateVolumeRowH s=%d,level=%d",row.stream,row.ss.level);
+        }
         if (ss.level > 0) {
             row.lastAudibleLevel = ss.level;
         }
