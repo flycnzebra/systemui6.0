@@ -404,7 +404,6 @@ public class VolumeDialogController {
     private boolean updateStreamLevelW(int stream, int level) {
         final StreamState ss = streamStateW(stream);
         if (ss.level == level) {
-            FlyLog.d("setText2 volume %d return", ss.level);
             return false;
         }
         ss.level = level;
@@ -896,7 +895,9 @@ public class VolumeDialogController {
 //                    FlyLog.e("don't care stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
                     return;
                 }
-                changed = updateStreamLevelW(stream, level);
+                synchronized (mState) {
+                    changed = updateStreamLevelW(stream, level);
+                }
 
             } else if (action.equals(AudioManager.STREAM_DEVICES_CHANGED_ACTION)) {
                 final int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);

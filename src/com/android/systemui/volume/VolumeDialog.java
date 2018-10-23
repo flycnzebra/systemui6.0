@@ -74,6 +74,8 @@ import com.android.systemui.volume.VolumeDialogController.StreamState;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_ALL_MASK;
 import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_GENERIC;
@@ -87,6 +89,7 @@ import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_GEN
  */
 public class VolumeDialog {
     private static final String TAG = Util.logTag(VolumeDialog.class);
+    public static final Executor executor = Executors.newFixedThreadPool(1);
 
     private static final long USER_ATTEMPT_GRACE_PERIOD = 1000;
     private static final int WAIT_FOR_RIPPLE = 200;
@@ -629,7 +632,10 @@ public class VolumeDialog {
 
     private void updateVolumeRowH(VolumeRow row) {
         if (mState == null) return;
-        final StreamState ss = mState.states.get(row.stream);
+        final StreamState ss;
+        synchronized ( mState.states) {
+            ss = mState.states.get(row.stream);
+        }
         if (ss == null) return;
         row.ss = ss;
         if (row.stream == AudioManager.STREAM_MUSIC) {
