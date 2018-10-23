@@ -612,6 +612,7 @@ public class VolumeDialog {
             rescheduleTimeoutH();
         }
         for (VolumeRow row : mRows) {
+            FlyLog.d("rows stream=%d,level=%d",row.stream,row.ss.level);
             updateVolumeRowH(row);
         }
         updateFooterH();
