@@ -21,6 +21,16 @@
     android:background="@drawable/volume_background"
     android:translationZ="4dp">
 
+    <TextView
+        android:id="@+id/volume_value"
+        android:layout_width="@dimen/volume_button_size"
+        android:layout_height="@dimen/volume_button_size"
+        android:layout_alignParentEnd="true"
+        android:textColor="#FFF"
+        android:textSize="22px"
+        android:layout_marginBottom="2px"
+        android:gravity="start|center" />
+
     <com.android.keyguard.AlphaOptimizedImageButton
         android:id="@+id/volume_expand_button"
         style="@style/VolumeButtons"
