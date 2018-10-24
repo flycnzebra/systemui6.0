@@ -897,7 +897,7 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_ALARM) ||
                         (stream == AudioManager.STREAM_RING) ||
                         (stream == AudioManager.STREAM_SYSTEM)) {
-                    changed = updateStreamLevelW(stream, get_level);
+                    changed = updateStreamLevelW(stream, level);
                     //mWorker.obtainMessage(W.VOLUME_CHANGED, stream, 4113).sendToTarget();
                     //currentVolume = level;
                     //if (D.BUG) Log.d(TAG, "currentVolume: " + currentVolume);
