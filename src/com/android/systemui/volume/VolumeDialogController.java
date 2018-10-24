@@ -264,6 +264,15 @@ public class VolumeDialogController {
         onSetStreamVolumeW(stream, level);
     }
 
+
+    public int getStreamVolume(int stream) {
+        if (mDestroyed || mAudio == null) {
+            return 0;
+        }
+        int value = mAudio.getStreamVolume(stream);
+        return value;
+    }
+
     public void setActiveStream(int stream) {
         if (mDestroyed) return;
         mWorker.obtainMessage(W.SET_ACTIVE_STREAM, stream, 0).sendToTarget();
@@ -898,9 +907,10 @@ public class VolumeDialogController {
                     //currentVolume = level;
                     //if (D.BUG) Log.d(TAG, "currentVolume: " + currentVolume);
                     //saveLastVolume(""+stream,oldLevel);
-                    if (oldLevel != 0) {
+                    if (get_level > 1) {
                         saveLastVolume(stream, get_level);
-                    } else {
+                    }
+                    if (get_level == 1 && level == 0) {
                         loadLastVolume(stream);
                     }
                 } else {

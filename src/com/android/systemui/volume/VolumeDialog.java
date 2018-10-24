@@ -772,8 +772,7 @@ public class VolumeDialog {
 
         if (rowVisible) {
             //设置音量数字
-
-            final int value = row.ss.level;
+            final int value = mController.getStreamVolume(row.stream);
             final int progress1 = row.slider.getProgress();
             if (progress1 != value * 100) {
                 String str = "" + value;
@@ -783,7 +782,6 @@ public class VolumeDialog {
                     FlyLog.d("states setText volume %d,stream=%d", value, row.stream);
                 }
             }
-
         }
 //        if (progress / 100 != vlevel) {
 //            if (mShowing && rowVisible) {
