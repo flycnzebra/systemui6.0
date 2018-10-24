@@ -887,8 +887,7 @@ public class VolumeDialogController {
                 final int level = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_VALUE, -1);
                 final int oldLevel = intent.getIntExtra(AudioManager.EXTRA_PREV_VOLUME_STREAM_VALUE, -1);
                 int get_level = mAudio.getStreamVolume(stream);
-                if (D.BUG) Log.d(TAG, "onReceive VOLUME_CHANGED_ACTION stream=" + stream
-                        + " level=" + level + " oldLevel=" + oldLevel + "get_level=" + get_level);
+               FlyLog.d("onReceive VOLUME_CHANGED_ACTION stream=%d, level=%d, get_level=%d",stream,level,get_level);
 
                 if ((stream == AudioManager.STREAM_AUXIN) ||
                         (stream == AudioManager.STREAM_BLUETOOTH_SCO) ||
