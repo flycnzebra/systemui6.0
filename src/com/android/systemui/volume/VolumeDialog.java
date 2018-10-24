@@ -816,13 +816,13 @@ public class VolumeDialog {
 
     private void recheckH(VolumeRow row) {
         if (row == null) {
-            if (D.BUG) Log.d(TAG, "recheckH ALL");
+            FlyLog.d("recheckH ALL");
             trimObsoleteH();
             for (VolumeRow r : mRows) {
                 updateVolumeRowH(r);
             }
         } else {
-            if (D.BUG) Log.d(TAG, "recheckH " + row.stream);
+            FlyLog.d("recheckH " + row.stream);
             updateVolumeRowH(row);
         }
     }
