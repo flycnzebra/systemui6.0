@@ -913,7 +913,7 @@ public class VolumeDialogController {
                     if (get_level != 0) {
                         saveLastVolume(stream, get_level);
                     }
-                    if (get_level == 1 && oldLevel == 0) {
+                    if (get_level == 1 && (oldLevel==0||(oldLevel -get_level)>2)) {
                         loadLastVolume(stream);
                     }
                 } else {
