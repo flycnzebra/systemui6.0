@@ -608,7 +608,7 @@ public class VolumeDialog {
             }
         }
 
-        if (mActiveStream != state.activeStream) {
+        if ((mActiveStream != state.activeStream) && (state.activeStream != -1)) {
             mActiveStream = state.activeStream;
             updateRowsH();
             rescheduleTimeoutH();
@@ -770,20 +770,20 @@ public class VolumeDialog {
         }
 
 
-        if(rowVisible){
+        if (rowVisible) {
             //设置音量数字
-            if(mShowing&&row.view.getVisibility()==View.VISIBLE) {
-                final int value = row.ss.level;
-                final int progress1 = row.slider.getProgress();
-                if (progress1 != value * 100) {
-                    String str = "" + value;
-                    row.vulumeText.setText(str);
-                    row.slider.setProgress(value * 100);
-                    if (row.stream == AudioManager.STREAM_MUSIC) {
-                        FlyLog.d("states setText volume %d,stream=%d", value, row.stream);
-                    }
+
+            final int value = row.ss.level;
+            final int progress1 = row.slider.getProgress();
+            if (progress1 != value * 100) {
+                String str = "" + value;
+                row.vulumeText.setText(str);
+                row.slider.setProgress(value * 100);
+                if (row.stream == AudioManager.STREAM_MUSIC) {
+                    FlyLog.d("states setText volume %d,stream=%d", value, row.stream);
                 }
             }
+
         }
 //        if (progress / 100 != vlevel) {
 //            if (mShowing && rowVisible) {
@@ -1015,14 +1015,21 @@ public class VolumeDialog {
             if (mRow.ss == null) return;
             FlyLog.d(AudioSystem.streamToString(mRow.stream)
                     + " onProgressChanged " + progress + " fromUser=" + fromUser);
+            //call();
             if (!fromUser) return;
-                if (mRow.ss.levelMin > 0) {
+            final int userLevel = getImpliedLevel(seekBar, progress);
+            if (mRow.ss.levelMin > 0) {
                 final int minProgress = mRow.ss.levelMin * 100;
                 if (progress < minProgress) {
                     seekBar.setProgress(minProgress);
                 }
+                if (mRow.vulumeText != null) {
+                    if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
+                    String level = "" + userLevel;
+                    mRow.vulumeText.setText(level);
+                }
             }
-            final int userLevel = getImpliedLevel(seekBar, progress);
+
             if (mRow.ss.level != userLevel || mRow.ss.muted && userLevel > 0) {
                 mRow.userAttempt = SystemClock.uptimeMillis();
                 if (mRow.requestedLevel != userLevel) {
@@ -1051,8 +1058,8 @@ public class VolumeDialog {
             Events.writeEvent(mContext, Events.EVENT_TOUCH_LEVEL_DONE, mRow.stream, userLevel);
             if (mRow.ss == null) return;
             if (mRow.ss.level != userLevel) {
-                mHandler.sendMessageDelayed(mHandler.obtainMessage(H.RECHECK, mRow),
-                        USER_ATTEMPT_GRACE_PERIOD);
+                //               mHandler.sendMessageDelayed(mHandler.obtainMessage(H.RECHECK, mRow),
+                //                      USER_ATTEMPT_GRACE_PERIOD);
             }
         }
     }
