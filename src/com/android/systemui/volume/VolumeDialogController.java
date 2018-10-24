@@ -905,16 +905,15 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_RING) ||
                         (stream == AudioManager.STREAM_SYSTEM)) {
                     changed = updateStreamLevelW(stream, get_level);
-                    FlyLog.d("onReceive stream=%d, changed=" + changed, stream, level, get_level);
                     //mWorker.obtainMessage(W.VOLUME_CHANGED, stream, 4113).sendToTarget();
                     //currentVolume = level;
                     //if (D.BUG) Log.d(TAG, "currentVolume: " + currentVolume);
                     //saveLastVolume(""+stream,oldLevel);
-                    if (get_level != 0) {
-                        saveLastVolume(stream, get_level);
-                    }
                     if (get_level == 1 && (oldLevel==0||(oldLevel -get_level)>2)) {
                         loadLastVolume(stream);
+                    }
+                    if (get_level != 0) {
+                        saveLastVolume(stream, get_level);
                     }
                 } else {
 //                    FlyLog.e("don't care stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
