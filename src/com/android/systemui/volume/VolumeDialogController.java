@@ -107,6 +107,7 @@ public class VolumeDialogController {
     private VolumePolicy mVolumePolicy;
     private boolean mShowDndTile = true;
     public static int currentVolume = 0;
+    private int mDecCount = 0;
 
     public VolumeDialogController(Context context, ComponentName component) {
         mContext = context.getApplicationContext();
@@ -355,7 +356,8 @@ public class VolumeDialogController {
         }
 
         if (fromKey) {
-            if (flags == 4113) {
+            mDecCount ++;
+            if (mDecCount == 2) {
                 int value = mAudio.getStreamVolume(stream);
                 if (value == 0) {
                     loadLastVolume(stream);
@@ -880,6 +882,7 @@ public class VolumeDialogController {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            mDecCount = 0;
             final String action = intent.getAction();
             boolean changed = false;
             if (action.equals(AudioManager.VOLUME_CHANGED_ACTION)) {
