@@ -615,7 +615,7 @@ public class VolumeDialog {
             }
         }
 
-        if ((mActiveStream != state.activeStream)) {
+        if (mActiveStream != state.activeStream) {
             FlyLog.d("mActiveStream stream=%d", state.activeStream);
             mActiveStream = state.activeStream;
             updateRowsH();

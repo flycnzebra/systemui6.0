@@ -371,6 +371,9 @@ public class VolumeDialogController {
     }
 
     private boolean updateActiveStreamW(int activeStream) {
+        if(activeStream==-1){
+            return false;
+        }
         if (activeStream == mState.activeStream) return false;
         mState.activeStream = activeStream;
         Events.writeEvent(mContext, Events.EVENT_ACTIVE_STREAM_CHANGED, activeStream);
