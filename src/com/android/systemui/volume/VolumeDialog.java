@@ -609,9 +609,12 @@ public class VolumeDialog {
         }
 
         if ((mActiveStream != state.activeStream) && (state.activeStream != -1)) {
+            FlyLog.d("mActiveStream stream=%d",state.activeStream);
             mActiveStream = state.activeStream;
             updateRowsH();
             rescheduleTimeoutH();
+        }else{
+            FlyLog.e("mActiveStream stream=%d",state.activeStream);
         }
         for (VolumeRow row : mRows) {
             updateVolumeRowH(row);
@@ -725,6 +728,7 @@ public class VolumeDialog {
     }
 
     private void updateVolumeRowHeaderVisibleH(VolumeRow row) {
+        FlyLog.d("updateVolumeRowHeaderVisibleH stream=%d",row.stream);
         final boolean dynamic = row.ss != null && row.ss.dynamic;
         final boolean showHeaders = mShowHeaders || mExpanded && dynamic;
         if (row.cachedShowHeaders != showHeaders) {
