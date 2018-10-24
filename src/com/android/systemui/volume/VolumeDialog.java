@@ -672,20 +672,6 @@ public class VolumeDialog {
         // update header visible
         updateVolumeRowHeaderVisibleH(row);
 
-        //设置音量数字
-        if(mShowing&&row.view.getVisibility()==View.VISIBLE) {
-            final int value = row.ss.level;
-            final int progress = row.slider.getProgress();
-            if (progress != value * 100) {
-                String str = "" + value;
-                row.vulumeText.setText(str);
-                row.slider.setProgress(value * 100);
-                if (row.stream == AudioManager.STREAM_MUSIC) {
-                    FlyLog.d("states setText volume %d,stream=%d", value, row.stream);
-                }
-            }
-        }
-
         // update header text
         String text = ss.name;
         if (mShowHeaders) {
@@ -733,9 +719,9 @@ public class VolumeDialog {
         row.icon.setContentDescription(ss.name);
 
         // update slider
-//        final boolean enableSlider = !zenMuted;
-//        final int vlevel = row.ss.muted && (isRingVibrate || !isRingStream && !zenMuted) ? 0 : row.ss.level;
-//        updateVolumeRowSliderH(row, enableSlider, vlevel);
+        final boolean enableSlider = !zenMuted;
+        final int vlevel = row.ss.muted && (isRingVibrate || !isRingStream && !zenMuted) ? 0 : row.ss.level;
+        updateVolumeRowSliderH(row, enableSlider, vlevel);
     }
 
     private void updateVolumeRowHeaderVisibleH(VolumeRow row) {
@@ -782,32 +768,49 @@ public class VolumeDialog {
                 return;  // don't clamp if visible
             }
         }
-        if (progress / 100 != vlevel) {
-            if (mShowing && rowVisible) {
-                // animate!
-                if (row.anim != null && row.anim.isRunning()
-                        && row.animTargetProgress == vlevel) {
-                    return;  // already animating to the target progress
+
+
+        if(rowVisible){
+            //设置音量数字
+            if(mShowing&&row.view.getVisibility()==View.VISIBLE) {
+                final int value = row.ss.level;
+                final int progress1 = row.slider.getProgress();
+                if (progress1 != value * 100) {
+                    String str = "" + value;
+                    row.vulumeText.setText(str);
+                    row.slider.setProgress(value * 100);
+                    if (row.stream == AudioManager.STREAM_MUSIC) {
+                        FlyLog.d("states setText volume %d,stream=%d", value, row.stream);
+                    }
                 }
-                // start/update animation
-                if (row.anim == null) {
-                    row.anim = ObjectAnimator.ofInt(row.slider, "progress", progress, vlevel);
-                    row.anim.setInterpolator(new DecelerateInterpolator());
-                } else {
-                    row.anim.cancel();
-                    row.anim.setIntValues(progress, vlevel);
-                }
-                row.animTargetProgress = vlevel;
-                row.anim.setDuration(UPDATE_ANIMATION_DURATION);
-                row.anim.start();
-            } else {
-                // update slider directly to clamped value
-                if (row.anim != null) {
-                    row.anim.cancel();
-                }
-                row.slider.setProgress(vlevel);
             }
         }
+//        if (progress / 100 != vlevel) {
+//            if (mShowing && rowVisible) {
+//                // animate!
+//                if (row.anim != null && row.anim.isRunning()
+//                        && row.animTargetProgress == vlevel) {
+//                    return;  // already animating to the target progress
+//                }
+//                // start/update animation
+//                if (row.anim == null) {
+//                    row.anim = ObjectAnimator.ofInt(row.slider, "progress", progress, vlevel);
+//                    row.anim.setInterpolator(new DecelerateInterpolator());
+//                } else {
+//                    row.anim.cancel();
+//                    row.anim.setIntValues(progress, vlevel);
+//                }
+//                row.animTargetProgress = vlevel;
+//                row.anim.setDuration(UPDATE_ANIMATION_DURATION);
+//                row.anim.start();
+//            } else {
+//                // update slider directly to clamped value
+//                if (row.anim != null) {
+//                    row.anim.cancel();
+//                }
+//                row.slider.setProgress(vlevel);
+//            }
+//        }
 
     }
 
