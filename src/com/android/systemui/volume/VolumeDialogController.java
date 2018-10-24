@@ -104,7 +104,6 @@ public class VolumeDialogController {
 
     private boolean mEnabled;
     private boolean mDestroyed;
-    private int mUnmuteFlag = 0;
     private VolumePolicy mVolumePolicy;
     private boolean mShowDndTile = true;
     public static int currentVolume = 0;
@@ -347,11 +346,9 @@ public class VolumeDialogController {
         }
 
         if (fromKey) {
-            mUnmuteFlag++;
-            if (mUnmuteFlag == 2) {
-                boolean ismute = mAudio.isStreamMute(stream);
-                if (D.BUG) Log.d(TAG, "isStreamMute stream: " + stream + " ismute :" + ismute);
-                if (ismute) {
+            if (flags == 4113) {
+                int value = mAudio.getStreamVolume(stream);
+                if (value == 0) {
                     loadLastVolume(stream);
                 }
             }
@@ -877,7 +874,6 @@ public class VolumeDialogController {
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             boolean changed = false;
-            mUnmuteFlag = 0;
             if (action.equals(AudioManager.VOLUME_CHANGED_ACTION)) {
                 final int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);
                 if (stream == AudioManager.STREAM_AUXIN) {
@@ -898,7 +894,7 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_RING) ||
                         (stream == AudioManager.STREAM_SYSTEM)) {
                     changed = updateStreamLevelW(stream, get_level);
-                    FlyLog.d("onReceive stream=%d, changed="+changed, stream, level, get_level);
+                    FlyLog.d("onReceive stream=%d, changed=" + changed, stream, level, get_level);
                     //mWorker.obtainMessage(W.VOLUME_CHANGED, stream, 4113).sendToTarget();
                     //currentVolume = level;
                     //if (D.BUG) Log.d(TAG, "currentVolume: " + currentVolume);
@@ -1024,7 +1020,7 @@ public class VolumeDialogController {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
         int lastVolume;
         lastVolume = sharedPreferences.getInt("STREAM" + stream, 0);
-        if (lastVolume != 0) {
+        if (lastVolume != 0 && lastVolume != 1) {
             setStreamVolume(stream, lastVolume);
         }
         FlyLog.d("loadLastVolume stream=%d,lastVolume=%d", stream, lastVolume);
