@@ -905,11 +905,7 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_RING) ||
                         (stream == AudioManager.STREAM_SYSTEM)) {
                     changed = updateStreamLevelW(stream, get_level);
-                    //mWorker.obtainMessage(W.VOLUME_CHANGED, stream, 4113).sendToTarget();
-                    //currentVolume = level;
-                    //if (D.BUG) Log.d(TAG, "currentVolume: " + currentVolume);
-                    //saveLastVolume(""+stream,oldLevel);
-                    if (get_level == 1 && (oldLevel==0||(oldLevel -get_level)>2)) {
+                    if (get_level == 1 && (oldLevel<=1||(oldLevel -get_level)>2)) {
                         loadLastVolume(stream);
                     }
                     if (get_level != 0) {
