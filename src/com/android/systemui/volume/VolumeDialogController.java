@@ -320,7 +320,6 @@ public class VolumeDialogController {
         boolean changed = false;
 
         if (showUI) {
-            mCallbacks.onShowUI();
             changed |= updateActiveStreamW(stream);
         }
         int lastAudibleStreamVolume = mAudio.getLastAudibleStreamVolume(stream);
@@ -794,18 +793,6 @@ public class VolumeDialogController {
             }
         }
 
-
-        @Override
-        public void onShowUI() {
-            for (final Map.Entry<Callbacks, Handler> entry : mCallbackMap.entrySet()) {
-                entry.getValue().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        entry.getKey().onShowUI();
-                    }
-                });
-            }
-        }
     }
 
 
@@ -1249,8 +1236,6 @@ public class VolumeDialogController {
         void onShowVibrateHint();
 
         void onShowSilentHint();
-
-        void onShowUI();
 
         void onScreenOff();
 
