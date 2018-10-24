@@ -894,7 +894,7 @@ public class VolumeDialogController {
                 final int level = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_VALUE, -1);
                 final int oldLevel = intent.getIntExtra(AudioManager.EXTRA_PREV_VOLUME_STREAM_VALUE, -1);
                 int get_level = mAudio.getStreamVolume(stream);
-                FlyLog.d("onReceive stream=%d, level=%d, get_level=%d", stream, level, get_level);
+                FlyLog.d("onReceive stream=%d, level=%d, get_level=%d,oldLevel=%d", stream, level, get_level,oldLevel);
 
                 if ((stream == AudioManager.STREAM_AUXIN) ||
                         (stream == AudioManager.STREAM_BLUETOOTH_SCO) ||
@@ -1031,7 +1031,7 @@ public class VolumeDialogController {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
         int lastVolume;
         lastVolume = sharedPreferences.getInt("STREAM" + stream, 0);
-        if (lastVolume != 0 && lastVolume != 1) {
+        if (lastVolume > 1) {
             setStreamVolume(stream, lastVolume);
         }
         FlyLog.d("loadLastVolume stream=%d,lastVolume=%d", stream, lastVolume);
