@@ -1023,7 +1023,7 @@ public class VolumeDialogController {
         }
     }
 
-    private void saveLastVolume(String stream, int value) {
+    public void saveLastVolume(String stream, int value) {
         if (D.BUG) Log.d(TAG, "saveLastVolume stream=" + stream + " value=" + value);
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
