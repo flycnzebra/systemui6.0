@@ -284,12 +284,15 @@ public class VolumeDialog {
     }
 
     private VolumeRow getActiveRow() {
-        for (VolumeRow row : mRows) {
+        for (int i=0;i<mRows.size();i++) {
+            VolumeRow row = mRows.get(i);
             if (row.stream == mActiveStream) {
+                FlyLog.e("getActiveRow row=%d",i);
                 return row;
             }
         }
-        return mRows.get(0);
+        FlyLog.e("getActiveRow row=%d",1);
+        return mRows.get(1);
     }
 
     private VolumeRow findRow(int stream) {
@@ -558,6 +561,7 @@ public class VolumeDialog {
     private void updateRowsH() {
         if (D.BUG) Log.d(TAG, "updateRowsH");
         final VolumeRow activeRow = getActiveRow();
+        FlyLog.e("getActiveRow stream=%d",activeRow.stream);
         updateFooterH();
         updateExpandButtonH();
         if (!mShowing) {
@@ -611,7 +615,7 @@ public class VolumeDialog {
             }
         }
 
-        if ((mActiveStream != state.activeStream) && (state.activeStream != -1)) {
+        if ((mActiveStream != state.activeStream) ) {
             FlyLog.d("mActiveStream stream=%d",state.activeStream);
             mActiveStream = state.activeStream;
             updateRowsH();
