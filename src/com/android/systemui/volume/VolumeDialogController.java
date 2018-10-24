@@ -260,7 +260,7 @@ public class VolumeDialogController {
         FlyLog.d("setStreamVolume strem=%d,level=%d", stream, level);
         if (mDestroyed) return;
         if (D.BUG) Log.d(TAG, "setStreamVolume stream:" + stream + " level: " + level);
-        //mWorker.obtainMessage(W.SET_STREAM_VOLUME, stream, level).sendToTarget();
+//        mWorker.obtainMessage(W.SET_STREAM_VOLUME, stream, level).sendToTarget();
         onSetStreamVolumeW(stream, level);
     }
 
@@ -910,7 +910,7 @@ public class VolumeDialogController {
                     if (get_level > 1) {
                         saveLastVolume(stream, get_level);
                     }
-                    if (get_level == 1 && level == 0) {
+                    if (get_level == 1 && oldLevel == 0) {
                         loadLastVolume(stream);
                     }
                 } else {
@@ -1025,7 +1025,6 @@ public class VolumeDialogController {
     }
 
     public void loadLastVolume(int stream) {
-        FlyLog.d("loadLastVolume stream=%d", stream);
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
         int lastVolume;
         lastVolume = sharedPreferences.getInt("STREAM" + stream, 0);
