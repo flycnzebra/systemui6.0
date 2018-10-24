@@ -287,11 +287,11 @@ public class VolumeDialog {
         for (int i=0;i<mRows.size();i++) {
             VolumeRow row = mRows.get(i);
             if (row.stream == mActiveStream) {
-                FlyLog.e("getActiveRow row=%d",i);
+                FlyLog.e("getActiveRow row=%d,stream=%d",i,row.stream);
                 return row;
             }
         }
-        FlyLog.e("getActiveRow row=%d",1);
+        FlyLog.e("getActiveRow row=%d,stream=%d",1,mRows.get(1).stream);
         return mRows.get(1);
     }
 
