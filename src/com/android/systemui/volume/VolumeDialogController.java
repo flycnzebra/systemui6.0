@@ -352,7 +352,6 @@ public class VolumeDialogController {
                     loadLastVolume(stream);
                 }
             }
-
         }
 
     }
