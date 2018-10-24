@@ -660,7 +660,7 @@ public class VolumeDialog {
         final boolean isRingLimited = isRingStream && isZenPriority;
         final boolean zenMuted = isZenAlarms ? (isRingStream || isSystemStream)
                 : isZenNone ? (isRingStream || isSystemStream || isAlarmStream
-                || isMusicStream || isGISStream || isAuxInStream || isVoiceCallStream)
+                || isMusicStream || isGISStream || isAuxInStream)
                 : false;
 
         // update slider max
@@ -772,7 +772,7 @@ public class VolumeDialog {
 
         if(rowVisible){
             //设置音量数字
-            if(mShowing&&row.view.getVisibility()==View.VISIBLE) {
+
                 final int value = row.ss.level;
                 final int progress1 = row.slider.getProgress();
                 if (progress1 != value * 100) {
@@ -783,7 +783,7 @@ public class VolumeDialog {
                         FlyLog.d("states setText volume %d,stream=%d", value, row.stream);
                     }
                 }
-            }
+
         }
 //        if (progress / 100 != vlevel) {
 //            if (mShowing && rowVisible) {
@@ -1015,6 +1015,14 @@ public class VolumeDialog {
             if (mRow.ss == null) return;
             FlyLog.d(AudioSystem.streamToString(mRow.stream)
                     + " onProgressChanged " + progress + " fromUser=" + fromUser);
+            //call();
+            final int userLevel = getImpliedLevel(seekBar, progress);
+            if (mRow.vulumeText != null) {
+                if (D.BUG) Log.d(TAG, "userLevel = " + userLevel);
+                String level = "" + userLevel;
+                mRow.vulumeText.setText(level);
+            }
+
             if (!fromUser) return;
                 if (mRow.ss.levelMin > 0) {
                 final int minProgress = mRow.ss.levelMin * 100;
@@ -1022,7 +1030,7 @@ public class VolumeDialog {
                     seekBar.setProgress(minProgress);
                 }
             }
-            final int userLevel = getImpliedLevel(seekBar, progress);
+
             if (mRow.ss.level != userLevel || mRow.ss.muted && userLevel > 0) {
                 mRow.userAttempt = SystemClock.uptimeMillis();
                 if (mRow.requestedLevel != userLevel) {
@@ -1051,8 +1059,8 @@ public class VolumeDialog {
             Events.writeEvent(mContext, Events.EVENT_TOUCH_LEVEL_DONE, mRow.stream, userLevel);
             if (mRow.ss == null) return;
             if (mRow.ss.level != userLevel) {
-                mHandler.sendMessageDelayed(mHandler.obtainMessage(H.RECHECK, mRow),
-                        USER_ATTEMPT_GRACE_PERIOD);
+ //               mHandler.sendMessageDelayed(mHandler.obtainMessage(H.RECHECK, mRow),
+  //                      USER_ATTEMPT_GRACE_PERIOD);
             }
         }
     }
