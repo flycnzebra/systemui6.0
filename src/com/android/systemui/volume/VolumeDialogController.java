@@ -346,17 +346,17 @@ public class VolumeDialogController {
             Events.writeEvent(mContext, Events.EVENT_KEY, stream, lastAudibleStreamVolume);
         }
 
-//        if (fromKey) {
-//            mUnmuteFlag++;
-//            if (mUnmuteFlag == 2) {
-//                boolean ismute = mAudio.isStreamMute(stream);
-//                if (D.BUG) Log.d(TAG, "isStreamMute stream: " + stream + " ismute :" + ismute);
-//                if (ismute) {
-//                    setLastVolume(stream);
-//                }
-//            }
-//
-//        }
+        if (fromKey) {
+            mUnmuteFlag++;
+            if (mUnmuteFlag == 2) {
+                boolean ismute = mAudio.isStreamMute(stream);
+                if (D.BUG) Log.d(TAG, "isStreamMute stream: " + stream + " ismute :" + ismute);
+                if (ismute) {
+                    setLastVolume(stream);
+                }
+            }
+
+        }
 
     }
 
@@ -912,14 +912,14 @@ public class VolumeDialogController {
                     //currentVolume = level;
                     //if (D.BUG) Log.d(TAG, "currentVolume: " + currentVolume);
                     //saveLastVolume(""+stream,oldLevel);
-//                    if (oldLevel != 0) {
-//                        saveLastVolume("" + stream, oldLevel);
-//                    } else {
-//                        if ((get_level == 0) || (get_level == 1)) {
-//                            //if(get_level == 0){
-//                            //setLastVolume(stream);
-//                        }
-//                    }
+                    if (oldLevel != 0) {
+                        saveLastVolume("" + stream, oldLevel);
+                    } else {
+                        if ((get_level == 0) || (get_level == 1)) {
+                            //if(get_level == 0){
+                            //setLastVolume(stream);
+                        }
+                    }
                 } else {
                     if (D.BUG) Log.d(TAG, "VOLUME_CHANGED stream is :" + stream + " don't care");
                     return;
@@ -1023,29 +1023,29 @@ public class VolumeDialogController {
         }
     }
 
-//    private void saveLastVolume(String stream, int value) {
-//        if (D.BUG) Log.d(TAG, "saveLastVolume stream=" + stream + " value=" + value);
-//        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putInt(stream, value);
-//        editor.commit();
-//
-//    }
+    private void saveLastVolume(String stream, int value) {
+        if (D.BUG) Log.d(TAG, "saveLastVolume stream=" + stream + " value=" + value);
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(stream, value);
+        editor.commit();
 
-//    private void setLastVolume(int stream) {
-//
-//        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
-//        int lastVolume;
-//        int level;
-//        lastVolume = sharedPreferences.getInt("" + stream, 15);
-//        mAudio.adjustStreamVolume(stream, AudioManager.ADJUST_UNMUTE, 0);
-//        mAudio.setStreamVolume(stream, lastVolume, 0);
-//        Log.d(TAG, " setStreamVolume: " + stream + " lastVolume: " + lastVolume);
-//        level = mAudio.getStreamVolume(stream);
-//        if (level != lastVolume) {
-//            Log.d(TAG, " stream: " + stream + " lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
-//        }
-//    }
+    }
+
+    private void setLastVolume(int stream) {
+
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
+        int lastVolume;
+        int level;
+        lastVolume = sharedPreferences.getInt("" + stream, 15);
+        mAudio.adjustStreamVolume(stream, AudioManager.ADJUST_UNMUTE, 0);
+        mAudio.setStreamVolume(stream, lastVolume, 0);
+        Log.d(TAG, " setStreamVolume: " + stream + " lastVolume: " + lastVolume);
+        level = mAudio.getStreamVolume(stream);
+        if (level != lastVolume) {
+            Log.d(TAG, " stream: " + stream + " lastVolume set fail :" + "level: " + level + " lastVolume: " + lastVolume);
+        }
+    }
 
 
     private final class MediaSessionsCallbacks implements MediaSessions.Callbacks {
