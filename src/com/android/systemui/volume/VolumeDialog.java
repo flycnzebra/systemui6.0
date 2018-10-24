@@ -568,6 +568,9 @@ public class VolumeDialog {
             final boolean isActive = row == activeRow;
             final boolean visible = isVisibleH(row, isActive);
             Util.setVisOrGone(row.view, visible);
+            if(visible){
+                FlyLog.e("show row stream=%d",row.stream);
+            }
             Util.setVisOrGone(row.space, visible && mExpanded);
 
             updateVolumeRowHeaderVisibleH(row);
@@ -638,9 +641,6 @@ public class VolumeDialog {
         final StreamState ss = mState.states.get(row.stream);
         if (ss == null) return;
         row.ss = ss;
-        if (row.stream == AudioManager.STREAM_MUSIC) {
-            FlyLog.d("updateVolumeRowH s=%d,level=%d", row.stream, row.ss.level);
-        }
         if (ss.level > 0) {
             row.lastAudibleLevel = ss.level;
         }
