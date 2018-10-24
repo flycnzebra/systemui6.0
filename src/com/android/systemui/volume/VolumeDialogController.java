@@ -336,20 +336,20 @@ public class VolumeDialogController {
 //            FlyLog.d("states save up vaule=%d, strem=%d", lastAudibleStreamVolume, stream);
 //        }
 //        changed |= updateStreamLevelW(stream, lastAudibleStreamVolume);
-        changed |= checkRoutedToBluetoothW(showUI ? AudioManager.STREAM_MUSIC : stream);
-        if (changed) {
-            FlyLog.d("changed mCallbacks.onStateChanged(mState)");
-            mCallbacks.onStateChanged(mState);
-        }
-        if (showUI) {
-            mCallbacks.onShowRequested(Events.SHOW_REASON_VOLUME_CHANGED);
-        }
-        if (showVibrateHint) {
-            mCallbacks.onShowVibrateHint();
-        }
-        if (showSilentHint) {
-            mCallbacks.onShowSilentHint();
-        }
+//        changed |= checkRoutedToBluetoothW(showUI ? AudioManager.STREAM_MUSIC : stream);
+//        if (changed) {
+//            FlyLog.d("changed mCallbacks.onStateChanged(mState)");
+//            mCallbacks.onStateChanged(mState);
+//        }
+//        if (showUI) {
+//            mCallbacks.onShowRequested(Events.SHOW_REASON_VOLUME_CHANGED);
+//        }
+//        if (showVibrateHint) {
+//            mCallbacks.onShowVibrateHint();
+//        }
+//        if (showSilentHint) {
+//            mCallbacks.onShowSilentHint();
+//        }
         if (changed && fromKey) {
             //if (changed) {
             Events.writeEvent(mContext, Events.EVENT_KEY, stream, lastAudibleStreamVolume);
