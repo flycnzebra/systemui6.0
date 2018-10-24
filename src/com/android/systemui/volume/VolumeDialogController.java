@@ -570,10 +570,10 @@ public class VolumeDialogController {
 
         @Override
         public void volumeChanged(int streamType, int flags) throws RemoteException {
-            if (D.BUG) Log.d(TAG, "volumeChanged " + AudioSystem.streamToString(streamType)
+            FlyLog.d("volumeChanged " + AudioSystem.streamToString(streamType)
                     + " " + Util.audioManagerFlagsToString(flags) + " flag :" + flags);
             currentVolume = mAudio.getStreamVolume(streamType);
-            if (D.BUG) Log.d(TAG, "currentVolume: " + currentVolume);
+            FlyLog.d( "currentVolume: " + currentVolume);
 
             if (mDestroyed) return;
             mWorker.obtainMessage(W.VOLUME_CHANGED, streamType, flags).sendToTarget();
