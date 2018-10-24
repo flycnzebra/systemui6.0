@@ -1017,7 +1017,7 @@ public class VolumeDialog {
             if (mRow.vulumeText != null) {
                 String level = "" + userLevel;
                 mRow.vulumeText.setText(level);
-                FlyLog.d("states setText2 volume %d,stream=%d", level, mRow.stream);
+                FlyLog.d("states setText2 volume %d,stream=%d", userLevel, mRow.stream);
             }
             if (mRow.ss.levelMin > 0) {
                 final int minProgress = mRow.ss.levelMin * 100;
