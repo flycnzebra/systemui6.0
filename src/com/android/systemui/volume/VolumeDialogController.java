@@ -887,7 +887,7 @@ public class VolumeDialogController {
                 final int level = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_VALUE, -1);
                 final int oldLevel = intent.getIntExtra(AudioManager.EXTRA_PREV_VOLUME_STREAM_VALUE, -1);
                 int get_level = mAudio.getStreamVolume(stream);
-               FlyLog.d("onReceive VOLUME_CHANGED_ACTION stream=%d, level=%d, get_level=%d",stream,level,get_level);
+               FlyLog.d("onReceive stream=%d, level=%d, get_level=%d",stream,level,get_level);
 
                 if ((stream == AudioManager.STREAM_AUXIN) ||
                         (stream == AudioManager.STREAM_BLUETOOTH_SCO) ||
@@ -897,7 +897,7 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_ALARM) ||
                         (stream == AudioManager.STREAM_RING) ||
                         (stream == AudioManager.STREAM_SYSTEM)) {
-                    changed = updateStreamLevelW(stream, level);
+                    changed = updateStreamLevelW(stream, get_level);
                     //mWorker.obtainMessage(W.VOLUME_CHANGED, stream, 4113).sendToTarget();
                     //currentVolume = level;
                     //if (D.BUG) Log.d(TAG, "currentVolume: " + currentVolume);
