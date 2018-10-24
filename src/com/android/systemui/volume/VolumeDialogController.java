@@ -899,7 +899,7 @@ public class VolumeDialogController {
                     //if (D.BUG) Log.d(TAG, "currentVolume: " + currentVolume);
                     //saveLastVolume(""+stream,oldLevel);
                     if (oldLevel != 0) {
-                        saveLastVolume(stream, oldLevel);
+                        saveLastVolume(stream, get_level);
                     } else {
                         loadLastVolume(stream);
                     }
