@@ -260,7 +260,9 @@ public class VolumeDialogController {
     public void setStreamVolume(int stream, int level) {
         FlyLog.d("setStreamVolume strem=%d,level=%d", stream, level);
         if (mDestroyed) return;
-        mWorker.obtainMessage(W.SET_STREAM_VOLUME, stream, level).sendToTarget();
+        if (D.BUG) Log.d(TAG, "setStreamVolume stream:" + stream + " level: " + level);
+        //mWorker.obtainMessage(W.SET_STREAM_VOLUME, stream, level).sendToTarget();
+        onSetStreamVolumeW(stream, level);
     }
 
     public void setActiveStream(int stream) {
@@ -344,15 +346,17 @@ public class VolumeDialogController {
             Events.writeEvent(mContext, Events.EVENT_KEY, stream, lastAudibleStreamVolume);
         }
 
-        if (fromKey) {
-            if (flags == 4113) {
-                boolean ismute = mAudio.isStreamMute(stream);
-                if (D.BUG) Log.d(TAG, "isStreamMute stream: " + stream + " ismute :" + ismute);
-                if (ismute) {
-                    loadLastVolume(stream);
-                }
-            }
-        }
+//        if (fromKey) {
+//            mUnmuteFlag++;
+//            if (mUnmuteFlag == 2) {
+//                boolean ismute = mAudio.isStreamMute(stream);
+//                if (D.BUG) Log.d(TAG, "isStreamMute stream: " + stream + " ismute :" + ismute);
+//                if (ismute) {
+//                    setLastVolume(stream);
+//                }
+//            }
+//
+//        }
 
     }
 
@@ -414,7 +418,7 @@ public class VolumeDialogController {
             return false;
         }
         ss.level = level;
-        if(stream==AudioManager.STREAM_MUSIC){
+        if (stream == AudioManager.STREAM_MUSIC) {
             FlyLog.d("states save volume %d, stream=%d", ss.level, stream);
         }
         if (isLogWorthy(stream)) {
@@ -528,12 +532,7 @@ public class VolumeDialogController {
             mMediaSessionsCallbacksW.setStreamVolume(stream, level);
             return;
         }
-        if(level==0){
-            mAudio.setStreamVolume(stream, 1, 0);
-            mAudio.adjustStreamVolume(stream,AudioManager.ADJUST_LOWER,0);
-        }else{
-            mAudio.setStreamVolume(stream, level, 0);
-        }
+        mAudio.setStreamVolume(stream, level, 0);
     }
 
     private void onSetActiveStreamW(int stream) {
@@ -899,18 +898,24 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_ALARM) ||
                         (stream == AudioManager.STREAM_RING) ||
                         (stream == AudioManager.STREAM_SYSTEM)) {
-                    FlyLog.d("reciver stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
-                    if (oldLevel == 0 && level == 1) {
-                        loadLastVolume(stream);
-                    } else{
-                        saveLastVolume(stream,level);
-                    }
-
+                    changed = updateStreamLevelW(stream, get_level);
+                    //mWorker.obtainMessage(W.VOLUME_CHANGED, stream, 4113).sendToTarget();
+                    //currentVolume = level;
+                    //if (D.BUG) Log.d(TAG, "currentVolume: " + currentVolume);
+                    //saveLastVolume(""+stream,oldLevel);
+//                    if (oldLevel != 0) {
+//                        saveLastVolume("" + stream, oldLevel);
+//                    } else {
+//                        if ((get_level == 0) || (get_level == 1)) {
+//                            //if(get_level == 0){
+//                            //setLastVolume(stream);
+//                        }
+//                    }
                 } else {
 //                    FlyLog.e("don't care stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
                     return;
                 }
-                changed = updateStreamLevelW(stream, level);
+
 
             } else if (action.equals(AudioManager.STREAM_DEVICES_CHANGED_ACTION)) {
                 final int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);
@@ -951,7 +956,57 @@ public class VolumeDialogController {
                 if (D.BUG) Log.d(TAG, "onReceive ACTION_CLOSE_SYSTEM_DIALOGS");
                 dismiss();
             } else if (action.equals(BROADCAST_SHOW_VOLUME_BAR)) {
-                changed = true;
+                if (D.BUG) Log.d(TAG, "onReceive BROADCAST_SHOW_VOLUME_BAR");
+                int level = 0;
+
+                boolean active_bt_sco = mAudio.isStreamActive(AudioSystem.STREAM_BLUETOOTH_SCO);
+                boolean gis_active = mAudio.isStreamActive(AudioSystem.STREAM_GIS);
+                boolean music_active = mAudio.isStreamActive(AudioManager.STREAM_MUSIC);
+                boolean voicecall_active = mAudio.isStreamActive(AudioManager.STREAM_VOICE_CALL);
+                boolean avin_active = mAudio.isStreamActive(AudioManager.STREAM_AUXIN);
+
+                if (D.BUG) Log.d(TAG, "STREAM_BLUETOOTH_SCO active ? " + active_bt_sco);
+                if (D.BUG) Log.d(TAG, "STREAM_GIS active ? " + gis_active);
+                if (D.BUG) Log.d(TAG, "STREAM_MUSIC active ? " + music_active);
+                if (D.BUG) Log.d(TAG, "STREAM_VOICE_CALL active ? " + voicecall_active);
+                if (D.BUG) Log.d(TAG, "STREAM_AUXIN active ? " + avin_active);
+
+                if (voicecall_active) {
+                    level = mAudio.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+                    currentVolume = level;
+                    changed = updateStreamLevelW(AudioManager.STREAM_VOICE_CALL, level);
+                    mWorker.obtainMessage(W.VOLUME_CHANGED, AudioManager.STREAM_VOICE_CALL, 4113).sendToTarget();
+                } else if (active_bt_sco) {
+                    level = mAudio.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
+                    currentVolume = level;
+                    changed = updateStreamLevelW(AudioManager.STREAM_BLUETOOTH_SCO, level);
+                    mWorker.obtainMessage(W.VOLUME_CHANGED, AudioManager.STREAM_BLUETOOTH_SCO, 4113).sendToTarget();
+                } else if (gis_active) {
+                    level = mAudio.getStreamVolume(AudioManager.STREAM_GIS);
+                    currentVolume = level;
+                    changed = updateStreamLevelW(AudioManager.STREAM_GIS, level);
+                    mWorker.obtainMessage(W.VOLUME_CHANGED, AudioManager.STREAM_GIS, 4113).sendToTarget();
+
+                } else if (music_active) {
+                    level = mAudio.getStreamVolume(AudioManager.STREAM_MUSIC);
+                    currentVolume = level;
+                    changed = updateStreamLevelW(AudioManager.STREAM_MUSIC, level);
+                    mWorker.obtainMessage(W.VOLUME_CHANGED, AudioManager.STREAM_MUSIC, 4113).sendToTarget();
+                } else if (avin_active) {
+                    level = mAudio.getStreamVolume(AudioManager.STREAM_AUXIN);
+                    currentVolume = level;
+                    changed = updateStreamLevelW(AudioManager.STREAM_AUXIN, level);
+                    mWorker.obtainMessage(W.VOLUME_CHANGED, AudioManager.STREAM_AUXIN, 4113).sendToTarget();
+
+                } else {
+                    level = mAudio.getStreamVolume(AudioSystem.STREAM_MUSIC);
+                    currentVolume = level;
+                    changed = updateStreamLevelW(AudioSystem.STREAM_MUSIC, level);
+                    mWorker.obtainMessage(W.VOLUME_CHANGED, AudioSystem.STREAM_MUSIC, 4113).sendToTarget();
+                }
+
+                dismiss();
+
             }
             if (changed) {
                 mCallbacks.onStateChanged(mState);

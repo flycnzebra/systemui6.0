@@ -660,7 +660,7 @@ public class VolumeDialog {
         final boolean isRingLimited = isRingStream && isZenPriority;
         final boolean zenMuted = isZenAlarms ? (isRingStream || isSystemStream)
                 : isZenNone ? (isRingStream || isSystemStream || isAlarmStream
-                || isMusicStream || isGISStream || isAuxInStream || isVoiceCallStream)
+                || isMusicStream || isGISStream || isAuxInStream )
                 : false;
 
         // update slider max
