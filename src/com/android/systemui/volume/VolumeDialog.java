@@ -789,32 +789,32 @@ public class VolumeDialog {
             FlyLog.d("states setText1 volume %d,stream=%d", value, row.stream);
         }
 //        }
-        if (progress / 100 != vlevel) {
-            if (mShowing && rowVisible) {
-                // animate!
-                if (row.anim != null && row.anim.isRunning()
-                        && row.animTargetProgress == vlevel) {
-                    return;  // already animating to the target progress
-                }
-                // start/update animation
-                if (row.anim == null) {
-                    row.anim = ObjectAnimator.ofInt(row.slider, "progress", progress, vlevel);
-                    row.anim.setInterpolator(new DecelerateInterpolator());
-                } else {
-                    row.anim.cancel();
-                    row.anim.setIntValues(progress, vlevel);
-                }
-                row.animTargetProgress = vlevel;
-                row.anim.setDuration(UPDATE_ANIMATION_DURATION);
-                row.anim.start();
-            } else {
-                // update slider directly to clamped value
-                if (row.anim != null) {
-                    row.anim.cancel();
-                }
-                row.slider.setProgress(vlevel);
-            }
-        }
+//        if (progress / 100 != vlevel) {
+//            if (mShowing && rowVisible) {
+//                // animate!
+//                if (row.anim != null && row.anim.isRunning()
+//                        && row.animTargetProgress == vlevel) {
+//                    return;  // already animating to the target progress
+//                }
+//                // start/update animation
+//                if (row.anim == null) {
+//                    row.anim = ObjectAnimator.ofInt(row.slider, "progress", progress, vlevel);
+//                    row.anim.setInterpolator(new DecelerateInterpolator());
+//                } else {
+//                    row.anim.cancel();
+//                    row.anim.setIntValues(progress, vlevel);
+//                }
+//                row.animTargetProgress = vlevel;
+//                row.anim.setDuration(UPDATE_ANIMATION_DURATION);
+//                row.anim.start();
+//            } else {
+//                // update slider directly to clamped value
+//                if (row.anim != null) {
+//                    row.anim.cancel();
+//                }
+//                row.slider.setProgress(vlevel);
+//            }
+//        }
 
     }
 
