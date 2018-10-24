@@ -946,54 +946,7 @@ public class VolumeDialogController {
                 if (D.BUG) Log.d(TAG, "onReceive ACTION_CLOSE_SYSTEM_DIALOGS");
                 dismiss();
             } else if (action.equals(BROADCAST_SHOW_VOLUME_BAR)) {
-                FlyLog.d("onReceive BROADCAST_SHOW_VOLUME_BAR");
-                dismiss();
-                int level = 0;
-                int type = mAudio.getCurrentAudioFocusContentType();
-                FlyLog.d("getCurrentAudioFocusContentType=%d", type);
-                boolean active_bt_sco = mAudio.isStreamActive(AudioSystem.STREAM_BLUETOOTH_SCO);
-                boolean gis_active = mAudio.isStreamActive(AudioSystem.STREAM_GIS);
-                boolean music_active = mAudio.isStreamActive(AudioManager.STREAM_MUSIC);
-                boolean voicecall_active = mAudio.isStreamActive(AudioManager.STREAM_VOICE_CALL);
-                boolean avin_active = mAudio.isStreamActive(AudioManager.STREAM_AUXIN);
-
-                FlyLog.d("STREAM_BLUETOOTH_SCO active ? " + active_bt_sco);
-                FlyLog.d("STREAM_GIS active ? " + gis_active);
-                FlyLog.d("STREAM_MUSIC active ? " + music_active);
-                FlyLog.d("STREAM_VOICE_CALL active ? " + voicecall_active);
-                FlyLog.d("STREAM_AUXIN active ? " + avin_active);
-
-                if (voicecall_active) {
-                    level = mAudio.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
-                    currentVolume = level;
-                    changed = updateStreamLevelW(AudioManager.STREAM_VOICE_CALL, level);
-                    mWorker.obtainMessage(W.VOLUME_CHANGED, AudioManager.STREAM_VOICE_CALL, 4113).sendToTarget();
-                } else if (active_bt_sco) {
-                    level = mAudio.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
-                    currentVolume = level;
-                    changed = updateStreamLevelW(AudioManager.STREAM_BLUETOOTH_SCO, level);
-                    mWorker.obtainMessage(W.VOLUME_CHANGED, AudioManager.STREAM_BLUETOOTH_SCO, 4113).sendToTarget();
-                } else if (gis_active) {
-                    level = mAudio.getStreamVolume(AudioManager.STREAM_GIS);
-                    currentVolume = level;
-                    changed = updateStreamLevelW(AudioManager.STREAM_GIS, level);
-                    mWorker.obtainMessage(W.VOLUME_CHANGED, AudioManager.STREAM_GIS, 4113).sendToTarget();
-                } else if (music_active) {
-                    level = mAudio.getStreamVolume(AudioManager.STREAM_MUSIC);
-                    currentVolume = level;
-                    changed = updateStreamLevelW(AudioManager.STREAM_MUSIC, level);
-                    mWorker.obtainMessage(W.VOLUME_CHANGED, AudioManager.STREAM_MUSIC, 4113).sendToTarget();
-                } else if (avin_active) {
-                    level = mAudio.getStreamVolume(AudioManager.STREAM_AUXIN);
-                    currentVolume = level;
-                    changed = updateStreamLevelW(AudioManager.STREAM_AUXIN, level);
-                    mWorker.obtainMessage(W.VOLUME_CHANGED, AudioManager.STREAM_AUXIN, 4113).sendToTarget();
-                } else {
-                    level = mAudio.getStreamVolume(AudioSystem.STREAM_MUSIC);
-                    currentVolume = level;
-                    changed = updateStreamLevelW(AudioSystem.STREAM_MUSIC, level);
-                    mWorker.obtainMessage(W.VOLUME_CHANGED, AudioSystem.STREAM_MUSIC, 4113).sendToTarget();
-                }
+                changed = true;
             }
             if (changed) {
                 mCallbacks.onStateChanged(mState);
