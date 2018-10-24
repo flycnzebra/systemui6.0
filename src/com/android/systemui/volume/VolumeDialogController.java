@@ -356,7 +356,7 @@ public class VolumeDialogController {
         }
 
         if (fromKey) {
-            mDecCount ++;
+            mDecCount++;
             if (mDecCount == 2) {
                 int value = mAudio.getStreamVolume(stream);
                 if (value == 0) {
@@ -910,9 +910,7 @@ public class VolumeDialogController {
                     //currentVolume = level;
                     //if (D.BUG) Log.d(TAG, "currentVolume: " + currentVolume);
                     //saveLastVolume(""+stream,oldLevel);
-                    if (get_level > 1) {
-                        saveLastVolume(stream, get_level);
-                    }
+                    saveLastVolume(stream, get_level);
                     if (get_level == 1 && oldLevel == 0) {
                         loadLastVolume(stream);
                     }
