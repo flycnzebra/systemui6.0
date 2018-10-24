@@ -528,7 +528,12 @@ public class VolumeDialogController {
             mMediaSessionsCallbacksW.setStreamVolume(stream, level);
             return;
         }
-        mAudio.setStreamVolume(stream, level, 0);
+        if(level==0){
+            mAudio.setStreamVolume(stream, 1, 0);
+            mAudio.adjustStreamVolume(stream,AudioManager.ADJUST_LOWER,0);
+        }else{
+            mAudio.setStreamVolume(stream, level, 0);
+        }
     }
 
     private void onSetActiveStreamW(int stream) {
@@ -871,86 +876,86 @@ public class VolumeDialogController {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-//            final String action = intent.getAction();
-//            boolean changed = false;
-//            mUnmuteFlag = 0;
-//            if (action.equals(AudioManager.VOLUME_CHANGED_ACTION)) {
-//                final int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);
-//                if (stream == AudioManager.STREAM_AUXIN) {
-//                    if (D.BUG) Log.d(TAG, "unmute  STREAM_AUXIN");
-//                    mAudio.adjustStreamVolume(AudioManager.STREAM_AUXIN, AudioManager.ADJUST_UNMUTE, 0);
-//                }
-//                final int level = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_VALUE, -1);
-//                final int oldLevel = intent.getIntExtra(AudioManager.EXTRA_PREV_VOLUME_STREAM_VALUE, -1);
-//                int get_level = mAudio.getStreamVolume(stream);
-//                if (D.BUG) Log.d(TAG, "onReceive VOLUME_CHANGED_ACTION stream=" + stream
-//                        + " level=" + level + " oldLevel=" + oldLevel + "get_level=" + get_level);
-//
-//                if ((stream == AudioManager.STREAM_AUXIN) ||
-//                        (stream == AudioManager.STREAM_BLUETOOTH_SCO) ||
-//                        (stream == AudioManager.STREAM_GIS) ||
-//                        (stream == AudioManager.STREAM_MUSIC) ||
-//                        (stream == AudioManager.STREAM_VOICE_CALL) ||
-//                        (stream == AudioManager.STREAM_ALARM) ||
-//                        (stream == AudioManager.STREAM_RING) ||
-//                        (stream == AudioManager.STREAM_SYSTEM)) {
-//                    FlyLog.d("reciver stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
-//                    if (oldLevel == 0 && level == 1) {
-//                        loadLastVolume(stream);
-//                    } else{
-//                        saveLastVolume(stream,level);
-//                    }
-//
-//                } else {
-////                    FlyLog.e("don't care stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
-//                    return;
-//                }
-//                changed = updateStreamLevelW(stream, level);
-//
-//            } else if (action.equals(AudioManager.STREAM_DEVICES_CHANGED_ACTION)) {
-//                final int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);
-//                final int devices = intent
-//                        .getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_DEVICES, -1);
-//                final int oldDevices = intent
-//                        .getIntExtra(AudioManager.EXTRA_PREV_VOLUME_STREAM_DEVICES, -1);
-//                if (D.BUG) Log.d(TAG, "onReceive STREAM_DEVICES_CHANGED_ACTION stream="
-//                        + stream + " devices=" + devices + " oldDevices=" + oldDevices);
-//                changed = checkRoutedToBluetoothW(stream);
-//            } else if (action.equals(AudioManager.RINGER_MODE_CHANGED_ACTION)) {
-//                final int rm = intent.getIntExtra(AudioManager.EXTRA_RINGER_MODE, -1);
-//                if (D.BUG) Log.d(TAG, "onReceive RINGER_MODE_CHANGED_ACTION rm="
-//                        + Util.ringerModeToString(rm));
-//                changed = updateRingerModeExternalW(rm);
-//            } else if (action.equals(AudioManager.INTERNAL_RINGER_MODE_CHANGED_ACTION)) {
-//                final int rm = intent.getIntExtra(AudioManager.EXTRA_RINGER_MODE, -1);
-//                if (D.BUG) Log.d(TAG, "onReceive INTERNAL_RINGER_MODE_CHANGED_ACTION rm="
-//                        + Util.ringerModeToString(rm));
-//                changed = updateRingerModeInternalW(rm);
-//            } else if (action.equals(AudioManager.STREAM_MUTE_CHANGED_ACTION)) {
-//                final int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);
-//                final boolean muted = intent
-//                        .getBooleanExtra(AudioManager.EXTRA_STREAM_VOLUME_MUTED, false);
-//                if (D.BUG) Log.d(TAG, "onReceive STREAM_MUTE_CHANGED_ACTION stream=" + stream
-//                        + " muted=" + muted);
-//                changed = updateStreamMuteW(stream, muted);
-//            } else if (action.equals(NotificationManager.ACTION_EFFECTS_SUPPRESSOR_CHANGED)) {
-//                if (D.BUG) Log.d(TAG, "onReceive ACTION_EFFECTS_SUPPRESSOR_CHANGED");
-//                changed = updateEffectsSuppressorW(mNoMan.getEffectsSuppressor());
-//            } else if (action.equals(Intent.ACTION_CONFIGURATION_CHANGED)) {
-//                if (D.BUG) Log.d(TAG, "onReceive ACTION_CONFIGURATION_CHANGED");
-//                mCallbacks.onConfigurationChanged();
-//            } else if (action.equals(Intent.ACTION_SCREEN_OFF)) {
-//                if (D.BUG) Log.d(TAG, "onReceive ACTION_SCREEN_OFF");
-//                mCallbacks.onScreenOff();
-//            } else if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
-//                if (D.BUG) Log.d(TAG, "onReceive ACTION_CLOSE_SYSTEM_DIALOGS");
-//                dismiss();
-//            } else if (action.equals(BROADCAST_SHOW_VOLUME_BAR)) {
-//                changed = true;
-//            }
-//            if (changed) {
-//                mCallbacks.onStateChanged(mState);
-//            }
+            final String action = intent.getAction();
+            boolean changed = false;
+            mUnmuteFlag = 0;
+            if (action.equals(AudioManager.VOLUME_CHANGED_ACTION)) {
+                final int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);
+                if (stream == AudioManager.STREAM_AUXIN) {
+                    if (D.BUG) Log.d(TAG, "unmute  STREAM_AUXIN");
+                    mAudio.adjustStreamVolume(AudioManager.STREAM_AUXIN, AudioManager.ADJUST_UNMUTE, 0);
+                }
+                final int level = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_VALUE, -1);
+                final int oldLevel = intent.getIntExtra(AudioManager.EXTRA_PREV_VOLUME_STREAM_VALUE, -1);
+                int get_level = mAudio.getStreamVolume(stream);
+                if (D.BUG) Log.d(TAG, "onReceive VOLUME_CHANGED_ACTION stream=" + stream
+                        + " level=" + level + " oldLevel=" + oldLevel + "get_level=" + get_level);
+
+                if ((stream == AudioManager.STREAM_AUXIN) ||
+                        (stream == AudioManager.STREAM_BLUETOOTH_SCO) ||
+                        (stream == AudioManager.STREAM_GIS) ||
+                        (stream == AudioManager.STREAM_MUSIC) ||
+                        (stream == AudioManager.STREAM_VOICE_CALL) ||
+                        (stream == AudioManager.STREAM_ALARM) ||
+                        (stream == AudioManager.STREAM_RING) ||
+                        (stream == AudioManager.STREAM_SYSTEM)) {
+                    FlyLog.d("reciver stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
+                    if (oldLevel == 0 && level == 1) {
+                        loadLastVolume(stream);
+                    } else{
+                        saveLastVolume(stream,level);
+                    }
+
+                } else {
+//                    FlyLog.e("don't care stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
+                    return;
+                }
+                changed = updateStreamLevelW(stream, level);
+
+            } else if (action.equals(AudioManager.STREAM_DEVICES_CHANGED_ACTION)) {
+                final int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);
+                final int devices = intent
+                        .getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_DEVICES, -1);
+                final int oldDevices = intent
+                        .getIntExtra(AudioManager.EXTRA_PREV_VOLUME_STREAM_DEVICES, -1);
+                if (D.BUG) Log.d(TAG, "onReceive STREAM_DEVICES_CHANGED_ACTION stream="
+                        + stream + " devices=" + devices + " oldDevices=" + oldDevices);
+                changed = checkRoutedToBluetoothW(stream);
+            } else if (action.equals(AudioManager.RINGER_MODE_CHANGED_ACTION)) {
+                final int rm = intent.getIntExtra(AudioManager.EXTRA_RINGER_MODE, -1);
+                if (D.BUG) Log.d(TAG, "onReceive RINGER_MODE_CHANGED_ACTION rm="
+                        + Util.ringerModeToString(rm));
+                changed = updateRingerModeExternalW(rm);
+            } else if (action.equals(AudioManager.INTERNAL_RINGER_MODE_CHANGED_ACTION)) {
+                final int rm = intent.getIntExtra(AudioManager.EXTRA_RINGER_MODE, -1);
+                if (D.BUG) Log.d(TAG, "onReceive INTERNAL_RINGER_MODE_CHANGED_ACTION rm="
+                        + Util.ringerModeToString(rm));
+                changed = updateRingerModeInternalW(rm);
+            } else if (action.equals(AudioManager.STREAM_MUTE_CHANGED_ACTION)) {
+                final int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);
+                final boolean muted = intent
+                        .getBooleanExtra(AudioManager.EXTRA_STREAM_VOLUME_MUTED, false);
+                if (D.BUG) Log.d(TAG, "onReceive STREAM_MUTE_CHANGED_ACTION stream=" + stream
+                        + " muted=" + muted);
+                changed = updateStreamMuteW(stream, muted);
+            } else if (action.equals(NotificationManager.ACTION_EFFECTS_SUPPRESSOR_CHANGED)) {
+                if (D.BUG) Log.d(TAG, "onReceive ACTION_EFFECTS_SUPPRESSOR_CHANGED");
+                changed = updateEffectsSuppressorW(mNoMan.getEffectsSuppressor());
+            } else if (action.equals(Intent.ACTION_CONFIGURATION_CHANGED)) {
+                if (D.BUG) Log.d(TAG, "onReceive ACTION_CONFIGURATION_CHANGED");
+                mCallbacks.onConfigurationChanged();
+            } else if (action.equals(Intent.ACTION_SCREEN_OFF)) {
+                if (D.BUG) Log.d(TAG, "onReceive ACTION_SCREEN_OFF");
+                mCallbacks.onScreenOff();
+            } else if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
+                if (D.BUG) Log.d(TAG, "onReceive ACTION_CLOSE_SYSTEM_DIALOGS");
+                dismiss();
+            } else if (action.equals(BROADCAST_SHOW_VOLUME_BAR)) {
+                changed = true;
+            }
+            if (changed) {
+                mCallbacks.onStateChanged(mState);
+            }
         }
     }
 
