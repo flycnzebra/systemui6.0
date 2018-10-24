@@ -58,13 +58,10 @@
             android:thumb="@drawable/seekbar_thumb"
             android:thumbOffset="5px" />
 
-        <TextView
-            android:id="@+id/volume_text"
+        <com.android.keyguard.AlphaOptimizedImageButton
+            android:id="@+id/volume_settings_button"
+            style="@style/VolumeButtons"
             android:layout_width="@dimen/volume_button_size"
-            android:layout_height="@dimen/volume_button_size"
-            android:textColor="#FFF"
-            android:textSize="22px"
-            android:layout_marginBottom="2px"
-            android:gravity="start|center" />
+            android:layout_height="@dimen/volume_button_size" />
     </LinearLayout>
 </RelativeLayout>
