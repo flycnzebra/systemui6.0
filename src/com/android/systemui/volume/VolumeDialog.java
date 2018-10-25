@@ -291,8 +291,8 @@ public class VolumeDialog {
                 return row;
             }
         }
-        FlyLog.e("getActiveRow row=%d,stream=%d", 0, mRows.get(0).stream);
-        return mRows.get(0);
+        FlyLog.e("getActiveRow row=%d,stream=%d", 0, mRows.get(1).stream);
+        return mRows.get(1);
     }
 
     private VolumeRow findRow(int stream) {
@@ -597,6 +597,7 @@ public class VolumeDialog {
     }
 
     private void onStateChangedH(State state) {
+        FlyLog.e("onStateChangedH state=%d",state.activeStream);
         final boolean animating = mMotion.isAnimating();
         mState = state;
         if (animating) {
