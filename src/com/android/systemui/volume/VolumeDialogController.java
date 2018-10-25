@@ -978,6 +978,8 @@ public class VolumeDialogController {
                     }
                 }
 
+                FlyLog.e("current focus stream type=%d",mAudio.getCurrentAudioFocusContentType());
+
                 if (D.BUG) Log.d(TAG, "STREAM_BLUETOOTH_SCO active ? " + active_bt_sco);
                 if (D.BUG) Log.d(TAG, "STREAM_GIS active ? " + gis_active);
                 if (D.BUG) Log.d(TAG, "STREAM_MUSIC active ? " + music_active);
