@@ -183,6 +183,7 @@ public class VolumeDialog {
                     public void onAnimatingChanged(boolean animating) {
                         if (animating) return;
                         if (mPendingStateChanged) {
+                            FlyLog.e("VolumeDialogMotion send STATE_CHANGED");
                             mHandler.sendEmptyMessage(H.STATE_CHANGED);
                             mPendingStateChanged = false;
                         }
@@ -390,7 +391,7 @@ public class VolumeDialog {
             @Override
             public void onClick(View v) {
                 Events.writeEvent(mContext, Events.EVENT_ICON_CLICK, row.stream, row.iconState);
-                mController.setActiveStream(row.stream);
+//                mController.setActiveStream(row.stream);
                 if (row.stream == AudioManager.STREAM_RING) {
                     final boolean hasVibrator = mController.hasVibrator();
                     if (mState.ringerModeInternal == AudioManager.RINGER_MODE_NORMAL) {
@@ -1050,7 +1051,7 @@ public class VolumeDialog {
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
             FlyLog.d("onStartTrackingTouch" + " " + mRow.stream);
-            mController.setActiveStream(mRow.stream);
+//            mController.setActiveStream(mRow.stream);
             mRow.tracking = true;
         }
 

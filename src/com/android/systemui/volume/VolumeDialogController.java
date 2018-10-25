@@ -294,6 +294,7 @@ public class VolumeDialogController {
         mAudio.notifyVolumeControllerVisible(mVolumeController, visible);
         if (!visible) {
             if (updateActiveStreamW(-1)) {
+                FlyLog.e("call onStateChanged stream=%d",mState.activeStream);
                 mCallbacks.onStateChanged(mState);
             }
         }
@@ -338,7 +339,7 @@ public class VolumeDialogController {
 //        changed |= updateStreamLevelW(stream, lastAudibleStreamVolume);
         changed |= checkRoutedToBluetoothW(showUI ? AudioManager.STREAM_MUSIC : stream);
         if (changed) {
-            FlyLog.d("onVolumeChangedW mCallbacks.onStateChanged(mState)");
+            FlyLog.e("call onStateChanged stream=%d",mState.activeStream);
             mCallbacks.onStateChanged(mState);
         }
         if (showUI) {
@@ -410,6 +411,7 @@ public class VolumeDialogController {
         updateZenModeW();
         updateEffectsSuppressorW(mNoMan.getEffectsSuppressor());
         updateZenModeConfigW();
+        FlyLog.e("call onStateChanged stream=%d",mState.activeStream);
         mCallbacks.onStateChanged(mState);
     }
 
@@ -548,6 +550,7 @@ public class VolumeDialogController {
     private void onSetActiveStreamW(int stream) {
         boolean changed = updateActiveStreamW(stream);
         if (changed) {
+            FlyLog.e("call onStateChanged stream=%d",mState.activeStream);
             mCallbacks.onStateChanged(mState);
         }
     }
@@ -855,6 +858,7 @@ public class VolumeDialogController {
                 changed = updateZenModeConfigW();
             }
             if (changed) {
+                FlyLog.e("call onStateChanged stream=%d",mState.activeStream);
                 mCallbacks.onStateChanged(mState);
             }
         }
@@ -1012,6 +1016,7 @@ public class VolumeDialogController {
 
             }
             if (changed) {
+                FlyLog.e("call onStateChanged stream=%d",mState.activeStream);
                 mCallbacks.onStateChanged(mState);
             }
         }
@@ -1065,6 +1070,7 @@ public class VolumeDialogController {
             if (changed) {
                 if (D.BUG) Log.d(TAG, "onRemoteUpdate: " + name + ": " + ss.level
                         + " of " + ss.levelMax);
+                FlyLog.e("call onStateChanged stream=%d",mState.activeStream);
                 mCallbacks.onStateChanged(mState);
             }
         }
@@ -1079,6 +1085,7 @@ public class VolumeDialogController {
                     changed |= checkRoutedToBluetoothW(AudioManager.STREAM_MUSIC);
                 }
                 if (changed) {
+                    FlyLog.e("call onStateChanged stream=%d",mState.activeStream);
                     mCallbacks.onStateChanged(mState);
                 }
                 if (showUI) {
@@ -1094,6 +1101,7 @@ public class VolumeDialogController {
             if (mState.activeStream == stream) {
                 updateActiveStreamW(-1);
             }
+            FlyLog.e("call onStateChanged stream=%d",mState.activeStream);
             mCallbacks.onStateChanged(mState);
         }
 
