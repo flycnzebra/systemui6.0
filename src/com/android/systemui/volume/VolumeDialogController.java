@@ -293,10 +293,10 @@ public class VolumeDialogController {
         if (mDestroyed) return;
         mAudio.notifyVolumeControllerVisible(mVolumeController, visible);
         if (!visible) {
-            if (updateActiveStreamW(-1)) {
-                FlyLog.e("call onStateChanged stream=%d",mState.activeStream);
-                mCallbacks.onStateChanged(mState);
-            }
+//            if (updateActiveStreamW(-1)) {
+//                FlyLog.e("call onStateChanged stream=%d",mState.activeStream);
+//                mCallbacks.onStateChanged(mState);
+//            }
         }
     }
 
