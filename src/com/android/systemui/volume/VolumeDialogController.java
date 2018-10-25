@@ -971,7 +971,7 @@ public class VolumeDialogController {
                 boolean music_active = mAudio.isStreamActive(AudioManager.STREAM_MUSIC);
                 boolean voicecall_active = mAudio.isStreamActive(AudioManager.STREAM_VOICE_CALL);
                 boolean avin_active = mAudio.isStreamActive(AudioManager.STREAM_AUXIN);
-                for(int i=0;i<12;i++){
+                for(int i=0;i<100;i++){
                     boolean f = mAudio.isStreamActive(i);
                     if(f){
                         FlyLog.e("isStreamActive stream=%d",i);
