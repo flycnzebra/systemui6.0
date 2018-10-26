@@ -40,7 +40,6 @@ import com.android.internal.util.NotificationColorUtil;
 import com.android.systemui.BatteryMeterView;
 import com.android.systemui.FontSizeUtils;
 import com.android.systemui.R;
-import com.android.systemui.jancar.FlyLog;
 import com.android.systemui.statusbar.NotificationData;
 import com.android.systemui.statusbar.SignalClusterView;
 import com.android.systemui.statusbar.StatusBarIconView;
@@ -114,7 +113,7 @@ public class StatusBarIconController implements Tunable {
     };
 
     public StatusBarIconController(Context context, View statusBar, View keyguardStatusBar,
-                                   PhoneStatusBar phoneStatusBar) {
+            PhoneStatusBar phoneStatusBar) {
         mContext = context;
         mPhoneStatusBar = phoneStatusBar;
         mNotificationColorUtil = NotificationColorUtil.getInstance(context);
@@ -164,9 +163,7 @@ public class StatusBarIconController implements Tunable {
         for (int i = 0; i < views.size(); i++) {
             addSystemIcon(views.get(i).getSlot(), i, i, views.get(i).getStatusBarIcon());
         }
-    }
-
-    ;
+    };
 
     public void updateResources() {
         mIconSize = mContext.getResources().getDimensionPixelSize(
@@ -179,7 +176,7 @@ public class StatusBarIconController implements Tunable {
     public void addSystemIcon(String slot, int index, int viewIndex, StatusBarIcon icon) {
         boolean blocked = mIconBlacklist.contains(slot);
         StatusBarIconView view = new StatusBarIconView(mContext, slot, null, blocked);
-        view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		view.setScaleType(ImageView.ScaleType.CENTER_CROP);
         view.set(icon);
         mStatusIcons.addView(view, viewIndex, new LinearLayout.LayoutParams(40, 40));
 //		mStatusIcons.addView(view, viewIndex, new LinearLayout.LayoutParams(
@@ -192,7 +189,7 @@ public class StatusBarIconController implements Tunable {
     }
 
     public void updateSystemIcon(String slot, int index, int viewIndex,
-                                 StatusBarIcon old, StatusBarIcon icon) {
+            StatusBarIcon old, StatusBarIcon icon) {
         StatusBarIconView view = (StatusBarIconView) mStatusIcons.getChildAt(viewIndex);
         view.set(icon);
         view = (StatusBarIconView) mStatusIconsKeyguard.getChildAt(viewIndex);
@@ -207,7 +204,7 @@ public class StatusBarIconController implements Tunable {
 
     public void updateNotificationIcons(NotificationData notificationData) {
         final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                mIconSize + 2 * mIconHPadding, mPhoneStatusBar.getStatusBarHeight());
+                mIconSize + 2*mIconHPadding, mPhoneStatusBar.getStatusBarHeight());
 
         ArrayList<NotificationData.Entry> activeNotifications =
                 notificationData.getActiveNotifications();
@@ -220,14 +217,6 @@ public class StatusBarIconController implements Tunable {
         // Filter out ambient notifications and notification children.
         for (int i = 0; i < N; i++) {
             NotificationData.Entry ent = activeNotifications.get(i);
-
-            FlyLog.e("Notification, packname=%s",ent.notification.getPackageName());
-            //@FlyZebra 禁用应用在通知栏显示
-            if ("com.mediatek.security".equals(ent.notification.getPackageName())
-                    || "com.android.settings".equals(ent.notification.getPackageName())) {
-                FlyLog.e("Do not show Notification, packname=%s",ent.notification.getPackageName());
-                continue;
-            }
             if (notificationData.isAmbient(ent.key)
                     && !NotificationData.showNotificationEvenIfUnprovisioned(ent.notification)) {
                 continue;
@@ -241,9 +230,9 @@ public class StatusBarIconController implements Tunable {
             if (uniqueIcon.containsKey(key) && uniqueIcon.get(key)
                     == ent.notification.getNotification().iconLevel) {
                 Log.d(TAG, "IconMerger feature, skip pkg / icon / iconlevel ="
-                        + ent.notification.getPackageName()
-                        + "/" + ent.notification.getNotification().icon
-                        + "/" + ent.notification.getNotification().iconLevel);
+                    + ent.notification.getPackageName()
+                    + "/" + ent.notification.getNotification().icon
+                    + "/" + ent.notification.getNotification().iconLevel);
                 continue;
             }
             uniqueIcon.put(key, ent.notification.getNotification().iconLevel);
@@ -252,7 +241,7 @@ public class StatusBarIconController implements Tunable {
         }
 
         ArrayList<View> toRemove = new ArrayList<>();
-        for (int i = 0; i < mNotificationIcons.getChildCount(); i++) {
+        for (int i=0; i<mNotificationIcons.getChildCount(); i++) {
             View child = mNotificationIcons.getChildAt(i);
             if (!toShow.contains(child)) {
                 toRemove.add(child);
@@ -264,7 +253,7 @@ public class StatusBarIconController implements Tunable {
             mNotificationIcons.removeView(toRemove.get(i));
         }
 
-        for (int i = 0; i < toShow.size(); i++) {
+        for (int i=0; i<toShow.size(); i++) {
             View v = toShow.get(i);
             if (v.getParent() == null) {
                 mNotificationIcons.addView(v, i, params);
@@ -309,7 +298,7 @@ public class StatusBarIconController implements Tunable {
     public void dump(PrintWriter pw) {
         int N = mStatusIcons.getChildCount();
         pw.println("  system icons: " + N);
-        for (int i = 0; i < N; i++) {
+        for (int i=0; i<N; i++) {
             StatusBarIconView ic = (StatusBarIconView) mStatusIcons.getChildAt(i);
             pw.println("    [" + i + "] icon=" + ic);
         }
@@ -389,7 +378,7 @@ public class StatusBarIconController implements Tunable {
     }
 
     private void animateIconTint(float targetDarkIntensity, long delay,
-                                 long duration) {
+            long duration) {
         if (mTintAnimator != null) {
             mTintAnimator.cancel();
         }
@@ -434,7 +423,7 @@ public class StatusBarIconController implements Tunable {
         //mBatteryMeterView.setDarkIntensity(mDarkIntensity);
         mClock.setTextColor(mIconTint);
 
-        if (mRecentView != null) {
+		if (mRecentView != null) {
             mRecentView.setImageTintList(ColorStateList.valueOf(mIconTint));
         }
 
