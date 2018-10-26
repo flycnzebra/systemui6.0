@@ -990,9 +990,9 @@ public class VolumeDialogController {
     }
 
     public void saveLastMuteVolume(int stream, int value) {
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_mute_volume", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("STREAM" + stream, value);
+        editor.putInt("STREAM_MUTE" + stream, value);
         editor.apply();
         FlyLog.d("saveLastVolume stream=" + stream + " value=" + value);
     }
@@ -1006,9 +1006,9 @@ public class VolumeDialogController {
     }
 
     public int setLastMuteVolume(int stream) {
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_mute_volume", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
         int lastVolume;
-        lastVolume = sharedPreferences.getInt("STREAM" + stream, 0);
+        lastVolume = sharedPreferences.getInt("STREAM_MUTE" + stream, 0);
         if (lastVolume > 1) {
             setStreamVolume(stream, lastVolume);
         }
