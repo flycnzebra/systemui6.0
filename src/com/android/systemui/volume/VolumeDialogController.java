@@ -951,7 +951,7 @@ public class VolumeDialogController {
                 dismiss();
             } else if (action.equals(BROADCAST_SHOW_VOLUME_BAR)) {
                 FlyLog.d("onReceive BROADCAST_SHOW_VOLUME_BAR");
-                dismiss();
+                mCallbacks.onDismissRequested(Events.DISMISS_REASON_TOUCH_OUTSIDE);
                 int level = 0;
                 switch (currentStream) {
                     case AudioManager.STREAM_VOICE_CALL:
