@@ -569,7 +569,7 @@ public class VolumeDialog {
         // apply changes to all rows
         for (VolumeRow row : mRows) {
             final boolean isActive = row == activeRow;
-            final boolean visible = isVisibleH(row, isActive);
+            final boolean visible = row.stream==mActiveStream;
             Util.setVisOrGone(row.view, visible);
             if (visible) {
                 FlyLog.e("show row stream=%d", row.stream);
@@ -596,7 +596,7 @@ public class VolumeDialog {
     }
 
     private void onStateChangedH(State state) {
-        FlyLog.e("onStateChangedH state=%d",state.activeStream);
+        FlyLog.e("onStateChangedH state=%d", state.activeStream);
         final boolean animating = mMotion.isAnimating();
         mState = state;
         if (animating) {
@@ -732,7 +732,7 @@ public class VolumeDialog {
     }
 
     private void updateVolumeRowHeaderVisibleH(VolumeRow row) {
-        FlyLog.d("updateVolumeRowHeaderVisibleH stream=%d", row.stream);
+        if (D.BUG) Log.d(TAG, "updateVolumeRowHeaderVisibleH stream=" + row.stream);
         final boolean dynamic = row.ss != null && row.ss.dynamic;
         final boolean showHeaders = mShowHeaders || mExpanded && dynamic;
         if (row.cachedShowHeaders != showHeaders) {
