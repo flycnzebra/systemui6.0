@@ -365,10 +365,8 @@ public class VolumeDialogController {
         if (activeStream == mState.activeStream) return false;
         mState.activeStream = activeStream;
         Events.writeEvent(mContext, Events.EVENT_ACTIVE_STREAM_CHANGED, activeStream);
-        FlyLog.d("updateActiveStreamW " + activeStream);
-        final int s = activeStream < DYNAMIC_STREAM_START_INDEX ? activeStream : -1;
-        FlyLog.d("forceVolumeControlStream " + s);
-        mAudio.forceVolumeControlStream(s);
+//        final int s = activeStream < DYNAMIC_STREAM_START_INDEX ? activeStream : -1;
+//        mAudio.forceVolumeControlStream(s);
         return true;
     }
 
