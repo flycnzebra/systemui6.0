@@ -407,11 +407,11 @@ public class VolumeDialog {
                     }
                 } else {
                     final boolean vmute = row.ss.level == 0;
-                    mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
-                    mController.saveLastMuteVolume(stream, row.lastAudibleLevel);
-                    if(vmute){
-                        mController.saveLastVolume(stream,0);
+                    if (!vmute) {
+                        mController.saveLastVolume(stream, 0);
+                        mController.saveLastMuteVolume(stream, row.lastAudibleLevel);
                     }
+                    mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
                 }
                 row.userAttempt = 0;  // reset the grace period, slider should update immediately
             }
@@ -571,7 +571,7 @@ public class VolumeDialog {
         // apply changes to all rows
         for (VolumeRow row : mRows) {
             final boolean isActive = row == activeRow;
-            final boolean visible = row.stream==mActiveStream;
+            final boolean visible = row.stream == mActiveStream;
             Util.setVisOrGone(row.view, visible);
             if (visible) FlyLog.d("show row is stream=%d", row.stream);
             Util.setVisOrGone(row.space, visible && mExpanded);
@@ -596,7 +596,7 @@ public class VolumeDialog {
     }
 
     private void onStateChangedH(State state) {
-        FlyLog.d("mActiveStream stream=%d,state.activeStream=%d", mActiveStream,state.activeStream);
+        FlyLog.d("mActiveStream stream=%d,state.activeStream=%d", mActiveStream, state.activeStream);
         final boolean animating = mMotion.isAnimating();
         mState = state;
         if (animating) {
