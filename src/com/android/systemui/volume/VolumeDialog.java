@@ -58,7 +58,6 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityManager.AccessibilityStateChangeListener;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -183,7 +182,6 @@ public class VolumeDialog {
                     public void onAnimatingChanged(boolean animating) {
                         if (animating) return;
                         if (mPendingStateChanged) {
-                            FlyLog.e("VolumeDialogMotion send STATE_CHANGED");
                             mHandler.sendEmptyMessage(H.STATE_CHANGED);
                             mPendingStateChanged = false;
                         }
@@ -391,7 +389,7 @@ public class VolumeDialog {
             @Override
             public void onClick(View v) {
                 Events.writeEvent(mContext, Events.EVENT_ICON_CLICK, row.stream, row.iconState);
-//                mController.setActiveStream(row.stream);
+                mController.setActiveStream(row.stream);
                 if (row.stream == AudioManager.STREAM_RING) {
                     final boolean hasVibrator = mController.hasVibrator();
                     if (mState.ringerModeInternal == AudioManager.RINGER_MODE_NORMAL) {
@@ -489,7 +487,7 @@ public class VolumeDialog {
     private void updateDialogBottomMarginH() {
         final long diff = System.currentTimeMillis() - mCollapseTime;
         final boolean collapsing = mCollapseTime != 0 && diff < getConservativeCollapseDuration();
-        final ViewGroup.MarginLayoutParams mlp = (MarginLayoutParams) mDialogView.getLayoutParams();
+        final MarginLayoutParams mlp = (MarginLayoutParams) mDialogView.getLayoutParams();
         final int bottomMargin = collapsing ? mDialogContentView.getHeight() :
                 mContext.getResources().getDimensionPixelSize(R.dimen.volume_dialog_margin_bottom);
         if (bottomMargin != mlp.bottomMargin) {
@@ -1051,7 +1049,7 @@ public class VolumeDialog {
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
             FlyLog.d("onStartTrackingTouch" + " " + mRow.stream);
-//            mController.setActiveStream(mRow.stream);
+            mController.setActiveStream(mRow.stream);
             mRow.tracking = true;
         }
 
