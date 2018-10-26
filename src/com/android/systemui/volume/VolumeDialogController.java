@@ -336,7 +336,7 @@ public class VolumeDialogController {
 //        if(stream==AudioManager.STREAM_MUSIC){
 //            FlyLog.d("states save up vaule=%d, strem=%d", lastAudibleStreamVolume, stream);
 //        }
-//        changed |= updateStreamLevelW(stream, lastAudibleStreamVolume);
+        changed |= updateStreamLevelW(stream, currentVolume);
         changed |= checkRoutedToBluetoothW(showUI ? AudioManager.STREAM_MUSIC : stream);
         if (changed) {
             FlyLog.d("onVolumeChangedW mCallbacks.onStateChanged(mState)");
@@ -915,7 +915,7 @@ public class VolumeDialogController {
                         (stream == AudioManager.STREAM_ALARM) ||
                         (stream == AudioManager.STREAM_RING) ||
                         (stream == AudioManager.STREAM_SYSTEM)) {
-                    changed = updateStreamLevelW(stream, get_level);
+//                    changed = updateStreamLevelW(stream, get_level);
                 } else {
 //                    FlyLog.e("don't care stream=%d, level=%d,oldlevel=%d,get_level=%d", stream, level, oldLevel, get_level);
                     return;
@@ -1028,9 +1028,9 @@ public class VolumeDialogController {
                 dismiss();
 
             }
-//            if (changed) {
-//                mCallbacks.onStateChanged(mState);
-//            }
+            if (changed) {
+                mCallbacks.onStateChanged(mState);
+            }
         }
     }
 
