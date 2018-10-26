@@ -221,6 +221,7 @@ public class StatusBarIconController implements Tunable {
         for (int i = 0; i < N; i++) {
             NotificationData.Entry ent = activeNotifications.get(i);
 
+            FlyLog.e("Notification, packname=%s",ent.notification.getPackageName());
             //@FlyZebra 禁用应用在通知栏显示
             if ("com.mediatek.security".equals(ent.notification.getPackageName())
                     || "com.android.settings".equals(ent.notification.getPackageName())) {
