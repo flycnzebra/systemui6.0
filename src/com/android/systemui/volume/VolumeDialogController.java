@@ -579,8 +579,6 @@ public class VolumeDialogController {
             currentStream = streamType;
             currentVolume = mAudio.getStreamVolume(streamType);
             FlyLog.e("currentVolume: " + currentVolume);
-            int lastvalue = loadLastVolume(streamType);
-            FlyLog.e("lastSaveVolume: " + lastvalue);
             if (flags == 4113) {
                 if (currentVolume == 0) {
                     int value = loadLastVolume(streamType);
