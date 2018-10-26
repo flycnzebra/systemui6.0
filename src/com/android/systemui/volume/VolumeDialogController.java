@@ -897,16 +897,16 @@ public class VolumeDialogController {
             final String action = intent.getAction();
             boolean changed = false;
             if (action.equals(AudioManager.VOLUME_CHANGED_ACTION)) {
-                final int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);
-                final int level = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_VALUE, -1);
-                final int oldLevel = intent.getIntExtra(AudioManager.EXTRA_PREV_VOLUME_STREAM_VALUE, -1);
-                if (D.BUG) Log.d(TAG, "onReceive VOLUME_CHANGED_ACTION stream=" + stream
-                        + " level=" + level + " oldLevel=" + oldLevel);
-                changed = updateStreamLevelW(stream, level);
-                if (changed) {
-                    FlyLog.e("onReceive VOLUME_CHANGED_ACTION stream=" + stream
-                            + " level=" + level + " oldLevel=" + oldLevel);
-                }
+//                final int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);
+//                final int level = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_VALUE, -1);
+//                final int oldLevel = intent.getIntExtra(AudioManager.EXTRA_PREV_VOLUME_STREAM_VALUE, -1);
+//                if (D.BUG) Log.d(TAG, "onReceive VOLUME_CHANGED_ACTION stream=" + stream
+//                        + " level=" + level + " oldLevel=" + oldLevel);
+//                changed = updateStreamLevelW(stream, level);
+//                if (changed) {
+//                    FlyLog.e("onReceive VOLUME_CHANGED_ACTION stream=" + stream
+//                            + " level=" + level + " oldLevel=" + oldLevel);
+//                }
             } else if (action.equals(AudioManager.STREAM_DEVICES_CHANGED_ACTION)) {
                 final int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);
                 final int devices = intent
