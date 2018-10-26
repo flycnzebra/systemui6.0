@@ -998,7 +998,10 @@ public class VolumeDialog {
         public boolean onTouchEvent(MotionEvent event) {
             if (isShowing()) {
                 if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
-                    dismissH(Events.DISMISS_REASON_TOUCH_OUTSIDE);
+                    /**
+                     * 取消触摸空白地区关闭音量条
+                     */
+//                    dismissH(Events.DISMISS_REASON_TOUCH_OUTSIDE);
                     return true;
                 }
             }
