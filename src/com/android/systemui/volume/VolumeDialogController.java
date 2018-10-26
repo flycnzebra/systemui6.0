@@ -578,7 +578,6 @@ public class VolumeDialogController {
                     + " " + Util.audioManagerFlagsToString(flags) + " flag :" + flags);
             currentStream = streamType;
             int volume = mAudio.getStreamVolume(streamType);
-            FlyLog.e("currentVolume: " + currentVolume);
             if (flags == 4113) {
                 if (volume == 0) {
                     int value = loadLastVolume(streamType);
@@ -592,7 +591,6 @@ public class VolumeDialogController {
                     }
                 }
             }
-
             if (currentVolume != volume) {
                 currentVolume = volume;
                 if (currentVolume == 0) {
@@ -603,7 +601,7 @@ public class VolumeDialogController {
                 }
                 saveLastVolume(streamType, currentVolume);
             }
-
+            FlyLog.e("currentVolume: " + currentVolume);
             if (mDestroyed) return;
             mWorker.obtainMessage(W.VOLUME_CHANGED, streamType, flags).sendToTarget();
 
