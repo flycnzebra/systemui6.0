@@ -408,7 +408,7 @@ public class VolumeDialog {
                 } else {
                     final boolean vmute = row.ss.level == 0;
                     mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
-//                    mController.saveLastMuteVolume(stream, row.lastAudibleLevel);
+                    mController.saveLastMuteVolume(stream, row.lastAudibleLevel);
                 }
                 row.userAttempt = 0;  // reset the grace period, slider should update immediately
             }

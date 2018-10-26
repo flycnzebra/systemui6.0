@@ -586,7 +586,7 @@ public class VolumeDialogController {
                     int value = loadLastVolume(streamType);
                     if (value == 0) {
                         setLastMuteVolume(streamType);
-                    } else if (value > 0) {
+                    } else if (value == 1) {
                         saveLastMuteVolume(streamType, value );
                     }
                 } else if (currentVolume == 1) {
