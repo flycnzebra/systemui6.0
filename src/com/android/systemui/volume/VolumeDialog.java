@@ -290,7 +290,7 @@ public class VolumeDialog {
                 return row;
             }
         }
-        FlyLog.d("getActiveRow row=%d,stream=%d", 0, mRows.get(1).stream);
+        FlyLog.d("getActiveRow row=%d,stream=%d", 1, mRows.get(1).stream);
         return mRows.get(1);
     }
 
