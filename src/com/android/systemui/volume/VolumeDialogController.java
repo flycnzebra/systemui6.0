@@ -585,12 +585,14 @@ public class VolumeDialogController {
                 if (currentVolume == 0) {
                     int value = loadLastVolume(streamType);
                     if (value == 0) {
-                        setStreamVolume(streamType, mAudio.getLastAudibleStreamVolume(streamType));
+                        setLastMuteVolume(streamType);
+                    } else if (value > 0) {
+                        saveLastMuteVolume(streamType, 1);
                     }
                 } else if (currentVolume == 1) {
                     int value = loadLastVolume(streamType);
                     if (value == 0) {
-                        setStreamVolume(streamType, mAudio.getLastAudibleStreamVolume(streamType));
+                        setLastMuteVolume(streamType);
                     }
                 }
             }
@@ -987,10 +989,29 @@ public class VolumeDialogController {
         FlyLog.d("saveLastVolume stream=" + stream + " value=" + value);
     }
 
+    public void saveLastMuteVolume(int stream, int value) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_mute_volume", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("STREAM" + stream, value);
+        editor.apply();
+        FlyLog.d("saveLastVolume stream=" + stream + " value=" + value);
+    }
+
     public int loadLastVolume(int stream) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_volume", Context.MODE_PRIVATE);
         int lastVolume;
         lastVolume = sharedPreferences.getInt("STREAM" + stream, 0);
+        FlyLog.d("loadLastVolume stream=%d,lastVolume=%d", stream, lastVolume);
+        return lastVolume;
+    }
+
+    public int setLastMuteVolume(int stream) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("last_mute_volume", Context.MODE_PRIVATE);
+        int lastVolume;
+        lastVolume = sharedPreferences.getInt("STREAM" + stream, 0);
+        if (lastVolume > 1) {
+            setStreamVolume(stream, lastVolume);
+        }
         FlyLog.d("loadLastVolume stream=%d,lastVolume=%d", stream, lastVolume);
         return lastVolume;
     }
