@@ -362,7 +362,6 @@ public class VolumeDialogController {
 
     private boolean updateActiveStreamW(int activeStream) {
         if (activeStream == mState.activeStream) return false;
-        dismiss();
         mState.activeStream = activeStream;
         Events.writeEvent(mContext, Events.EVENT_ACTIVE_STREAM_CHANGED, activeStream);
         FlyLog.d("updateActiveStreamW " + activeStream);

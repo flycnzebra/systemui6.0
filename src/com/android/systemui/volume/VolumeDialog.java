@@ -615,13 +615,12 @@ public class VolumeDialog {
             }
         }
 
+        FlyLog.e("mActiveStream stream=%d,state.activeStream=%d", mActiveStream,state.activeStream);
+
         if (mActiveStream != state.activeStream) {
-            FlyLog.d("mActiveStream stream=%d", state.activeStream);
             mActiveStream = state.activeStream;
             updateRowsH();
             rescheduleTimeoutH();
-        } else {
-            FlyLog.e("mActiveStream stream=%d", state.activeStream);
         }
         for (VolumeRow row : mRows) {
             updateVolumeRowH(row);
