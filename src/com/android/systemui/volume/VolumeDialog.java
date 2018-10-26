@@ -286,11 +286,11 @@ public class VolumeDialog {
         for (int i = 0; i < mRows.size(); i++) {
             VolumeRow row = mRows.get(i);
             if (row.stream == mActiveStream) {
-                FlyLog.e("getActiveRow row=%d,stream=%d", i, row.stream);
+                FlyLog.d("getActiveRow row=%d,stream=%d", i, row.stream);
                 return row;
             }
         }
-        FlyLog.e("getActiveRow row=%d,stream=%d", 0, mRows.get(1).stream);
+        FlyLog.d("getActiveRow row=%d,stream=%d", 0, mRows.get(1).stream);
         return mRows.get(1);
     }
 
@@ -560,7 +560,6 @@ public class VolumeDialog {
     private void updateRowsH() {
         if (D.BUG) Log.d(TAG, "updateRowsH");
         final VolumeRow activeRow = getActiveRow();
-        FlyLog.e("getActiveRow stream=%d", activeRow.stream);
         updateFooterH();
         updateExpandButtonH();
         if (!mShowing) {
@@ -571,9 +570,7 @@ public class VolumeDialog {
             final boolean isActive = row == activeRow;
             final boolean visible = row.stream==mActiveStream;
             Util.setVisOrGone(row.view, visible);
-            if (visible) {
-                FlyLog.e("show row stream=%d", row.stream);
-            }
+            if (visible) FlyLog.d("show row is stream=%d", row.stream);
             Util.setVisOrGone(row.space, visible && mExpanded);
 
             updateVolumeRowHeaderVisibleH(row);
@@ -596,7 +593,7 @@ public class VolumeDialog {
     }
 
     private void onStateChangedH(State state) {
-        FlyLog.e("onStateChangedH state.activeStream=%d", state.activeStream);
+        FlyLog.d("mActiveStream stream=%d,state.activeStream=%d", mActiveStream,state.activeStream);
         final boolean animating = mMotion.isAnimating();
         mState = state;
         if (animating) {
@@ -614,8 +611,6 @@ public class VolumeDialog {
                 addRow(stream, R.drawable.ic_volume_remote, R.drawable.ic_volume_remote_mute, true);
             }
         }
-
-        FlyLog.e("mActiveStream stream=%d,state.activeStream=%d", mActiveStream,state.activeStream);
 
         if (mActiveStream != state.activeStream) {
             mActiveStream = state.activeStream;
