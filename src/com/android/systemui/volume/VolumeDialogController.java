@@ -597,7 +597,7 @@ public class VolumeDialogController {
                 }
             }
 
-            if (flags == 0) {
+            if (flags == 4113) {
                 saveLastVolume(streamType, flags);
             }
 
