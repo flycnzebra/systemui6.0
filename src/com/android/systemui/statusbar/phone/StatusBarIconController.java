@@ -217,6 +217,11 @@ public class StatusBarIconController implements Tunable {
         // Filter out ambient notifications and notification children.
         for (int i = 0; i < N; i++) {
             NotificationData.Entry ent = activeNotifications.get(i);
+
+            //@FlyZebra 禁用应用在通知栏显示
+            if("com.mediatek.security".equals(ent.notification.getPackageName())) {//可以在这里修改
+                continue;
+            }
             if (notificationData.isAmbient(ent.key)
                     && !NotificationData.showNotificationEvenIfUnprovisioned(ent.notification)) {
                 continue;
