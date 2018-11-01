@@ -531,7 +531,7 @@ public class VolumeDialogController {
             mMediaSessionsCallbacksW.setStreamVolume(stream, level);
             return;
         }
-        mAudio.setStreamVolume(stream, level, 0);
+        mAudio.adjustStreamVolume(stream, level, 0);
     }
 
     private void onSetActiveStreamW(int stream) {
