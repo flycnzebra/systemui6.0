@@ -601,6 +601,10 @@ public class VolumeDialogController {
                 }
                 saveLastVolume(streamType, currentVolume);
             }
+
+            if(currentVolume>0){
+                mAudio.adjustStreamVolume(streamType,100,0);
+            }
             FlyLog.e("currentVolume: " + currentVolume);
             if (mDestroyed) return;
             mWorker.obtainMessage(W.VOLUME_CHANGED, streamType, flags).sendToTarget();
