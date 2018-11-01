@@ -602,7 +602,7 @@ public class VolumeDialogController {
                 saveLastVolume(streamType, currentVolume);
             }
 
-            if(currentVolume>0){
+            if(currentVolume>0&&mAudio.isStreamMute(streamType)){
                 mAudio.adjustStreamVolume(streamType,100,0);
             }
             FlyLog.e("currentVolume: " + currentVolume);
