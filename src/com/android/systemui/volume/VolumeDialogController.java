@@ -261,8 +261,8 @@ public class VolumeDialogController {
         FlyLog.d("setStreamVolume strem=%d,level=%d", stream, level);
         if (mDestroyed) return;
         if (D.BUG) Log.d(TAG, "setStreamVolume stream:" + stream + " level: " + level);
-        mWorker.obtainMessage(W.SET_STREAM_VOLUME, stream, level).sendToTarget();
-//        onSetStreamVolumeW(stream, level);
+//        mWorker.obtainMessage(W.SET_STREAM_VOLUME, stream, level).sendToTarget();
+        onSetStreamVolumeW(stream, level);
     }
 
 
@@ -600,11 +600,6 @@ public class VolumeDialogController {
                     }
                 }
                 saveLastVolume(streamType, currentVolume);
-            }
-            if(currentVolume>0){
-                if(mAudio.isStreamMute(streamType)){
-                    mAudio.adjustStreamVolume(streamType,false);
-                }
             }
             FlyLog.e("currentVolume: " + currentVolume);
             if (mDestroyed) return;
