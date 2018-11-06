@@ -413,7 +413,8 @@ public class VolumeDialog {
 //                        mController.saveLastVolume(stream, 0);
 //                        mController.saveLastMuteVolume(stream, row.lastAudibleLevel);
 //                    }
-                    sendKeyCode(KeyEvent.KEYCODE_VOLUME_MUTE);
+                    boolean isMute = mController.getStreamMute(stream);
+                    mController.setStreamMute(stream, !isMute);
                 }
                 row.userAttempt = 0;  // reset the grace period, slider should update immediately
             }
