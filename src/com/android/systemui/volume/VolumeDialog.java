@@ -408,13 +408,13 @@ public class VolumeDialog {
                         }
                     }
                 } else {
-                    final boolean vmute = row.ss.level == 0;
+//                    final boolean vmute = row.ss.level == 0;
 //                    if (!vmute) {
 //                        mController.saveLastVolume(stream, 0);
 //                        mController.saveLastMuteVolume(stream, row.lastAudibleLevel);
 //                    }
-//                    boolean isMute = mController.getStreamMute(stream);
-                    mController.adjustStreamVolume(stream,AudioManager.ADJUST_TOGGLE_MUTE);
+                    boolean isMute = mController.getStreamMute(stream);
+                    mController.setStreamMute(stream, !isMute);
                 }
                 row.userAttempt = 0;  // reset the grace period, slider should update immediately
             }
