@@ -23,6 +23,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.Instrumentation;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -45,6 +46,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.AccessibilityDelegate;
@@ -411,7 +413,7 @@ public class VolumeDialog {
 //                        mController.saveLastVolume(stream, 0);
 //                        mController.saveLastMuteVolume(stream, row.lastAudibleLevel);
 //                    }
-                    mController.adjustStreamVolume(stream, vmute ? 100 : -100);
+                    sendKeyCode(KeyEvent.KEYCODE_VOLUME_MUTE);
                 }
                 row.userAttempt = 0;  // reset the grace period, slider should update immediately
             }
@@ -1152,5 +1154,22 @@ public class VolumeDialog {
         void onZenSettingsClicked();
 
         void onZenPrioritySettingsClicked();
+    }
+
+
+    private void sendKeyCode(final int keyCode) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // 创建一个Instrumentation对象
+                    Instrumentation inst = new Instrumentation();
+                    // 调用inst对象的按键模拟方法
+                    inst.sendKeyDownUpSync(keyCode);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
