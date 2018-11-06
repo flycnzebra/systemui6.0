@@ -266,6 +266,15 @@ public class VolumeDialogController {
     }
 
 
+    public void adjustStreamVolume(int stream, int level) {
+        FlyLog.d("setStreamVolume strem=%d,level=%d", stream, level);
+        if (mDestroyed) return;
+        if (D.BUG) Log.d(TAG, "setStreamVolume stream:" + stream + " level: " + level);
+//        mWorker.obtainMessage(W.SET_STREAM_VOLUME, stream, level).sendToTarget();
+        mAudio.adjustStreamVolume(stream, level, AudioManager.FLAG_SHOW_UI);
+    }
+
+
     public int getStreamVolume(int stream) {
         if (mDestroyed || mAudio == null) {
             return 0;
@@ -578,25 +587,25 @@ public class VolumeDialogController {
                     + " " + Util.audioManagerFlagsToString(flags) + " flag :" + flags);
             currentStream = streamType;
             int volume = mAudio.getStreamVolume(streamType);
-            if (flags == 4113) {
-                if (volume == 0) {
-                    int value = loadLastVolume(streamType);
-                    if (value == 0) {
-                        setLastMuteVolume(streamType);
-                    }
-                } else if (volume == 1) {
-                    int value = loadLastVolume(streamType);
-                    if (value == 0) {
-                        setLastMuteVolume(streamType);
-                    }
-                }
-            }
+//            if (flags == 4113) {
+//                if (volume == 0) {
+//                    int value = loadLastVolume(streamType);
+//                    if (value == 0) {
+//                        setLastMuteVolume(streamType);
+//                    }
+//                } else if (volume == 1) {
+//                    int value = loadLastVolume(streamType);
+//                    if (value == 0) {
+//                        setLastMuteVolume(streamType);
+//                    }
+//                }
+//            }
             if (currentVolume != volume) {
                 currentVolume = volume;
                 if (currentVolume == 0) {
                     int value = loadLastVolume(streamType);
                     if (value > 0) {
-                        saveLastMuteVolume(streamType, value );
+                        saveLastMuteVolume(streamType, value);
                     }
                 }
                 saveLastVolume(streamType, currentVolume);
