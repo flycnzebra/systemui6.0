@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="audioplayer">موسیقی</string>
+	<string name="videoplayer">ویدئو</string>
+	<string name="fmplayer">رادیو</string>
+	<string name="backcar">معکوس کردن</string>
+	<string name="btphone">تلفن بلوتوث</string>
+	<string name="btmusic">موسیقی بلوتوث</string>
+	<string name="btphonebook">تلفن بلوتوث</string>
+	<string name="btsetting">تنظیمات بلوتوث</string>
+	<string name="setting">تنظیمات</string>
+	<string name="setting_system">تنظیمات سیستم</string>
+	<string name="setting_wifi">تنظیمات WIFI</string>
+	<string name="setting_display">تنظیم صفحه نمایش</string>
+	<string name="setting_audio">تنظیمات صدا</string>
+	<string name="setting_car">تنظیم ماشین اصلی</string>
+	<string name="app3rd"></string>
+	<string name="launcher">خانه</string>
+	<string name="apps">کاربرد</string>
+	<string name="volume_value"></string>
+	<string name="qs_carsetting">تنظیم خودرو</string>
+	<string name="qs_volume_mode">افکت صوتی</string>
+	<string name="qs_volume_value">جلد</string>
+	<string name="qs_brightness">روشنایی</string>
+	<string name="qs_wifi">وای فای</string>
+	<string name="qs_wifi_is_closed">Wi-Fi خاموش است</string>
+	<string name="qs_bt">بلوتوث</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="audioplayer">音乐</string>
+	<string name="videoplayer">视频</string>
+	<string name="fmplayer">收音机</string>
+	<string name="backcar">倒车</string>
+	<string name="btphone">蓝牙电话</string>
+	<string name="btmusic">蓝牙音乐</string>
+	<string name="btphonebook">蓝牙电话</string>
+	<string name="btsetting">蓝牙设置</string>
+	<string name="setting">设置</string>
+	<string name="setting_system">系统设置</string>
+	<string name="setting_wifi">WIFI设置</string>
+	<string name="setting_display">显示设置</string>
+	<string name="setting_audio">音频设置</string>
+	<string name="setting_car">原车设置</string>
+	<string name="app3rd"></string>
+	<string name="launcher">主界面</string>
+	<string name="apps">应用</string>
+	<string name="volume_value"></string>
+	<string name="qs_carsetting">车辆设置</string>
+	<string name="qs_volume_mode">音效</string>
+	<string name="qs_volume_value">音量</string>
+	<string name="qs_brightness">亮度</string>
+	<string name="qs_wifi">无线上网</string>
+	<string name="qs_wifi_is_closed">Wi-Fi已关闭</string>
+	<string name="qs_bt">蓝牙</string>
+</resources>

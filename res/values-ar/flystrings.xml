@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="audioplayer">موسيقى</string>
+	<string name="videoplayer">فيديو</string>
+	<string name="fmplayer">راديو</string>
+	<string name="backcar">عكس</string>
+	<string name="btphone">هاتف بلوتوث</string>
+	<string name="btmusic">موسيقى بلوتوث</string>
+	<string name="btphonebook">هاتف بلوتوث</string>
+	<string name="btsetting">إعدادات البلوتوث</string>
+	<string name="setting">ضبط</string>
+	<string name="setting_system">اعدادات النظام</string>
+	<string name="setting_wifi">اعدادات الواي فاي</string>
+	<string name="setting_display">إعداد عرض</string>
+	<string name="setting_audio">إعدادات الصوت</string>
+	<string name="setting_car">إعداد السيارة الأصلي</string>
+	<string name="app3rd"></string>
+	<string name="launcher">الصفحة الرئيسية</string>
+	<string name="apps">الوضعية</string>
+	<string name="volume_value"></string>
+	<string name="qs_carsetting">ضبط السيارة</string>
+	<string name="qs_volume_mode">تأثيرات صوتية</string>
+	<string name="qs_volume_value">الصوت</string>
+	<string name="qs_brightness">سطوع</string>
+	<string name="qs_wifi">واي فاي</string>
+	<string name="qs_wifi_is_closed">شبكة Wi-Fi معطلة</string>
+	<string name="qs_bt">تقنية البلوتوث</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="audioplayer">müzik</string>
+	<string name="videoplayer">video</string>
+	<string name="fmplayer">radyo</string>
+	<string name="backcar">geri</string>
+	<string name="btphone">Bluetooth telefon</string>
+	<string name="btmusic">Bluetooth müzik</string>
+	<string name="btphonebook">Bluetooth telefon</string>
+	<string name="btsetting">Bluetooth ayarları</string>
+	<string name="setting">Ayar</string>
+	<string name="setting_system">Sistem ayarları</string>
+	<string name="setting_wifi">Kablosuz bağlantı ayarları</string>
+	<string name="setting_display">ekran ayarı</string>
+	<string name="setting_audio">Ses ayarları</string>
+	<string name="setting_car">Orijinal araba ayarı</string>
+	<string name="app3rd"></string>
+	<string name="launcher">EV</string>
+	<string name="apps">uygulama</string>
+	<string name="volume_value"></string>
+	<string name="qs_carsetting">Araç ayarı</string>
+	<string name="qs_volume_mode">Ses efekti</string>
+	<string name="qs_volume_value">hacim</string>
+	<string name="qs_brightness">parlaklık</string>
+	<string name="qs_wifi">KABLOSUZ İNTERNET</string>
+	<string name="qs_wifi_is_closed">Kablosuz kapalı</string>
+	<string name="qs_bt">Bluetooth</string>
+</resources>

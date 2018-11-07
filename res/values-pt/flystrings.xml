@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="audioplayer">música</string>
+	<string name="videoplayer">vídeo</string>
+	<string name="fmplayer">rádio</string>
+	<string name="backcar">Invertendo</string>
+	<string name="btphone">Telefone bluetooth</string>
+	<string name="btmusic">Música bluetooth</string>
+	<string name="btphonebook">Telefone bluetooth</string>
+	<string name="btsetting">Configurações de Bluetooth</string>
+	<string name="setting">Configuração</string>
+	<string name="setting_system">Configurações de sistema</string>
+	<string name="setting_wifi">Configurações de wifi</string>
+	<string name="setting_display">configuração de exibição</string>
+	<string name="setting_audio">Configurações de áudio</string>
+	<string name="setting_car">Configuração original do carro</string>
+	<string name="app3rd"></string>
+	<string name="launcher">CASA</string>
+	<string name="apps">aplicação</string>
+	<string name="volume_value"></string>
+	<string name="qs_carsetting">Configuração veículo</string>
+	<string name="qs_volume_mode">Efeito sonoro</string>
+	<string name="qs_volume_value">volume</string>
+	<string name="qs_brightness">brilho</string>
+	<string name="qs_wifi">WI-FI</string>
+	<string name="qs_wifi_is_closed">Wi-Fi está desligado</string>
+	<string name="qs_bt">Bluetooth</string>
+</resources>

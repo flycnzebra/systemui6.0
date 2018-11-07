@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="audioplayer">ΜΟΥΣΙΚΗ</string>
+	<string name="videoplayer">βίντεο</string>
+	<string name="fmplayer">ραδιόφωνο</string>
+	<string name="backcar">Αντιστροφή</string>
+	<string name="btphone">Τηλέφωνο Bluetooth</string>
+	<string name="btmusic">Μουσική Bluetooth</string>
+	<string name="btphonebook">Τηλέφωνο Bluetooth</string>
+	<string name="btsetting">Ρυθμίσεις Bluetooth</string>
+	<string name="setting">Σύνθεση</string>
+	<string name="setting_system">Ρυθμίσεις συστήματος</string>
+	<string name="setting_wifi">Ρυθμίσεις WIFI</string>
+	<string name="setting_display">ρύθμιση οθόνης</string>
+	<string name="setting_audio">Ρυθμίσεις ήχου</string>
+	<string name="setting_car">Αρχική ρύθμιση αυτοκινήτου</string>
+	<string name="app3rd"></string>
+	<string name="launcher">ΣΠΙΤΙ</string>
+	<string name="apps">εφαρμογή</string>
+	<string name="volume_value"></string>
+	<string name="qs_carsetting">Ρύθμιση οχήματος</string>
+	<string name="qs_volume_mode">Εφέ ήχου</string>
+	<string name="qs_volume_value">Ενταση ΗΧΟΥ</string>
+	<string name="qs_brightness">λάμψη</string>
+	<string name="qs_wifi">WIFI</string>
+	<string name="qs_wifi_is_closed">Το Wi-Fi είναι απενεργοποιημένο</string>
+	<string name="qs_bt">Bluetooth</string>
+</resources>

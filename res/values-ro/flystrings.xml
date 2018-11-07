@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="audioplayer">muzică</string>
+	<string name="videoplayer">video</string>
+	<string name="fmplayer">radio</string>
+	<string name="backcar">inversarea</string>
+	<string name="btphone">Telefonul Bluetooth</string>
+	<string name="btmusic">Muzică Bluetooth</string>
+	<string name="btphonebook">Telefonul Bluetooth</string>
+	<string name="btsetting">Setările Bluetooth</string>
+	<string name="setting">reglaj</string>
+	<string name="setting_system">Setarile sistemului</string>
+	<string name="setting_wifi">Setările WIFI</string>
+	<string name="setting_display">arata setarile</string>
+	<string name="setting_audio">Setari audio</string>
+	<string name="setting_car">Setarea originală a mașinii</string>
+	<string name="app3rd"></string>
+	<string name="launcher">ACASĂ</string>
+	<string name="apps">cerere</string>
+	<string name="volume_value"></string>
+	<string name="qs_carsetting">Setarea vehiculului</string>
+	<string name="qs_volume_mode">Efect sonor</string>
+	<string name="qs_volume_value">volum</string>
+	<string name="qs_brightness">strălucire</string>
+	<string name="qs_wifi">WIFI</string>
+	<string name="qs_wifi_is_closed">Wi-Fi este oprit</string>
+	<string name="qs_bt">Bluetooth</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="audioplayer">музика</string>
+	<string name="videoplayer">відео</string>
+	<string name="fmplayer">радіо</string>
+	<string name="backcar">Реверс</string>
+	<string name="btphone">Телефон Bluetooth</string>
+	<string name="btmusic">Музика Bluetooth</string>
+	<string name="btphonebook">Телефон Bluetooth</string>
+	<string name="btsetting">Налаштування Bluetooth</string>
+	<string name="setting">Налаштування</string>
+	<string name="setting_system">Системні настройки</string>
+	<string name="setting_wifi">Налаштування WIFI</string>
+	<string name="setting_display">настройка відображення</string>
+	<string name="setting_audio">Налаштування звуку</string>
+	<string name="setting_car">Оригінальна настройка автомобіля</string>
+	<string name="app3rd"></string>
+	<string name="launcher">ГОЛОВНА</string>
+	<string name="apps">заявка</string>
+	<string name="volume_value"></string>
+	<string name="qs_carsetting">Налаштування автомобіля</string>
+	<string name="qs_volume_mode">Звуковий ефект</string>
+	<string name="qs_volume_value">обсяг</string>
+	<string name="qs_brightness">яскравість</string>
+	<string name="qs_wifi">WIFI</string>
+	<string name="qs_wifi_is_closed">Wi-Fi вимкнено</string>
+	<string name="qs_bt">Bluetooth</string>
+</resources>

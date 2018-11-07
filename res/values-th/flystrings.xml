@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="audioplayer">เพลง</string>
+	<string name="videoplayer">วีดีโอ</string>
+	<string name="fmplayer">วิทยุ</string>
+	<string name="backcar">การถอยหลัง</string>
+	<string name="btphone">โทรศัพท์บลูทู ธ</string>
+	<string name="btmusic">เพลงบลูทู ธ</string>
+	<string name="btphonebook">โทรศัพท์บลูทู ธ</string>
+	<string name="btsetting">การตั้งค่าบลูทู ธ</string>
+	<string name="setting">การตั้งค่า</string>
+	<string name="setting_system">การตั้งค่าระบบ</string>
+	<string name="setting_wifi">การตั้งค่า WIFI</string>
+	<string name="setting_display">การตั้งค่าการแสดงผล</string>
+	<string name="setting_audio">การตั้งค่าเสียง</string>
+	<string name="setting_car">การตั้งค่ารถยนต์เดิม</string>
+	<string name="app3rd"></string>
+	<string name="launcher">บ้าน</string>
+	<string name="apps">ใบสมัคร</string>
+	<string name="volume_value"></string>
+	<string name="qs_carsetting">การตั้งค่ายานพาหนะ</string>
+	<string name="qs_volume_mode">เสียงประกอบ</string>
+	<string name="qs_volume_value">ปริมาณ</string>
+	<string name="qs_brightness">ความสว่าง</string>
+	<string name="qs_wifi">WIFI</string>
+	<string name="qs_wifi_is_closed">Wi-Fi ปิดอยู่</string>
+	<string name="qs_bt">บลูทู ธ</string>
+</resources>
