@@ -11,9 +11,9 @@
 	<string name="setting">Réglage</string>
 	<string name="setting_system">Les paramètres du système</string>
 	<string name="setting_wifi">paramètres Wifi</string>
-	<string name="setting_display">réglage de l'affichage</string>
+	<string name="setting_display">réglage de l\'affichage</string>
 	<string name="setting_audio">Les paramètres audio</string>
-	<string name="setting_car">Voiture d'origine</string>
+	<string name="setting_car">Voiture d\'origine</string>
 	<string name="app3rd"></string>
 	<string name="launcher">MAISON</string>
 	<string name="apps">application</string>
