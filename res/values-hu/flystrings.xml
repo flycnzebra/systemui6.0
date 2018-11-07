@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="audioplayer">zene</string>
+	<string name="videoplayer">videó-</string>
+	<string name="fmplayer">rádió</string>
+	<string name="backcar">Tolató</string>
+	<string name="btphone">Bluetooth telefon</string>
+	<string name="btmusic">Bluetooth zene</string>
+	<string name="btphonebook">Bluetooth telefon</string>
+	<string name="btsetting">Bluetooth beállítások</string>
+	<string name="setting">Beállítás</string>
+	<string name="setting_system">Rendszerbeállítások</string>
+	<string name="setting_wifi">WIFI beállítások</string>
+	<string name="setting_display">kijelző beállítás</string>
+	<string name="setting_audio">Hangbeállítások</string>
+	<string name="setting_car">Eredeti autóbeállítás</string>
+	<string name="app3rd"></string>
+	<string name="launcher">ITTHON</string>
+	<string name="apps">Alkalmazás</string>
+	<string name="volume_value"></string>
+	<string name="qs_carsetting">Járműbeállítás</string>
+	<string name="qs_volume_mode">Hang effektus</string>
+	<string name="qs_volume_value">hangerő</string>
+	<string name="qs_brightness">fényesség</string>
+	<string name="qs_wifi">WIFI</string>
+	<string name="qs_wifi_is_closed">A Wi-Fi ki van kapcsolva</string>
+	<string name="qs_bt">Bluetooth</string>
+</resources>
