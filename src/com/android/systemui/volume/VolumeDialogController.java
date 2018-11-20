@@ -588,29 +588,30 @@ public class VolumeDialogController {
             final boolean showUI = (flags & AudioManager.FLAG_SHOW_UI) != 0;
             currentStream = streamType;
             int volume = mAudio.getStreamVolume(streamType);
-            if (showUI) {
-                if (volume == 0) {
-                    int value = loadLastVolume(streamType);
-                    if (value == 0) {
-                        setLastMuteVolume(streamType);
-                    }
-                } else if (volume == 1) {
-                    int value = loadLastVolume(streamType);
-                    if (value == 0) {
-                        setLastMuteVolume(streamType);
-                    }
-                }
-            }
-            if (currentVolume != volume) {
-                currentVolume = volume;
-                if (currentVolume == 0) {
-                    int value = loadLastVolume(streamType);
-                    if (value > 0) {
-                        saveLastMuteVolume(streamType, value);
-                    }
-                }
-                saveLastVolume(streamType, currentVolume);
-            }
+//            if (showUI) {
+//                if (volume == 0) {
+//                    int value = loadLastVolume(streamType);
+//                    if (value == 0) {
+//                        setLastMuteVolume(streamType);
+//                    }
+//                } else if (volume == 1) {
+//                    int value = loadLastVolume(streamType);
+//                    if (value == 0) {
+//                        setLastMuteVolume(streamType);
+//                    }
+//                }
+//            }
+//            if (currentVolume != volume) {
+//                currentVolume = volume;
+//                if (currentVolume == 0) {
+//                    int value = loadLastVolume(streamType);
+//                    if (value > 0) {
+//                        saveLastMuteVolume(streamType, value);
+//                    }
+//                }
+//                saveLastVolume(streamType, currentVolume);
+//            }
+            currentVolume = volume;
             FlyLog.e("currentVolume: " + currentVolume);
             if (mDestroyed) return;
             mWorker.obtainMessage(W.VOLUME_CHANGED, streamType, flags).sendToTarget();

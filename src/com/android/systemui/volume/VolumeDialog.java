@@ -71,6 +71,8 @@ import com.android.systemui.jancar.FlyLog;
 import com.android.systemui.statusbar.policy.ZenModeController;
 import com.android.systemui.volume.VolumeDialogController.State;
 import com.android.systemui.volume.VolumeDialogController.StreamState;
+import com.jancar.JancarServer;
+import com.jancar.key.KeyDef;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -392,24 +394,30 @@ public class VolumeDialog {
             public void onClick(View v) {
                 Events.writeEvent(mContext, Events.EVENT_ICON_CLICK, row.stream, row.iconState);
                 mController.setActiveStream(row.stream);
-                if (row.stream == AudioManager.STREAM_RING) {
-                    final boolean hasVibrator = mController.hasVibrator();
-                    if (mState.ringerModeInternal == AudioManager.RINGER_MODE_NORMAL) {
-                        if (hasVibrator) {
-                            mController.setRingerMode(AudioManager.RINGER_MODE_VIBRATE, false);
-                        } else {
-                            final boolean wasZero = row.ss.level == 0;
-                            mController.setStreamVolume(stream, wasZero ? row.lastAudibleLevel : 0);
-                        }
-                    } else {
-                        mController.setRingerMode(AudioManager.RINGER_MODE_NORMAL, false);
-                        if (row.ss.level == 0) {
-                            mController.setStreamVolume(stream, 1);
-                        }
-                    }
-                } else {
-                    final boolean vmute = row.ss.level == 0;
-                    mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
+//                if (row.stream == AudioManager.STREAM_RING) {
+//                    final boolean hasVibrator = mController.hasVibrator();
+//                    if (mState.ringerModeInternal == AudioManager.RINGER_MODE_NORMAL) {
+//                        if (hasVibrator) {
+//                            mController.setRingerMode(AudioManager.RINGER_MODE_VIBRATE, false);
+//                        } else {
+//                            final boolean wasZero = row.ss.level == 0;
+//                            mController.setStreamVolume(stream, wasZero ? row.lastAudibleLevel : 0);
+//                        }
+//                    } else {
+//                        mController.setRingerMode(AudioManager.RINGER_MODE_NORMAL, false);
+//                        if (row.ss.level == 0) {
+//                            mController.setStreamVolume(stream, 1);
+//                        }
+//                    }
+//                } else {
+//                    final boolean vmute = row.ss.level == 0;
+//                    mController.setStreamVolume(stream, vmute ? row.lastAudibleLevel : 0);
+//                }
+                try {
+                    ((JancarServer) mContext.getSystemService("jancar_manager")).simulateKey(KeyDef.KeyType.KEY_MUTE.nativeInt);
+                }catch (Exception e){
+                    FlyLog.e(e.toString());
+                    e.printStackTrace();
                 }
                 row.userAttempt = 0;  // reset the grace period, slider should update immediately
             }
