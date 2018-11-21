@@ -603,6 +603,7 @@ public class VolumeDialog {
 
     private void onStateChangedH(State state) {
         FlyLog.d("mActiveStream stream=%d,state.activeStream=%d", mActiveStream, state.activeStream);
+        mHandler.removeCallbacks(hideDialog);
         final boolean animating = mMotion.isAnimating();
         mState = state;
         if (animating) {
@@ -1005,13 +1006,23 @@ public class VolumeDialog {
                     /**
                      * 取消触摸空白地区关闭音量条
                      */
-//                    dismissH(Events.DISMISS_REASON_TOUCH_OUTSIDE);
+                    FlyLog.d("event = %s",event.toString());
+                    mHandler.removeCallbacks(hideDialog);
+                    mHandler.postDelayed(hideDialog,200);
                     return true;
                 }
             }
             return false;
         }
     }
+
+
+    private Runnable hideDialog = new Runnable() {
+        @Override
+        public void run() {
+            dismissH(Events.DISMISS_REASON_TOUCH_OUTSIDE);
+        }
+    };
 
     private final class VolumeSeekBarChangeListener implements OnSeekBarChangeListener {
         private final VolumeRow mRow;
