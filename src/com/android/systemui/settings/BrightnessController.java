@@ -183,7 +183,6 @@ public class BrightnessController implements ToggleSlider.Listener {
         mAutomaticAvailable = context.getResources().getBoolean(
                 com.android.internal.R.bool.config_automatic_brightness_available);
         mPower = IPowerManager.Stub.asInterface(ServiceManager.getService("power"));
-        setBrightness(100);
     }
 
     public void addStateChangedCallback(BrightnessStateChangeCallback cb) {
