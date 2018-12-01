@@ -588,7 +588,7 @@
     <dimen name="assist_disclosure_shadow_thickness">1.5dp</dimen>
 
     <dimen name="private_status_bar_height">59px</dimen>
-    <dimen name="private_status_bar_width">1024px</dimen>
+    <dimen name="private_status_bar_width">-1px</dimen>
 
     <dimen name="private_status_bar_home_height">59px</dimen>
     <dimen name="private_status_bar_home_width">59px</dimen>
