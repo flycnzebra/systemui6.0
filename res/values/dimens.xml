@@ -140,9 +140,9 @@
     <dimen name="status_bar_header_height_keyguard">40dp</dimen>
 
     <!-- Width for the notification panel and related windows -->
-    <dimen name="match_parent">1024px</dimen>
-    <dimen name="standard_notification_panel_width">1024px</dimen><!-- includes notification_side_padding on each side -->
-    <dimen name="notification_panel_width">1024px</dimen>
+    <dimen name="match_parent">-1px</dimen>
+    <dimen name="standard_notification_panel_width">-1px</dimen><!-- includes notification_side_padding on each side -->
+    <dimen name="notification_panel_width">-1px</dimen>
 
     <!-- Gravity for the notification panel -->
     <integer name="standard_notification_panel_layout_gravity">0x31</integer><!-- top|center_horizontal -->
