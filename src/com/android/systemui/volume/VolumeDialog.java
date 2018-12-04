@@ -1020,7 +1020,6 @@ public class VolumeDialog {
     private Runnable hideDialog = new Runnable() {
         @Override
         public void run() {
-            mShowing = false;
             dismissH(Events.DISMISS_REASON_TOUCH_OUTSIDE);
         }
     };
