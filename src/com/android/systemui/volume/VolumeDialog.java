@@ -415,7 +415,7 @@ public class VolumeDialog {
 //                }
                 try {
                     ((JancarServer) mContext.getSystemService("jancar_manager")).simulateKey(KeyDef.KeyType.KEY_MUTE.nativeInt);
-                }catch (Exception e){
+                } catch (Exception e) {
                     FlyLog.e(e.toString());
                     e.printStackTrace();
                 }
@@ -444,7 +444,11 @@ public class VolumeDialog {
         mHandler.removeMessages(H.DISMISS);
         rescheduleTimeoutH();
 
-        if (mShowing) return;
+        try {
+            if (mShowing && mDialog.isShowing()) return;
+        } catch (Exception e) {
+            FlyLog.e(e.toString());
+        }
         mShowing = true;
         mMotion.startShow();
         Events.writeEvent(mContext, Events.EVENT_SHOW_DIALOG, reason, mKeyguard.isKeyguardLocked());
@@ -475,7 +479,11 @@ public class VolumeDialog {
         }
         mHandler.removeMessages(H.DISMISS);
         mHandler.removeMessages(H.SHOW);
-        if (!mShowing) return;
+        try {
+            if (!mShowing && !mDialog.isShowing()) return;
+        } catch (Exception e) {
+            FlyLog.e(e.toString());
+        }
         mShowing = false;
         mMotion.startDismiss(new Runnable() {
             @Override
@@ -1006,9 +1014,9 @@ public class VolumeDialog {
                     /**
                      * 取消触摸空白地区关闭音量条
                      */
-                    FlyLog.d("event = %s",event.toString());
+                    FlyLog.d("event = %s", event.toString());
                     mHandler.removeCallbacks(hideDialog);
-                    mHandler.postDelayed(hideDialog,200);
+                    mHandler.postDelayed(hideDialog, 200);
                     return true;
                 }
             }
