@@ -440,12 +440,12 @@ public class VolumeDialog {
 
     private void showH(int reason) {
         if (D.BUG) Log.d(TAG, "showH r=" + Events.DISMISS_REASONS[reason]);
+        if (mShowing) return;
+        mShowing = true;
         mHandler.removeMessages(H.SHOW);
         mHandler.removeMessages(H.DISMISS);
         rescheduleTimeoutH();
 
-        if (mShowing) return;
-        mShowing = true;
         mMotion.startShow();
         Events.writeEvent(mContext, Events.EVENT_SHOW_DIALOG, reason, mKeyguard.isKeyguardLocked());
         mController.notifyVisible(true);
@@ -470,13 +470,13 @@ public class VolumeDialog {
     }
 
     protected void dismissH(int reason) {
+        if (!mShowing) return;
+        mShowing = false;
         if (mMotion.isAnimating()) {
             return;
         }
         mHandler.removeMessages(H.DISMISS);
         mHandler.removeMessages(H.SHOW);
-        if (!mShowing) return;
-        mShowing = false;
         mMotion.startDismiss(new Runnable() {
             @Override
             public void run() {
@@ -1020,6 +1020,7 @@ public class VolumeDialog {
     private Runnable hideDialog = new Runnable() {
         @Override
         public void run() {
+            mShowing = false;
             dismissH(Events.DISMISS_REASON_TOUCH_OUTSIDE);
         }
     };
